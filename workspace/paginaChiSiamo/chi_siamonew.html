@@ -1,28 +1,193 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>chi siamo</title>
-        <meta charset="windows-1252">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="responsive.css">
-    </head>
-    
-   sososososo
-<div class="navbar">
-  <a class="active" href="../paginaHome/homenew.html">Home</a>
-  <a href="../paginaImmissione/immissionenew.html">Aggiungi le tue macchine</a>
-  <a href="../paginaRicerca/ricercanew.html">Cerca un maker</a>
-  <a class="right" href="../paginaChiSiamo/chi_siamonew.html">Chi siamo</a>
-</div>
+<html lang="en">
+<head>
+	<title>dove siamo</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<script src="js/three.min.js"></script>
+	<script src="js/stats.min.js"></script>
+        
+         <link rel="stylesheet" href="../responsive_css.2/responsive.css">
+        
+	<style>
+	body {
+		background-image: url("hires/bg.jpg");
+		background-position: center center;
+		overflow: hidden;
+		background-size: cover;
+	}
+	</style>
+</head>
 
-<div style="padding-left:16px">
+<body>
+    <div class="navbar_">
+        <a  href="../paginaHome.3/homenew.html">
+          Home</a>
+        <a href="../paginaImmissione/immissionenew.html">
+          Aggiungi le tue macchine</a>
+        <a  href="../paginaRicerca/ricercanew.php">
+          Cerca un maker</a>
+        <a   href="../visore3d/visore3d.html">Visore 3D</a>
+        <a  href="../paginaTecnologie/tecnologie.html">Tecnologie</a>
+        <a href="../paginaNews/news.html">News</a>
+        <!--fancy 3d log in form-->
+        <!-- <a class= "right" href="../paginaRegistrati/reg_3d/index.html">
+            Register / Log in</a> -->
+            <!--oppure quella classica-->
+        <a class="right" href="../paginaRegistrati/index.html">
+            Register / Log in</a>
+        <a  class="right" href="../paginaFAQ/Faq.html">
+                FAQ</a>
+        <a class="active_ right" href="../paginaChiSiamo/chi_siamonew.html">
+          Chi siamo</a>
+        <a class="right" href="../paginaProfilo/Profilo.html">
+			Profilo</a>
+		</div>
+
+    <div style="color: white">
+    <div style="padding-left:16px">
   <h2>Chi siamo</h2>
 </div>   
-    
-    
+</div>
+        
+<!-- immagine che ruota con testo dall'altra parte -->
+<!-- parte anteriore -->    
+ <div class="flip-card">
+  <div class="flip-card-inner">
+    <div class="flip-card-front">
+      <img src="../immagini/andrea.jpg" alt="foto di andrea" class="responsive" height="300">
+    </div>
+<!-- parte posteriore -->
+      <div class="flip-card-back">
+      <h1>Andrea Lucchesi</h1>
+      <h2>Maker e studente di<br>Ingegneria dei Sistemi Informatici e Automatici</h2>
+      <p>Qui durante il workshop<br>"La stampa 3D ed i nuovi materiali per l'Ingegneria"<br>
+      tenuta presso l'Università "La Sapienza" di Roma</p>
+    </div>
+  </div>
+</div>     
+
+<br><br><br>
+ <div style="color: white">
+    <div style="padding-left:16px">
+  <h2>Dove siamo? Dappertutto!</h2>
+</div>   
+</div>
+	
+	<script>
+		var camera, scene, renderer;
+		var earth, cloud;
+		var pointLight, ambientLight;
+		var mouseDown = false, mouseX = 0, mouseY = 0;
+		var stats;
+
+		init();
+		animate();
+
+		function init() {
+			// inizializzazione
+			scene = new THREE.Scene();
+			camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+			camera.position.z = 160;
+                        // modificare se si aggiungono altri pezzi html sopra alla terra:
+                        camera.position.y = -30;
+                        
+			stats = new Stats();
+			stats.showPanel(3); // 0: fps, 1: ms, 2: mb, 3+: custom
+			document.body.appendChild( stats.dom );
+
+			// Earth terrain
+			var earth_texture  = new THREE.TextureLoader().load("tx/earth.jpeg");
+			var earth_bump     = new THREE.TextureLoader().load("tx/bump.jpeg");
+			var earth_specular = new THREE.TextureLoader().load("tx/spec.jpeg");
+			var earth_geometry = new THREE.SphereGeometry(30, 32, 32);
+			var earth_material = new THREE.MeshPhongMaterial({
+				shininess   : 40,
+				bumpScale   : 1,
+				map         : earth_texture,
+				bumpMap     : earth_bump,
+				specularMap : earth_specular
+			});
+			earth = new THREE.Mesh(earth_geometry, earth_material);
+			scene.add(earth);
+
+			// Earth cloud
+			var cloud_texture  = new THREE.TextureLoader().load('tx/cloud.png');
+			var cloud_geometry = new THREE.SphereGeometry(31, 32, 32);
+			var cloud_material = new THREE.MeshBasicMaterial({
+				shininess   : 10,
+				map         : cloud_texture,
+				transparent : true,
+				opacity     : 0.8
+			});
+			cloud = new THREE.Mesh(cloud_geometry, cloud_material);
+			scene.add(cloud);
+
+			// point light (upper left)
+			pointLight = new THREE.PointLight(0xffffff);
+			pointLight.position.set(-400, 100, 150);
+			scene.add (pointLight);
+
+			// ambient light
+			ambientLight = new THREE.AmbientLight(0x222222);
+			scene.add(ambientLight);
+
+			// renderer
+			renderer = new THREE.WebGLRenderer({alpha: true});
+			renderer.setClearColor(0xffffff, 0);
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+
+			// event handler
+			window.addEventListener('resize', onWindowResize, false);
+			document.addEventListener('mousemove', function (e) {onMouseMove(e);}, false);
+			document.addEventListener('mousedown', function (e) {onMouseDown(e);}, false);
+			document.addEventListener('mouseup', function (e) {onMouseUp(e);}, false);
+		}
+
+		function animate() {
+			requestAnimationFrame(animate);
+			stats.begin();
+			earth.rotation.y += 0.001;
+			cloud.rotation.y += 0.001;
+			stats.end();
+			renderer.render(scene, camera);
+		}
+
+		function onWindowResize() {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+		}
+
+		function onMouseMove(evt) {
+			if (!mouseDown) return;
+			evt.preventDefault();
+			var deltaX = evt.clientX - mouseX, deltaY = evt.clientY - mouseY;
+			mouseX = evt.clientX;
+			mouseY = evt.clientY;
+			rotateScene(deltaX, deltaY);
+		}
+
+		function onMouseDown(evt) {
+			evt.preventDefault();
+			mouseDown = true;
+			mouseX = evt.clientX;
+			mouseY = evt.clientY;
+		}
+
+		function onMouseUp(evt) {
+			evt.preventDefault();
+			mouseDown = false;
+		}
+
+		function rotateScene(deltaX, deltaY) {
+		  earth.rotation.y += deltaX / 300;
+		  earth.rotation.x += deltaY / 300;
+		  cloud.rotation.y += deltaX / 600;
+		  cloud.rotation.x += deltaY / 600;
+		}
+	</script>
+</body>
 </html>

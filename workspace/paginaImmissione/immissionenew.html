@@ -16,31 +16,7 @@
 </head>
 <body>
      <!--nav bar-->
-     <div class="navbar">
-
-            <a class="active" href="../paginaHome/homenew.html">
-              Home</a>
-    
-            <a href="../paginaImmissione/immissionenew.html">
-              Aggiungi le tue macchine</a>
-    
-            <a href="../paginaRicerca/ricercanew.html">
-              Cerca un maker</a>
-            <!--fancy 3d log in form-->
-            <a class= "right" href="../paginaRegistrati/reg_3d/index.html">
-                Register / Log in</a>
-                <!--oppure quella classica-->
-            <!--<a class= "right" href="../paginaRegistrati/reg_classica/index.html">
-                Register / Log in</a>-->
-      
-                <a class="right" href="../paginaFAQ/Faq.html">
-                    FAQ</a>
-            <a class="right" href="../paginaChiSiamo/chi_siamonew.html">
-              Chi siamo</a>
-            <a class="right" href="../paginaProfilo/Profilo.html">
-                Profilo</a>
-    
-        </div>
+     
      <!--END nav bar-->
     <!--immissione form di andrea-->
     <!--
@@ -155,9 +131,9 @@
                             </label>
                         </div>
                         <div class="col-sm-6">
-                            <span class="input-desc">Phone number</span>
+                            <span class="input-desc">City</span>
                             <label class="text-data">
-                                <input type="text" class="text-data--phone"/>
+                                <input type="text" name="varcitta" class="text-data"/ placeholder="Rome">
                             </label>
                         </div>
                     </div>
@@ -171,9 +147,9 @@
                         
                     
                         <div class="col-sm-6">
-                            <span class="input-desc req">Today's date</span>
+                            <span class="input-desc req">Telephone</span>
                             <label class="text-data">
-                                <input type="text" class="text-data--date prefill"/>
+                                <input type="text" name="vartelefono" class="text-data--phone"/>
                             </label>
                         </div>
                         
@@ -226,11 +202,11 @@
             </div>-->
             <!--Printer Informations-->
             <div class="col-group col-sm-6">
-                    <h1>Printer Informations</h1>
+                    <h1>FDM Printer Informations</h1>
                     
                     <span class="input-desc req">Which one of these applies to you?</span>
                     <label class="control control--radio">
-                        <input type="radio" name="stampantetipo" />
+                        <input type="radio" name="stampantetipo" value="fdm_professionale" />
                         <span class="control--label">Professionale</span>
                         <div class="control--indicator"></div>
                         <div class="control--fill"></div>
@@ -241,7 +217,7 @@
                     </label>
                     
                     <label class="control control--radio">
-                        <input type="radio" name="stampantetipo"/>
+                        <input type="radio" name="stampantetipo" value="fdm_semipro"/>
                         <span class="control--label">Semipro</span>
                         <div class="control--indicator"></div>
                         <div class="control--fill"></div>
@@ -251,7 +227,7 @@
                         </div>
                     </label>
                     <label class="control control--radio">
-                            <input type="radio" name="stampantetipo"/>
+                            <input type="radio" name="stampantetipo" value="fdm_amatoriale"/>
                             <span class="control--label">Amatoriale</span>
                             <div class="control--indicator"></div>
                             <div class="control--fill"></div>
@@ -277,8 +253,8 @@
                     <h1> SLA Printer informations</h1>
                     <span class="input-desc req">Which one of these applies to you?</span>
                     <label class="control control--radio">
-                        <input type="radio" name="stampantetipo" />
-                        <span class="control--label">Professionale</span>
+                        <input type="radio" name="stampantetipo" value="sla_modellismo"/>
+                        <span class="control--label">Modellismo</span>
                         <div class="control--indicator"></div>
                         <div class="control--fill"></div>
                         <div class="help"></div>
@@ -288,8 +264,8 @@
                     </label>
                     
                     <label class="control control--radio">
-                        <input type="radio" name="stampantetipo"/>
-                        <span class="control--label">Semipro</span>
+                        <input type="radio" name="stampantetipo" value="sla_dentale"/>
+                        <span class="control--label">Dentale</span>
                         <div class="control--indicator"></div>
                         <div class="control--fill"></div>
                         <div class="help"></div>
@@ -298,8 +274,8 @@
                         </div>
                     </label>
                     <label class="control control--radio">
-                            <input type="radio" name="stampantetipo"/>
-                            <span class="control--label">Amatoriale</span>
+                            <input type="radio" name="stampantetipo" value="sla_oreficeria"/>
+                            <span class="control--label">Oreficeria</span>
                             <div class="control--indicator"></div>
                             <div class="control--fill"></div>
                             <div class="help"></div>
@@ -324,7 +300,7 @@
                 <h1> Laser cutter Informations</h1>
                 <span class="input-desc req">Which one of these applies to you?</span>
                 <label class="control control--radio">
-                    <input type="radio" name="stampantetipo" />
+                    <input type="radio" name="stampantetipo" value="lsr_legni"/>
                     <span class="control--label">Legni e Plastiche</span>
                     <div class="control--indicator"></div>
                     <div class="control--fill"></div>
@@ -335,7 +311,7 @@
                 </label>
                 
                 <label class="control control--radio">
-                    <input type="radio" name="stampantetipo"/>
+                    <input type="radio" name="stampantetipo" value="lsr_plexiglass"/>
                     <span class="control--label">Plexiglass e simili</span>
                     <div class="control--indicator"></div>
                     <div class="control--fill"></div>
@@ -345,7 +321,7 @@
                     </div>
                 </label>
                 <label class="control control--radio">
-                        <input type="radio" name="stampantetipo"/>
+                        <input type="radio" name="stampantetipo" value="lsr_metalli"/>
                         <span class="control--label">Metalli e Vetro</span>
                         <div class="control--indicator"></div>
                         <div class="control--fill"></div>
@@ -371,7 +347,7 @@
                 <h1>CNC Informations</h1>
                 <span class="input-desc req">Which one of these applies to you?</span>
                 <label class="control control--radio">
-                    <input type="radio" name="stampantetipo" />
+                    <input type="radio" name="stampantetipo" value="cnc_legni_morbidi"/>
                     <span class="control--label">Legni morbidi</span>
                     <div class="control--indicator"></div>
                     <div class="control--fill"></div>
@@ -382,7 +358,7 @@
                 </label>
                 
                 <label class="control control--radio">
-                    <input type="radio" name="stampantetipo"/>
+                    <input type="radio" name="stampantetipo" value="cnc_legni_duri"/>
                     <span class="control--label">Legni duri</span>
                     <div class="control--indicator"></div>
                     <div class="control--fill"></div>
@@ -392,7 +368,7 @@
                     </div>
                 </label>
                 <label class="control control--radio">
-                        <input type="radio" name="stampantetipo"/>
+                        <input type="radio" name="stampantetipo" value="cnc_alluminio"/>
                         <span class="control--label">Alluminio</span>
                         <div class="control--indicator"></div>
                         <div class="control--fill"></div>
@@ -402,7 +378,7 @@
                         </div>
                     </label>
                     <label class="control control--radio">
-                        <input type="radio" name="stampantetipo"/>
+                        <input type="radio" name="stampantetipo" value="cnc_metalli"/>
                         <span class="control--label">Metalli</span>
                         <div class="control--indicator"></div>
                         <div class="control--fill"></div>
@@ -429,22 +405,22 @@
                 <div class="col-sm-4">
                     <span class="input-desc req">Printer Name</span>
                     <label class="text-data">
-                        <input type="text"/ placeholder="Axghs-345">
+                        <input type="text"  name="stampantenome"/ placeholder="Axghs-345">
                     </label>
                 </div>
                 
             
                 <div class="col-sm-4">
-                    <span class="input-desc">Printer ID Code</span>
+                    <span class="input-desc">Printer Serial Code</span>
                     <label class="text-data">
-                        <input type="text" class="text-data--phone"/>
+                        <input type="text" name="stampanteid" class="text-data"/>
                     </label>
                 </div>
              
                 <div class="col-sm-4">
                     <span class="input-desc req">Price per Hour</span>
                     <label class="text-data">
-                        <input type="number" class="text-data-"/>
+                        <input type="number" name="stampanteprezzo" class="text-data"/>
                         <div class="help"></div>
                         <div class="help--tooltip">
                         Donec elementum elit hendrerit pellentesque condimentum. Sed et est eu lectus ornare aliquet. Aliquam facilisis purus vel tempor lobortis. Nam ut lacinia orci. Aenean enim arcu, ornare ac ex in, aliquam mattis ipsum. Curabitur volutpat magna at mauris bibendum, vitae laoreet tellus condimentum. Proin ornare.
@@ -463,7 +439,7 @@
                 
                 <span class="input-desc req">Spedizione</span>
                 <label class="control control--checkbox">
-                    <input type="checkbox" />
+                    <input type="radio" name="varspedizione" value="italia"/>
                     <span class="control--label">in Italia</span>
                     <div class="control--indicator"></div>
                     <div class="control--fill"></div>
@@ -473,7 +449,7 @@
                     </div>
                 </label>
                 <label class="control control--checkbox">
-                    <input type="checkbox" />
+                    <input type="radio" name="varspedizione" value="internazionale" />
                     <span class="control--label">Internazionale</span>
                     <div class="control--indicator"></div>
                     <div class="control--fill"></div>
@@ -483,7 +459,7 @@
                     </div>
                 </label>
                 <label class="control control--checkbox">
-                    <input type="checkbox" checked="checked"/>
+                    <input type="radio" name="varspedizione" value="nessuna" checked="checked"/>
                     <span class="control--label">No</span>
                     <div class="control--indicator"></div>
                     <div class="control--fill"></div>
@@ -496,8 +472,8 @@
             <div class="col-group col-sm-6">
                 <span class="input-desc ">Consegna a Mano</span>
                 <label class="control control--checkbox">
-                    <input type="checkbox" />
-                    <span class="control--label">in città</span>
+                    <input type="radio" name="varconsegna" value="citta"/>
+                    <span class="control--label">In citta'</span>
                     <div class="control--indicator"></div>
                     <div class="control--fill"></div>
                     <div class="help"></div>
@@ -507,8 +483,8 @@
                     
                 </label>
                 <label class="control control--checkbox">
-                    <input type="checkbox" />
-                    <span class="control--label">nella zona</span>
+                    <input type="radio" name="varconsegna" value="zona"/>
+                    <span class="control--label">Nella zona</span>
                     <div class="control--indicator"></div>
                     <div class="control--fill"></div>
                     <div class="help"></div>
@@ -518,7 +494,7 @@
                     
                 </label>
                 <label class="control control--checkbox">
-                    <input type="checkbox" checked="checked"/>
+                    <input type="radio" name="varconsegna" value="nessuna" checked="checked"/>
                     <span class="control--label">No</span>
                     <div class="control--indicator"></div>
                     <div class="control--fill"></div>

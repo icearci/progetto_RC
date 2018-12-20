@@ -22,7 +22,7 @@ img {vertical-align: middle;}
 
 /* Slide: testo */
 .textslide {
-  color: red;
+  color: firebrick;
   font-size: 60px;
   padding: 0px;
   position: absolute;
@@ -33,7 +33,7 @@ img {vertical-align: middle;}
 
 /* Slide: testo della prima diapositiva */
 .textslide1 {
-  color: red;
+  color: firebrick;
   font-size: 95px;
   padding: 0px;
   position: absolute;
@@ -117,7 +117,7 @@ Il valore sticky non � supportato in IE o Edge 15 e nelle versioni precedenti.
 
 /* link attivo (home) */
 .navbar a.active {
-    background-color: red;
+    background-color: firebrick;
     color: white;
 }
 
@@ -175,5 +175,34 @@ di navigazione uno sopra l'altro invece che uno accanto all'altro */
     width: 100%;
     max-width: 700px;
     height: auto;
+}
+/*******************************************************************************
+Tabella utenti in ricerca mysql - zebrata con effetto hover
+*******************************************************************************/
+
+#tabella {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#tabella td, #tabella th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#tabella tr:nth-child(even){background-color: #f2f2f2;}
+
+#tabella tr:hover {
+    background-color: black;
+    color: white;
+}
+
+#tabella th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: darkred;
+  color: white;
 }
     

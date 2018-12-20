@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Madeleine.js : Pure javaScript 3D Model Viewer (.STL Format)">
+
+<!--  
+<link rel="stylesheet" type="text/css" media="screen" href="../src/css/Madeleine.css">
+-->    
+    <!--  
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/stylesheet.css">
+    -->
+    
+    <!-- Aggiunto da noi -->
+    <link href="../responsive_css.2/responsive.css" rel="stylesheet"/>
+    
+    <script src="src/lib/stats.js"></script>
+    <script src="src/lib/detector.js"></script>
+    <script src="src/lib/three.min.js"></script>
+    <script src="src/Madeleine.js"></script>
+
+    <title>Visore3D</title>
+  </head>
+
+  <body>
+    <div class="navbar_">
+      <a  href="../paginaHome.3/homenew.html">
+        Home</a>
+      <a href="../paginaImmissione/immissionenew.html">
+        Aggiungi le tue macchine</a>
+      <a  href="../paginaRicerca/ricercanew.php">
+        Cerca un maker</a>
+      <a class="active_"  href="../visore3d/visore3d.html">Visore 3D</a>
+      <a href="../paginaTecnologie/tecnologie.html">Tecnologie</a>
+      <a href="../paginaNews/news.html">News</a>
+      <!--fancy 3d log in form-->
+      <!-- <a class= "right" href="../paginaRegistrati/reg_3d/index.html">
+          Register / Log in</a> -->
+          <!--oppure quella classica-->
+      <a class= "right" href="../paginaRegistrati/index.html">
+          Register / Log in</a>
+      <a class="right" href="../paginaFAQ/Faq.html">
+              FAQ</a>
+      <a class="right" href="../paginaChiSiamo/chi_siamonew.html">
+        Chi siamo</a>
+      <a class="right" href="../paginaProfilo/Profilo.html">
+          Profilo</a>
+
+     </div> 
+      
+      
+   
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Visore per modelli 3D in formato .stl</h1>
+        <h4>1 - Per fermare il movimento tenere premuto il tasto sinistro del mouse</h4>
+        <h4>2 - Per modificare il punto di vista, spostare il mouse mentre si tiene premuto il tasto sinistro del mouse</h4>
+        <h4>3 - Per zoomare avanti/indietro usare la rotellina centrale del mouse</h4>
+        
+        <form><input type="file" id="files" name="files" multiple></form>
+        <div id="target" class="viewer"></div>
+       
+        <p><a href="http://localhost/andrea/nuovo/visore3d/visore3d.html">Carica un altro file</a></p>
+        
+        
+      </section>
+    </div>
+
+    
+    <script>
+      window.onload = function(){
+        Lily.ready({
+          target: 'target',
+          file: 'files',
+          path: 'src'
+        });
+      }; 
+    </script>
+
+  </body>
+</html>

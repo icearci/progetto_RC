@@ -36,6 +36,16 @@ body {
   background-position: center center;
   margin: 0 auto 15px;
 }
+.review-card-img_peppino
+{
+  border: 1px solid #eee;
+  width: 100px;
+  height: 70px;
+  background-image: url('../../../immagini/peppino_scalato.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin: 0 auto 15px;
+}
 .review-card .review-author .ra-author {
   font-size: 18px;
   display: block;
