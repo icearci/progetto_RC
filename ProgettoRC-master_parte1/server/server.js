@@ -62,11 +62,13 @@ app.get('/home',(req,res)=>{
 app.post("/register",(req,res)=>{
 	var username_ = req.body.username_registrazione;
 	console.log(username_);
+	var fullname_=req.body.fullname;
 	var password_ = req.body.password_registrazione;
 	var mail_ = req.body.mail_registrazione;
 	var hash = md5(username_);
 	var utente = {
 		username: username_,
+		fullname: fullname_,
 		password: password_,
 		mail: mail_,
 	};
@@ -133,7 +135,7 @@ app.post('/login',(req,res)=>{
 						res.cookie('id',id_coda,{
 							maxAge:20000,
 							path: '/profilo'});
-							console.log('Sto per settare il cookie home');
+							console.log('Sto per settare il cookie profilo');
 							console.log('Sto per redirigere');
 						ch.close();
 						res.redirect('/home');
