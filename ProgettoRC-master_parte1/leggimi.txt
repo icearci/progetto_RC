@@ -1,0 +1,19 @@
+Dentro al project abbiamo due cartelle:
+-node server conterrà il/i server node che devono gestire le post e le get a tutti i link;
+-websocket conterrà i server websocket in ascolto su porte diverse che riceveranno i messaggi per i vari "servizi asincroni"
+
+
+Per far funzionare il login e la registrazione del sito:
+-su docker servono due container in running:
+	--> docker run --name db -p 5984:5984 -d couchdb
+	--> docker run --name rabbit -p 5672:5672 -d rabbitmq:3
+-nella cartella node_server far partire l' installer (se non avete npm installatelo)
+-sempre nella stessa cartella bisogna far partire il server con "node server.js"
+-nella cartella websocket far partire l' installer 
+-sempre nella stessa cartella bisogna far partire due server (ws_login e ws_register) sempre con node
+
+
+Per testare, per ora, i link funzionanti sono:
+--> http://localhost:8080/login
+--> http://localhost:8080/register
+Per accedere al database http://localhost:5984/_utils
