@@ -23,7 +23,7 @@ function generateUuid() {
 }
 
 function settaCookie(res,id){
-	for(var i = 0;i<4;i++){
+	for(var i = 0;i<5;i++){
 		res.cookie('id',id,{
 							maxAge:1800000,
 							path: pagine_utili[i]});

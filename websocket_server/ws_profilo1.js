@@ -33,40 +33,40 @@ ws.on('connection',function connection(ws){
 					ch.assertQueue(invia,{durable:true});
 					ch.assertQueue(ricevi,{durable:true});
 					ch.sendToQueue(invia, new Buffer(array_1),{correlationId:id,replyTo: ch.queue});
+					var p=0;
 					var t;
 					ch.consume(ricevi, function(msg) {
-						t=msg.content.toString();
-						console.log(t);
-						ws.send(t);
-					});
-					ch.consume(ricevi, function(msg) {
-						t=msg.content.toString();
-						console.log(t);
-					});
-					//setTimeout(function() { conn.close(); process.exit(0) }, 500);
-						var len=parseInt(t);
-						console.log(len);
-						for(c=0; c<len;c++){
-							console.log('entrati');
-							ch.consume(ricevi, function(msg) {
-								t=msg.content.toString();
-								console.log(t);
-						//setTimeout(function() { conn.close(); process.exit(0) }, 500);
-								request("http://localhost:5984/stampanti/"+t, (err,res,body)=>{
-									if(!err){
-										if (res.statusCode == 200){
-											ws.send(body);
-											console.log(body);
-											}
-									}
-									else{
-										ws.send("errore");
-										}
-								});
-							});
+						if (p==0){
+							p=1;
+							t=msg.content.toString();
+							console.log(t);
+							ws.send(t);}
+						else if(p==1) {
+							p=2;
+							t=msg.content.toString();
+							console.log(t);
+							var len=parseInt(t);
+							console.log(len);
 						}
-					});		
-			}	
+						else if(p==2){
+							t=msg.content.toString();
+							console.log(t);
+						//setTimeout(function() { conn.close(); process.exit(0) }, 500);
+							request("http://localhost:5984/stampanti/"+t, (err,res,body)=>{
+								if(!err){
+									if (res.statusCode == 200){
+										ws.send(body);
+										console.log(body);
+										}
+								}
+								else{
+									ws.send("errore");
+									}
+								});
+							}
+						});			
+					});
+			}
 		});
 	});
 });
