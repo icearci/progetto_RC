@@ -5,8 +5,6 @@
   <meta charset="UTF-8">
   <title>Material design sign up form</title>
   
-  
-  
       <link rel="stylesheet" href="../html/paginaRegistrati/css/style.css">
       <link href="../html/responsive_css/responsive.css" rel="stylesheet" />
       
@@ -27,7 +25,44 @@
 							  setTimeout(function(){document.getElementById("utente_esiste").innerHTML = "";} , 5000);
 						  }
 						  else{
-							  document.getElementById("form_register").submit();
+							  	var user = document.modulo.username_registrazione.value;
+							  	var fullname = document.modulo.fullname.value;
+								var password = document.modulo.password_registrazione.value;
+								var conferma = document.modulo.password2_registrazione.value;
+								var email = document.modulo.mail_registrazione.value;
+								// Espressione regolare dell'email
+								var email_reg_exp = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-]{2,})+.)+([a-zA-Z0-9]{2,})+$/;
+								//Effettua il controllo sul campo NOME
+								if ((user == "") || (user == "undefined")) {
+									alert("Il campo user è obbligatorio.");
+									document.modulo.nome.focus();
+								}
+								else if ((fullname == "") || (fullname == "undefined")) {
+									alert("Il campo fullname è obbligatorio.");
+									document.modulo.nome.focus();
+								}
+								//Effettua il controllo sul campo PASSWORD
+								else if ((password == "") || (password == "undefined")) {
+									alert("Il campo Password è obbligatorio.");
+									document.modulo.password.value = "";
+								}
+								//Effettua il controllo sul campo CONFERMA PASSWORD
+								else if ((conferma == "") || (conferma == "undefined")) {
+									alert("Il campo Conferma password è obbligatorio.");
+									document.modulo.password2.value = "";
+								}
+								//Verifica l'uguaglianza tra i campi PASSWORD e CONFERMA PASSWORD
+								else if (password != conferma) {
+									alert("La password confermata è diversa da quella scelta, controllare.");
+									document.modulo.password2.value = "";
+								}
+								else if (!email_reg_exp.test(email) || (email == "") || (email == "undefined")) {
+									alert("Inserire un indirizzo email corretto.");
+									document.modulo.email.value = "";
+								}
+								else {
+									document.getElementById("form_register").submit();
+								}
 						  }
 					  };
 				  };
@@ -94,10 +129,11 @@
 <!--END nav bar-->
   <div id="login-box">
   <div class="left">
-	  <form id= "form_register" method = "POST" action = "http://localhost:8080/register">
+	  <form id= "form_register" method = "POST" action = "http://localhost:8080/register" name=modulo>
     <h1>Register</h1>
     <p id = "log" ></p>
     <input type="text" id = "username_registrazione" name="username_registrazione" placeholder="Username" />
+    <input type="text" id = "fullname" name="fullname" placeholder="Name" />
     <input type="text" name="mail_registrazione" placeholder="E-mail" />
     <input type="password" name="password_registrazione" placeholder="Password" />
     <input type="password" name="password2_registrazione" placeholder="Retype password" />
@@ -114,12 +150,10 @@
   
   <div class="right_">
 	  <form id="form_login" method = "POST" action = "http://localhost:8080/login">
-     <h1>Sign In</h1>
+     <h1>Log in</h1>
     
     <input type="text" id ="username_login" name="username_login" placeholder="Username" />
-    <input type="text" name="email_login" placeholder="E-mail" />
     <input type="password" id = "password_login"name="password_login" placeholder="Password" />
-    <input type="password" name="password2_login" placeholder="Retype password" />
     
     
     </form>

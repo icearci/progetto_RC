@@ -12,22 +12,22 @@
 
    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,700'>
  <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css'>
- <link href="profile/css/style.css" rel="stylesheet" />
+ <link href="../html/paginaProfilo/profile/css/style.css" rel="stylesheet" />
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
- 
+ <script type="text/javascript" src="../html/paginaProfilo/controllo.js"></script>
     <!--balkan-->  
     
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"> -->
 
   
-      <link rel="stylesheet" href="balkan/css/style.css">
+      <link rel="stylesheet" href="../html/paginaProfilo/balkan/css/style.css">
     <!--immissione-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
   
-    <link rel="stylesheet" type="text/css" media="screen" href="aux_immissione/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="../html/paginaProfilo/aux_immissione/css/style.css" />
   
   
       <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
@@ -35,33 +35,33 @@
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
   <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
   
-        <link rel="stylesheet" href="review/css/style.css">
+        <link rel="stylesheet" href="../html/paginaProfilo/review/css/style.css">
   
 </head>
 <body>
     <!--nav bar-->
     <div class="navbar">
 
-            <a  href="../paginaHome.3/homenew.html">
+            <a  href="../html/paginaHome.3/homenew.html">
                 Home</a>
-              <a href="../paginaImmissione/immissionenew.html">
+              <a href="../html/paginaImmissione/immissionenew.html">
                 Aggiungi le tue macchine</a>
-              <a  href="../paginaRicerca/ricercanew.php">
+              <a  href="../html/paginaRicerca/ricercanew.php">
                 Cerca un maker</a>
-              <a   href="../visore3d/visore3d.html">Visore 3D</a>
-              <a  href="../paginaTecnologie/tecnologie.html">Tecnologie</a>
-              <a href="../paginaNews/news.html">News</a>
+              <a   href="../html/visore3d/visore3d.html">Visore 3D</a>
+              <a  href="../html/paginaTecnologie/tecnologie.html">Tecnologie</a>
+              <a href="../html/paginaNews/news.html">News</a>
               <!--fancy 3d log in form-->
               <!-- <a class= "right" href="../paginaRegistrati/reg_3d/index.html">
                   Register / Log in</a> -->
                   <!--oppure quella classica-->
-              <a class="right" href="../paginaRegistrati/index.html">
+              <a class="right" href="../html/paginaRegistrati/index.html">
                   Register / Log in</a>
-              <a  class="right" href="../paginaFAQ/Faq.html">
+              <a  class="right" href="../html/paginaFAQ/Faq.html">
                       FAQ</a>
-              <a  class="right" href="../paginaChiSiamo/chi_siamonew.html">
+              <a  class="right" href="../html/paginaChiSiamo/chi_siamonew.html">
                 Chi siamo</a>
-              <a class="active right" href="../paginaProfilo/Profilo.html">
+              <a class="active right" href="../html/paginaProfilo/Profilo.html">
                   Profilo</a>
     </div>
  <!--END nav bar-->
@@ -69,12 +69,13 @@
 
 <!--profile -->
 <div class="profile">
+        <!--
         <figure>
           <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/55758/random-user-31.jpg" alt="" />
-        </figure>
+        </figure>-->
         <header>
-          <h1>Maria Gonzalez
-            <small>In una terra lontana, dietro le montagne Parole, lontani dalle terre di Vocalia e Consonantia, vivono i testi casuali. Vivono isolati nella cittadina di Lettere, sulle coste del Semantico, un immenso oceano linguistico. Un piccolo ruscello chiamato Devoto Oli attraversa quei luoghi, rifornendoli di tutte le regolalie di cui hanno</small></h1>
+          <h1 id='nome'></h1>
+            <p>Qui di seguito sono ripostate le informazioni principali proprie di ogni persona tra cui anche l'e-mail per potersi mettere in contatto per un eventuale affitto, le stampanti che essa possiede e i prezzi di affitto per ora di quest'ultime. Buona navigazione!!</p></h1>
         </header>
         
         <div class="toggle">
@@ -83,15 +84,13 @@
         </div>
         <main>
           <dl>
-            <dt>Full name</dt>
-              <dd>Maria Josephina Gonzalez</dd>
-            <dt>Date of birth</dt>
-              <dd>August 27, 1987</dd>
-            <dt>Hometown</dt>
-              <dd>Barcelona, Spain</dd>
-            <dt>Occupation</dt>
-              <dd>Client Happiness Manager</dd>
-            
+            <dt>Name:</dt>
+              <dd id='nome1'>  come--------- </dd>
+            <dt>Surname:</dt>
+              <dd id='cognome'> chi---------</dd>
+            <dt>E-mail:</dt>
+              <dd id='mail'> cosa---------- </dd>
+            <br>
             <dt>Social</dt>
               <dd>
                 <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> 
@@ -104,50 +103,26 @@
           <!-- //////////////////////////////////////////////////////////////////////////// -->
       <!--balkan portfolio-->
           <div id="top">
-            <h1>le mie stampanti</h1>
+            <center><h1>le mie stampanti</h1></center>
           </div>
           <section class="gallery">
-              <div class="row">
+			<div id=stampa>
+				<!--
+				<div class="row" >
                   <ul>
                       <a href="#" class="close"></a>
                       <li>
                           <a href="#item01">
-                            <img id="printer" style="-webkit-user-select: none;cursor: zoom-in;" src="../immagini/Smart 3D Printer(800x600).png"width="744" height="558">
+                            <img id="printer" style="-webkit-user-select: none;cursor: zoom-in;" src="../html/immagini/Smart 3D Printer(800x600).png"width="744" height="558">
                           </a>
                       </li>
           
                       <li>
                           <a href="#item02">
-                            <img id="printer" style="-webkit-user-select: none;cursor: zoom-in;" src="../immagini/printer(800x600).png"width="744" height="558">
+                            <img id="printer" style="-webkit-user-select: none;cursor: zoom-in;" src="../html/immagini/printer(800x600).png"width="744" height="558">
                           </a>
                       </li>
           
-                      <!-- <li>
-                          <a href="#item02">
-                            <img id="printer" style="-webkit-user-select: none;cursor: zoom-in;" src="../immagini/printer(800x600).png"width="744" height="558">
-                          </a>
-                      </li>
-                      <li>
-                          <a class="image" href="#item01">
-                            <img id="printer" style="-webkit-user-select: none;cursor: zoom-in;" src="../immagini/printer(800x600).png"width="744" height="558">
-                          </a>
-                      </li>
-                      <li>
-                          <a class="image" href="#item02">
-                            <img id="printer" style="-webkit-user-select: none;cursor: zoom-in;" src="../immagini/printer(800x600).png"width="744" height="558">
-                          </a>
-                      </li>
-                      <li>
-                          <a class="image" href="#item01">
-                            <img id="printer" style="-webkit-user-select: none;cursor: zoom-in;" src="../immagini/printer(800x600).png"width="744" height="558">
-                          </a>
-                      </li>
-                      <li>
-                          <a class="image" href="#item01">
-                              <img id="printer" style="-webkit-user-select: none;cursor: zoom-in;" src="../immagini/printer(800x600).png"width="744" height="558">
-
-                          </a>
-                      </li> -->
                       <li>
                           <a class="image" href="#item00">
                               <img style="-webkit-user-select: none;cursor: zoom-in;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQuLiKOVc6xoR2MmY7X8RFKJaMwzE_A12ZAvFB4QQEcarYEPCCvQ"width="744" height="558">
@@ -155,58 +130,49 @@
                           </a>
                       </li>
                   </ul>
-              </div> <!-- / row -->
+				</div> <!-- / row -->
           
               <!-- Item 01 -->
-              <div id="item01" class="port">
+              <!--
+				<div id="item01" class="port">
               
                   <div class="row">
                       <div class="description">
-                          <h1>Zmorph 2.0 </h1>
-                          <p>
-                                la Zmorph 2.0 è una stampante sempiprofessionale <br>
-                                ha un piatto di stampa di 20x24x16cm  (larghezza, lunghezza, altezza) <br>
-                                è dotata di piatto riscaldato e di coperture esterne che permettono di stampare l'ABS senza problemi <br>
-                                l'altezza minima del layer è di 50 micron (0,05 mm) <br>
-                                la precisione del dettaglio sull asse X-Y è di 0,4mm <br> ma è possibile scendere a 0,2mm <br> o salire fino a 0,6mm per stampe particolarmente resistenti <br>
-                                velocità di stampa 50 mm/s <br>
-                                
-                                <br>[nome][tipologia]
-                                <br>[dimensioni]
-                                <br>[piatto riscaldato/coperture]
-                                <br>[altezza min layer]
-                                <br>[velocità di stampa].</p>                      </div>
+                          <h1 id='NomeStampante'></h1>
+                          <p>Tipologia:</p><p id='Tipologia'></p><br>
+                          <p>Informazioni Laser:</p><p id='laser'></p><br>
+                          <p>Informazioni CNC:</p><p id='cnc'></p><br>
+                          <p>Prezzo per ora:</p><p id='prezzo'></p><br>
+                          <p>Spedizioni:</p><p id='spedizioni'></p><br>
+                          <p>Consegna a mano:</p><p id='consegna'></p><br>
+                       </div>
           
-                      <img id="printer" style="-webkit-user-select: none;cursor: zoom-in;" src="../immagini/Smart 3D Printer(800x600).png"width="744" height="558">
+                      <img id="printer" style="-webkit-user-select: none;cursor: zoom-in;" src="../html/immagini/Smart 3D Printer(800x600).png"width="744" height="558">
                     </div>
                   </div> <!-- / row -->
           
                <!-- / Item 02 -->
           
               <!-- Item 02 -->
-              <div id="item02" class="port">
+              <!--
+				<div id="item02" class="port">
               
                   <div class="row">
                       <div class="description">
-                          <h1>Zmorph 2.0</h1>
-                          <p>
-                                la Zmorph 2.0 è una stampante sempiprofessionale <br>
-                                ha un piatto di stampa di 20x24x16cm  (larghezza, lunghezza, altezza) <br>
-                                è dotata di piatto riscaldato e di coperture esterne che permettono di stampare l'ABS senza problemi <br>
-                                l'altezza minima del layer è di 50 micron (0,05 mm) <br>
-                                la precisione del dettaglio sull asse X-Y è di 0,4mm <br> ma è possibile scendere a 0,2mm <br> o salire fino a 0,6mm per stampe particolarmente resistenti <br>
-                                velocità di stampa 50 mm/s <br>
-                                
-                                <br>[nome][tipologia]
-                                <br>[dimensioni]
-                                <br>[piatto riscaldato/coperture]
-                                <br>[altezza min layer]
-                                <br>[velocità di stampa].</p>
-                      </div>
-                      <img id="printer" style="-webkit-user-select: none;cursor: zoom-in;" src="../immagini/WhatsApp Image 2018-12-13 at 17.05.44.jpeg"width="744" height="558">
+                          <h1 id='nomestampante'></h1>
+                          <p>Tipologia:</p><p id='tipologia'></p><br>
+                          <p>Informazioni Laser:</p><p id='laser'></p><br>
+                          <p>Informazioni CNC:</p><p id='cnc'></p><br>
+                          <p>Prezzo per ora:</p><p id='prezzo'></p><br>
+                          <p>Spedizioni:</p><p id='spedizioni'></p><br>
+                          <p>Consegna a mano:</p><p id='consegna'></p><br>
+                          <p>Indirizzo:</p><p id='indirizzo'></p><br>
+                       </div>
+                      <img id="printer" style="-webkit-user-select: none;cursor: zoom-in;" src="../html/immagini/WhatsApp Image 2018-12-13 at 17.05.44.jpeg"width="744" height="558">
                     </div> <!-- / row -->
-          
-              </div> 
+				<!--	
+				</div>--> 
+			</div>	
               <!-- / Item 02 -->
                <!-- Item 00 -->
                <div id="item00" class="port">
@@ -739,17 +705,17 @@
 
 
 <!--profile-->
-<script  src="profile/js/index.js"></script>
-<!--immissione-->
-<script  src="aux_immissione/js/index.js"></script>
-
+<script  src="../html/paginaProfilo/profile/js/index.js"></script>
+<!--immissione
+<script  src="../html/paginaProfilo/aux_immissione/js/index.js"></script>
+-->
   
 <!--review-->
-    <script  src="review/js/index.js"></script>
+    <script  src="../html/paginaProfilo/review/js/index.js"></script>
                 
  
 <!--balkan-->
-              <script  src="balkan/js/index.js"></script>
+              <script  src="../html/paginaProfilo/balkan/js/index.js"></script>
           
           
           

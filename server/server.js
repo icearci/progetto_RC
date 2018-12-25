@@ -15,7 +15,7 @@ app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
 app.use(cookie_parser());
 
-var pagine_utili = ["/login","/home","/add_stampante","/search"];
+var pagine_utili = ["/login","/home","/add_stampante","/search","/profilo"];
 function generateUuid() {
   return Math.random().toString() +
          Math.random().toString() +
@@ -51,7 +51,20 @@ app.get('/register',(req,res)=>{
 		res.redirect('/home');
 	}
 });
+
+app.get('/profilo',(req,res)=>{
+	var id = req.cookies.id;
+	console.log(id);
+	if(id != undefined){
+		console.log('La home nota che il cookie è già settato');
+		res.sendFile(path.resolve(__dirname+"/html/paginaProfilo/Profilo.html"));
+	}
+	else if(id == undefined){
+		res.sendFile(path.resolve(__dirname+"/html/paginaRegistrati/login.html"));
+	}
 	
+});
+
 app.get('/login',(req,res)=>{
 	console.log('ciao');
 	var id = req.cookies.id;
@@ -163,6 +176,9 @@ app.post("/register",(req,res)=>{
 		res.cookie('id',hash,{
 		maxAge: 20000,
 		path: "/home"});
+		res.cookie('id',hash,{
+		maxAge:20000,
+		path: '/profilo'});
 	res.redirect("/login");
 });
 
