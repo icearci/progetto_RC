@@ -219,10 +219,10 @@ app.post('/search',(req,res)=>{
 	var tolleranza_ = req.body.tolleranza;
 	var citta_ = req.body.ricerca;
 	var stampantetipo_ = req.body.stampantetipo;
-	var stampanteprezzo_ = req.body.stampanteprezzo
+	var stampanteprezzo_ = req.body.stampanteprezzo;
 	
 	var info = {
-		citta : citta_,
+		varcitta : citta_,
 		tolleranza : tolleranza_,
 		stampantetipo : stampantetipo_,
 		stampanteprezzo : stampanteprezzo_,
@@ -244,13 +244,11 @@ app.post('/search',(req,res)=>{
 					if (msg.properties.correlationId == corr) {
 						console.log(msg.content.toString());
 						//faccio qualcosa col messaggio
-					}},noAck = true);
+					}});
 				});
 			});
 		}
 	});
-	res.set({"Content-Type":"text/html"});
-	res.send();
 				
 });
 app.post('/prova',(req,res)=>{
