@@ -78,6 +78,7 @@ def on_request(ch, method, props, body):
 	print("parte la robba")
 	server = pycouchdb.Server('http://localhost:5984')
 	printers = server.database("printers")
+	print(body)
 	risultati = algoritmo(printers,json.loads(body))
 	json_ris = get_json_risultati(risultati,printers)
 		

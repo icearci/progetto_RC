@@ -30,7 +30,7 @@ function settaCookie(res,id){
 						}
 					}
 function levaCookie(res){
-	for(var i = 0;i<4;i++){
+	for(var i = 0;i<5;i++){
 		res.clearCookie('id',{
 							path: pagine_utili[i]});
 						}
@@ -63,6 +63,9 @@ app.get('/profilo',(req,res)=>{
 		res.sendFile(path.resolve(__dirname+"/html/paginaRegistrati/login.html"));
 	}
 	
+});
+app.get("/visore",(req,res)=>{
+	res.sendFile(path.resolve(__dirname+"/html/visore3d/visore_mio.html"));
 });
 
 app.get('/login',(req,res)=>{
@@ -139,6 +142,30 @@ app.post("/add_stampante",(req,res)=>{
 		const richiesta = http.request(options);
 		richiesta.write(JSON.stringify(stampante));
 		richiesta.end();
+		request("http://localhost:5984/users/"+user_id,(err,res,body)=>{
+			var utente = JSON.parse(body);
+			delete utente["_id"];
+			console.log("Sto per eseguire la push");
+			utente.stampanti.push(hash);
+			console.log(utente);
+		var options1 = {
+			method: "PUT",
+			path: "/users/"+user_id,
+			port: 5984,
+			host: "localhost",
+			headers:{
+				'Content-Type':'application/json',
+				'Accept':'application/json',
+					},
+			};
+		console.log(user_id);
+			
+		var update =JSON.stringify(utente);
+		const richiesta1 = http.request(options1);
+		richiesta1.write(update);
+		richiesta1.end();
+		console.log(update);
+	});
 		res.redirect("/home"); /*o redirigiamo verso il profilo aggiornato (Stef)*/
 	}
 	else{
@@ -148,14 +175,19 @@ app.post("/add_stampante",(req,res)=>{
 	
 app.post("/register",(req,res)=>{
 	var username_ = req.body.username_registrazione;
+	var fullname = req.body.fullname;
+	var telephone = req.body.telephone;
 	console.log(username_);
 	var password_ = req.body.password_registrazione;
 	var mail_ = req.body.mail_registrazione;
 	var hash = md5(username_);
 	var utente = {
+		fullname: fullname,
 		username: username_,
 		password: password_,
 		mail: mail_,
+		telephone: telephone,
+		stampanti:[],
 	};
 	var options = {
 		method: "PUT",
@@ -242,9 +274,10 @@ app.post('/search',(req,res)=>{
 					
 					ch.consume(q.queue, function(msg) {
 					if (msg.properties.correlationId == corr) {
-						console.log(msg.content.toString());
-						//faccio qualcosa col messaggio
-					}});
+						console.log(msg.content.toString());//finire
+						
+					setTimeout(function() { conn.close(); process.exit(0) }, 500);
+					}},{noAck:true});
 				});
 			});
 		}
