@@ -260,28 +260,28 @@ app.post('/search',(req,res)=>{
 		stampanteprezzo : stampanteprezzo_,
 	};
 	console.log(info);
-	amqp.connect('amqp://localhost', function(err, conn) {
-		if(!err){
-			var queue = 'search_q';
-			conn.createChannel(function(err,ch){
-				ch.assertQueue('', {exclusive: true},function(err,q){
-					var corr = generateUuid();
+	// amqp.connect('amqp://localhost', function(err, conn) {
+	// 	if(!err){
+	// 		var queue = 'search_q';
+	// 		conn.createChannel(function(err,ch){
+	// 			ch.assertQueue('', {exclusive: true},function(err,q){
+	// 				var corr = generateUuid();
 					
 		
-					ch.sendToQueue('search_q',new Buffer(JSON.stringify(info)), { correlationId: corr, replyTo: 'search_q', content_type: "application/json" });
+	// 				ch.sendToQueue('search_q',new Buffer(JSON.stringify(info)), { correlationId: corr, replyTo: 'search_q', content_type: "application/json" });
 					
 					
 					
-					ch.consume(q.queue, function(msg) {
-					if (msg.properties.correlationId == corr) {
-						console.log(msg.content.toString());//finire
+	// 				ch.consume(q.queue, function(msg) {
+	// 				if (msg.properties.correlationId == corr) {
+	// 					console.log(msg.content.toString());//finire
 						
-					setTimeout(function() { conn.close(); process.exit(0) }, 500);
-					}},{noAck:true});
-				});
-			});
-		}
-	});
+	// 				setTimeout(function() { conn.close(); process.exit(0) }, 500);
+	// 				}},{noAck:true});
+	// 			});
+	// 		});
+	// 	}
+	// });
 				
 });
 app.post('/prova',(req,res)=>{

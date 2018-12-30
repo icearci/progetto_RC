@@ -16,4 +16,5 @@ Per far funzionare il login e la registrazione del sito:
 Per testare, per ora, i link funzionanti sono:
 --> http://localhost:8080/login
 --> http://localhost:8080/register
+? --> http://localhost:8080/search
 Per accedere al database http://localhost:5984/_utils
