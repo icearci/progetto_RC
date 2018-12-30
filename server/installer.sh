@@ -6,3 +6,4 @@ npm install ws
 npm install amqplib
 npm install md5
 curl -X PUT http://localhost:5984/users
+curl -X PUT http://localhost:5984/printers
