@@ -82,16 +82,7 @@ app.get('/login',(req,res)=>{
 });
 
 app.get('/home',(req,res)=>{
-	var id = req.cookies.id;
-	console.log(id);
-	if(id != undefined){
-		console.log('La home nota che il cookie è già settato');
-		res.sendFile(path.resolve(__dirname+"/html/paginaHome.3/homenew.html"));
-	}
-	else if(id == undefined){
-		res.sendFile(path.resolve(__dirname+"/html/paginaHome.3/homenew_sloggato.html"));
-	}
-	
+	res.sendFile(path.resolve(__dirname+"/html/paginaHome.3/homenew.html"));
 });
 
 app.get('/search',(req,res)=>{
