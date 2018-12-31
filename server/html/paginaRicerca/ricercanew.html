@@ -15,7 +15,7 @@ spiegare il funzionamento del file
       
       
           <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-      <script>
+      <!-- <script>
           function search() {
             var city = document.getElementById('user_city').value;
             var tollerance = document.getElementById('user_dist_tollerance').value;
@@ -42,7 +42,7 @@ spiegare il funzionamento del file
 				  };
             };
           }
-      </script>
+      </script> -->
     </head>
     <body>
             <!--nav bar-->
@@ -96,67 +96,81 @@ spiegare il funzionamento del file
                        
                         </div>
                     
-                    
+                        <div class="col-sm-6">
+                            <span class="input-desc">Address</span>
+                            <label class="text-data">
+                                <input type="text" name="via" class="text-data" id="user_address" placeholder="Rome">
+                            </label>
+                       
+                        </div>
                     </div>
                     <div class="row"> 
-                        <div class="col-sm-6">
-                            <span class="input-desc">Tolerance (Km)</span>
-                            <label class="text-data">
-                                <input type="text" name="tolleranza" class="text-data" id="user_dist_tollerance" placeholder="10">
-                            </label>
-                        </div>     
-                        
-                        
+                            <div class="col-sm-6">
+                                    <span class="input-desc">CAP</span>
+                                    <label class="text-data">
+                                        <input type="text" name="cap" class="text-data" id="user_cap" placeholder="10">
+                                    </label>
+                                </div>  
+                         
+                                <div class="col-sm-6">
+                                        <span class="input-desc">Max prezzo all' ora</span>
+                                        <label class="text-data">
+                                            <input type="text" name="stampanteprezzo" class="text-data" id="max_hour_price" placeholder="12">
+                                        </label>
+                                    </div>  
                     </div>
 
                     <div class="row"> 
+                           
                         <div class="col-sm-6">
-                            <span class="input-desc">Max prezzo all' ora</span>
-                            <label class="text-data">
-                                <input type="text" name="stampanteprezzo" class="text-data" id="max_hour_price" placeholder="12">
-                            </label>
-                        </div>     
+                                <span class="input-desc">Tolerance (Km)</span>
+                                <label class="text-data">
+                                    <input type="text" name="tolleranza" class="text-data" id="user_dist_tollerance" placeholder="10">
+                                </label>
+                            </div>    
                         
-                        </div>
+                                <div class="col-group col-sm-6">
+                                        <span class="input-desc ">Metodo di spedizione</span>
+                                        <label class="control control--checkbox">
+                                            <input type="radio" name="vartipospedizione" value="manocitta"/>
+                                            <span class="control--label">consegna a mano</span>
+                                            <div class="control--indicator"></div>
+                                            <div class="control--fill"></div>
+                                            <div class="help"></div>
+                                            <div class="help--tooltip">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus condimentum scelerisque. Donec feugiat velit.<br><br>Tooltips can have <a href="#">links</a>, <font color=red size=3em>and</font> <b>formatting</b> <u>if</u> <i>needed</i>.
+                                            </div>
+                                            
+                                        </label>
+                                        
+                                        <label class="control control--checkbox">
+                                            <input type="radio" name="vartipospedizione" value="ita" checked="checked"/>
+                                            <span class="control--label">spedizione in Italia</span>
+                                            <div class="control--indicator"></div>
+                                            <div class="control--fill"></div>
+                                            <div class="help"></div>
+                                            <div class="help--tooltip">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus condimentum scelerisque. Donec feugiat velit.<br><br>Tooltips can have <a href="#">links</a>, <font color=red size=3em>and</font> <b>formatting</b> <u>if</u> <i>needed</i>.
+                                            </div>
+                                        </label>
+                                        <label class="control control--checkbox">
+                                            <input type="radio" name="vartipospedizione" value="int" checked="checked"/>
+                                            <span class="control--label">spedizione internazionale</span>
+                                            <div class="control--indicator"></div>
+                                            <div class="control--fill"></div>
+                                            <div class="help"></div>
+                                            <div class="help--tooltip">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus condimentum scelerisque. Donec feugiat velit.<br><br>Tooltips can have <a href="#">links</a>, <font color=red size=3em>and</font> <b>formatting</b> <u>if</u> <i>needed</i>.
+                                            </div>
+                                        </label>
+                                        
+                                    
+                                </div>    
+                       
                     </div>                   
                                            
                                      
-                    <div class="col-group col-sm-6">
-                            <span class="input-desc ">Metodo di spedizione</span>
-                            <label class="control control--checkbox">
-                                <input type="radio" name="vartipospedizione" value="manocitta"/>
-                                <span class="control--label">consegna a mano</span>
-                                <div class="control--indicator"></div>
-                                <div class="control--fill"></div>
-                                <div class="help"></div>
-                                <div class="help--tooltip">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus condimentum scelerisque. Donec feugiat velit.<br><br>Tooltips can have <a href="#">links</a>, <font color=red size=3em>and</font> <b>formatting</b> <u>if</u> <i>needed</i>.
-                                </div>
-                                
-                            </label>
-                            <label class="control control--checkbox">
-                                <input type="radio" name="vartipospedizione" value="ita" checked="checked"/>
-                                <span class="control--label">spedizione in Italia</span>
-                                <div class="control--indicator"></div>
-                                <div class="control--fill"></div>
-                                <div class="help"></div>
-                                <div class="help--tooltip">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus condimentum scelerisque. Donec feugiat velit.<br><br>Tooltips can have <a href="#">links</a>, <font color=red size=3em>and</font> <b>formatting</b> <u>if</u> <i>needed</i>.
-                                </div>
-                            </label>
-                            <label class="control control--checkbox">
-                                <input type="radio" name="vartipospedizione" value="int" checked="checked"/>
-                                <span class="control--label">spedizione internazionale</span>
-                                <div class="control--indicator"></div>
-                                <div class="control--fill"></div>
-                                <div class="help"></div>
-                                <div class="help--tooltip">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus condimentum scelerisque. Donec feugiat velit.<br><br>Tooltips can have <a href="#">links</a>, <font color=red size=3em>and</font> <b>formatting</b> <u>if</u> <i>needed</i>.
-                                </div>
-                            </label>
-                            
-                        </div>
-                    </div>           
+                             
                             <!--radio inputs-->
                             <div class="row">
                                

@@ -14,9 +14,12 @@ ws.on('connection',function connection(ws){
 		request("http://localhost:5984/users/"+hash, (err,res,body)=>{
 			if(!err){
 				if (res.statusCode == 200){
+					console.log('refuse');
 					ws.send("refuse");
 				}
 				else{
+					console.log('ok');
+
 					ws.send("ok");
 				}
 			}

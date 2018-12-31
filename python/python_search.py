@@ -34,8 +34,8 @@ def calcola_distanza(luogo1,luogo2):
 
 	request = Request('https://api.openrouteservice.org/matrix?api_key=5b3ce3597851110001cf6248228ad9c82d354084a44aed7cfa290c1a&profile=driving-car&metrics=distance&locations='+str(coord1[0])+','+str(coord1[1])+'%7C'+str(coord2[0])+','+str(coord2[1]), headers=headers)
 	response_body = json.loads(urlopen(request).read())
-	#print(response_body)
-	#print(response_body["sources"][0]["snapped_distance"])
+	print(response_body)
+	print(response_body["sources"][0]["snapped_distance"])
 	return float(response_body["sources"][0]["snapped_distance"])
 
 def get_json_risultati(risultati,database):
@@ -75,12 +75,23 @@ def algoritmo(database,info): #occorre ancora sortare alla fine
 
 
 def on_request(ch, method, props, body):
-	print("parte la robba")
+	print("[on request] -------------->start->pycouchdb.Server('http://localhost:5984')")
 	server = pycouchdb.Server('http://localhost:5984')
+	print("[on request] -------------->end ->pycouchdb.Server('http://localhost:5984')")
+
+	print("[on request] -------------->start->server.database('printers')")
+	# si ferma qua
 	printers = server.database("printers")
+	print("[on request] -------------->end->server.database('printers')")
 	print(body)
+
+	print("[on request] -------------->start->algoritmo(printers,json.loads(body))")
 	risultati = algoritmo(printers,json.loads(body))
+	print("[on request] -------------->end->algoritmo(printers,json.loads(body))")
+
+	print("[on request] -------------->start->algoritmo(printers,json.loads(body))")
 	json_ris = get_json_risultati(risultati,printers)
+	print("[on request] -------------->ens->algoritmo(printers,json.loads(body))")
 		
 	
 	
