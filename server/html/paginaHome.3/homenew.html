@@ -20,6 +20,34 @@ footer
 
 
 <head>
+	<script>
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+	</script>
+	
+	<script>
+		function logga_slogga(){
+		if(getCookie("id")!==""){
+			document.getElementById("login").innerHTML="";
+		}
+		else{
+			document.getElementById("logout").innerHTML="";
+		}
+	}
+	</script>
 
     <title>
       POTh</title>
@@ -44,6 +72,7 @@ footer
 
 
 <body>
+	
 
 
     <!-- inizio slide automatico -->
@@ -120,22 +149,27 @@ footer
           Aggiungi le tue macchine</a>
         <a href="http://localhost:8080/search">
           Cerca un maker</a>
-        <a href="../html/visore3d/visore3d.html">Visore 3D</a>
-        <a href="../html/paginaTecnologie/tecnologie.html">Tecnologie</a>
-        <a href="../html/paginaNews/news.html">News</a>
+        <a href="http://localhost:8080/visore">Visore 3D</a>
+        <a href="http://localhost:8080/tecnologie">Tecnologie</a>
+        <a href="http://localhost:8080/news">News</a>
         <!--fancy 3d log in form-->
         <!-- <a class= "right" href="../paginaRegistrati/reg_3d/index.html">
             Register / Log in</a> -->
             <!--oppure quella classica-->
-        <a class= "right" href="http://localhost:8080/login">
+        <a id="login" class= "right" href="http://localhost:8080/login">
+            Register/Login</a>
+        <a id="logout" class= "right" href="http://localhost:8080/logout">
             Logout</a>
-        <a class="right" href="../html/paginaFAQ/Faq.html">
+        <a class="right" href="http://localhost:8080/faq">
                 FAQ</a>
-        <a class="right" href="../html/paginaChiSiamo/chi_siamonew.html">
+        <a class="right" href="http://localhost:8080/chi_siamo">
           Chi siamo</a>
         <a class="right" href="http://localhost:8080/profilo">
             Profilo</a>
+            
     </div>
+    <script>logga_slogga()</script>
+    
  <!--END nav bar-->
 <!--fine menu nav-->
 
@@ -172,7 +206,7 @@ footer
               <div class="design-process-content">
                 <h3 class="semi-bold">Search</h3>
                 <h4>
-                    <p>Se ancora non hai un Modello 3D da farti stampare, prova a dare un occhiata su questi siti:<br>
+                    <p id='prova'>Se ancora non hai un Modello 3D da farti stampare, prova a dare un occhiata su questi siti:<br>
                     <a href="https://www.yeggi.com/">Yeggi: Nullam vulputate congue sem.</a><br>
                     <a href="http://ww38.tingiverse.com/">Tingiverse: Nullam vulputate congue sem.</a><br>
                     <a href="https://www.myminifactory.com/">Myminifactory: Nullam vulputate congue sem.</a><br>
@@ -186,7 +220,7 @@ footer
               <div class="design-process-content">
                 <h3 class="semi-bold">Request</h3>
  <h4>
-                  <p>Personalizza la tua <a href="../paginaRicerca/ricercanew.html">Ricerca</a> di un Maker (Utente che dispone di una  <a href="../paginaTecnologie/tecnologie.html">stampante 3D
+                  <p>Personalizza la tua <a href="http://localhost:8080/search">Ricerca</a> di un Maker (Utente che dispone di una  <a href="http://localhost:8080/tecnologie">stampante 3D
                     o simili</a>  che la mette a disposizione per gli altri Utenti a un prezzo onesto), e aspetta che il nostro server
                     trovi le migliori soluzioni su misura per te.
 
@@ -208,7 +242,7 @@ footer
               <div class="design-process-content">
                 <h3 class="semi-bold">Wait</h3>
                 <h4>
-                    <p>Aspetta che il Maker abbia finito di Stamparti il tuo fantastico e bellissimo modello 3D (o <a href="../paginaTecnologie/tecnologie.html">simili</a> )
+                    <p>Aspetta che il Maker abbia finito di Stamparti il tuo fantastico e bellissimo modello 3D (o <a href="http://localhost:8080/tecnologie">simili</a> )
 
                     </p>
                   </h4>
@@ -235,28 +269,28 @@ footer
   <h2>Le tecnologie a nostra disposizione</h2>
     <div class="gallery">
   <div class="gallery-item"><div class="boxtesto">
-      <a href="../paginaTecnologie/tecnologie.html">
+      <a href="http://localhost:8080/tecnologie">
     <img class="gallery-image" src="../html/immagini/500cncrouter.jpg" alt="foto cnc router">
       </a>	
           <span class="testo">Fresa CNC</span>
       </div>
   </div>
   <div class="gallery-item"><div class="boxtesto">
-      <a href="../paginaTecnologie/tecnologie.html#a2">
+      <a href="http://localhost:8080/tecnologie#a2">
     <img class="gallery-image" src="../html/immagini/500laser.jpg" alt="foto laser">
       </a>	
           <span class="testo">Incisione Laser</span>
       </div>
   </div>
   <div class="gallery-item"><div class="boxtesto">
-      <a href="../paginaTecnologie/tecnologie.html#a3">
+      <a href="http://localhost:8080/tecnologie#a3">
     <img class="gallery-image" src="../html/immagini/500fdm.jpg" alt="foto FDM">
       </a>	
           <span class="testo">Stampa 3D FDM</span>
       </div>
   </div>
   <div class="gallery-item"><div class="boxtesto">
-      <a href="../paginaTecnologie/tecnologie.html#a4">
+      <a href="http://localhost:8080/tecnologie#a4">
     <img class="gallery-image" src="../html/immagini/500hpjetfusion.jpg" alt="foto jet fusion">
       </a>	
           <span class="testo">Stampa 3D Jet Fusion</span>
@@ -270,7 +304,7 @@ footer
       </div>
   </div>
   <div class="gallery-item"><div class="boxtesto">
-      <a href="../paginaTecnologie/tecnologie.html#a6">
+      <a href="http://localhost:8080/tecnologie#a6">
     <img class="gallery-image" src="../html/immagini/500titanium-dmls.jpg" alt="foto dmls">
       </a>	
           <span class="testo">Stampa 3D DMLS</span>
@@ -286,23 +320,23 @@ footer
     <div class="container"><h2>Le ultime notizie del settore maker</h2></div>
     <div class="content">
       <div class="row">
-        <a class="set" href="../paginaNews/news.html#a1">
+        <a class="set" href="http://localhost:8080/news#a1">
           <span class="layer one"><img src="../html/immagini/lenco3d.jpg" alt=""></span>
           <span class="layer two"><img src="../html/immagini/robot.jpg" alt=""></span>
           <span class="layer three">Costruirsi un robot in kit</span>
-          <img src="../immagini/automotive3D.jpg" alt="">
+          <img src="../html/immagini/automotive3D.jpg" alt="">
         </a>
-        <a class="set" href="../paginaNews/news.html#a2">
+        <a class="set" href="http://localhost:8080/news#a2">
           <span class="layer one"><img src="../html/immagini/automotive3D.jpg" alt=""></span>
           <span class="layer two"><img src="../html/immagini/lenco3d.jpg" alt=""></span>
           <span class="layer three">Il giradischi stampato in 3D</span>
-          <img src="../immagini/robot.jpg" alt="">
+          <img src="../html/immagini/robot.jpg" alt="">
         </a>
-        <a class="set" href="../paginaNews/news.html#a3">
+        <a class="set" href="http://localhost:8080/news#a3">
           <span class="layer one"><img src="../html/immagini/robot.jpg" alt=""></span>
           <span class="layer two"><img src="../html/immagini/automotive3D.jpg" alt=""></span>
           <span class="layer three">Il settore automotive e la stampa 3D</span>
-          <img src="../immagini/lenco3d.jpg" alt="">
+          <img src="../html/immagini/lenco3d.jpg" alt="">
         </a>
       
       </div>
@@ -328,7 +362,7 @@ footer
    
 
 <!--scrpts-->
-<script  src="steps/js/index.js"></script>
+<script  src="/html/paginaHome.3/steps/js/index.js"></script>
 
 <!-- slide automatico -->
 <script>

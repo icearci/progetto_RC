@@ -15,7 +15,7 @@ app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
 app.use(cookie_parser());
 
-var pagine_utili = ["/login","/home","/add_stampante","/search","/profilo"];
+var pagine_utili = ["/login","/home","/add_stampante","/search","/profilo","/tecnologie","/news","/chi_siamo","/faq","/visore"];
 function generateUuid() {
   return Math.random().toString() +
          Math.random().toString() +
@@ -23,14 +23,14 @@ function generateUuid() {
 }
 
 function settaCookie(res,id){
-	for(var i = 0;i<5;i++){
+	for(var i = 0;i<pagine_utili.length;i++){
 		res.cookie('id',id,{
 							maxAge:1800000,
 							path: pagine_utili[i]});
 						}
 					}
 function levaCookie(res){
-	for(var i = 0;i<5;i++){
+	for(var i = 0;i<pagine_utili.length;i++){
 		res.clearCookie('id',{
 							path: pagine_utili[i]});
 						}
@@ -64,8 +64,20 @@ app.get('/profilo',(req,res)=>{
 	}
 	
 });
+app.get("/news",(req,res)=>{
+	res.sendFile(path.resolve(__dirname+"/html/paginaNews/news.html"));
+});
+app.get("/chi_siamo",(req,res)=>{
+	res.sendFile(path.resolve(__dirname+"/html/paginaChiSiamo/chi_siamonew.html"));
+});
+app.get("/faq",(req,res)=>{
+	res.sendFile(path.resolve(__dirname+"/html/paginaFAQ/Faq.html"));
+});
 app.get("/visore",(req,res)=>{
 	res.sendFile(path.resolve(__dirname+"/html/visore3d/visore_mio.html"));
+});
+app.get("/tecnologie",(req,res)=>{
+	res.sendFile(path.resolve(__dirname+"/html/paginaTecnologie/tecnologie.html"));
 });
 
 app.get('/login',(req,res)=>{
@@ -193,15 +205,6 @@ app.post("/register",(req,res)=>{
 	const richiesta = http.request(options);
 	richiesta.write(JSON.stringify(utente));
 	richiesta.end();
-	res.cookie('id',hash,{
-		maxAge: 20000,
-		path: "/login"});
-		res.cookie('id',hash,{
-		maxAge: 20000,
-		path: "/home"});
-		res.cookie('id',hash,{
-		maxAge:20000,
-		path: '/profilo'});
 	res.redirect("/login");
 });
 

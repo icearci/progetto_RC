@@ -7,37 +7,69 @@ spiegare il funzionamento del file
 <title>Notizie</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="../responsive_css.2/responsive.css" rel="stylesheet"/>
-<link rel="stylesheet" href="article_layout/css/style.css">
+<link href="../html/responsive_css.2/responsive.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/html/paginaNews/article_layout/css/style.css">
+<script>
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+	</script>
+	
+	<script>
+		function logga_slogga(){
+		if(getCookie("id")!==""){
+			document.getElementById("login").innerHTML="";
+		}
+		else{
+			document.getElementById("logout").innerHTML="";
+		}
+	}
+	</script>
 
 </head>
 <body>
 
 <!--    barra menu con link   -->
 <div class="navbar_">
-        <a  href="http://localhost:8080/home">
-            Home</a>
-          <a href="http://localhost:8080/add_stampante">
-            Aggiungi le tue macchine</a>
-          <a  href="http://localhost:8080/search">
-            Cerca un maker</a>
-          <a   href="../visore3d/visore3d.html">Visore 3D</a>
-          <a  href="../paginaTecnologie/tecnologie.html">Tecnologie</a>
-          <a class="active_" href="../paginaNews/news.html">News</a>
-          <!--fancy 3d log in form-->
-          <!-- <a class= "right" href="../paginaRegistrati/reg_3d/index.html">
-              Register / Log in</a> -->
-              <!--oppure quella classica-->
-          <a class= "right" href="http://localhost:8080/login">
-              Register / Log in</a>
-          <a class="right" href="../paginaFAQ/Faq.html">
-                  FAQ</a>
-          <a class="right" href="../paginaChiSiamo/chi_siamonew.html">
-            Chi siamo</a>
-          <a class="right" href="http://localhost:8080/profilo">
-              Profilo</a>
+
+        <a class="active_" href="http://localhost:8080/home">
+          Home</a>
+        <a href="http://localhost:8080/add_stampante">
+          Aggiungi le tue macchine</a>
+        <a href="http://localhost:8080/search">
+          Cerca un maker</a>
+        <a href="http://localhost:8080/visore">Visore 3D</a>
+        <a href="http://localhost:8080/tecnologie">Tecnologie</a>
+        <a href="http://localhost:8080/news">News</a>
+        <!--fancy 3d log in form-->
+        <!-- <a class= "right" href="../paginaRegistrati/reg_3d/index.html">
+            Register / Log in</a> -->
+            <!--oppure quella classica-->
+        <a id="login" class= "right" href="http://localhost:8080/login">
+            Register/Login</a>
+        <a id="logout" class= "right" href="http://localhost:8080/logout">
+            Logout</a>
+        <a class="right" href="http://localhost:8080/faq">
+                FAQ</a>
+        <a class="right" href="http://localhost:8080/chi_siamo">
+          Chi siamo</a>
+        <a class="right" href="http://localhost:8080/profilo">
+            Profilo</a>
             
-            </div>
+    </div>
+            <script>logga_slogga()</script>
             <div class="main">
                     <div>
                         <h2>Le ultime News dal mondo del Making</h2>
