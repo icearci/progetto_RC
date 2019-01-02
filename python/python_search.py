@@ -40,72 +40,100 @@ def calcola_distanza(luogo1,luogo2):
 
 def get_json_risultati(risultati,database):
 	json_dict = {}
+	print("[get_json_risultati] risultati = ")
+	print(risultati)
+	print("[get_json_risultati] database = ")
+	print(database)
 	for elem in risultati:
-		json_dict[elem]=database[elem]
+		json_dict[elem]=database.get(elem)
+
 	return json.dumps(json_dict, ensure_ascii=False)
 		
 	
 
 def algoritmo(database,info): #occorre ancora sortare alla fine
-	lista_prezzo = []
-	lista_id = get_lista_docs()
-	print(lista_id)
-	for doc in lista_id:
-		print(database.get(doc)["stampanteprezzo"])
-		if int(database.get(doc)["stampanteprezzo"])<=int(info["stampanteprezzo"]):
-			lista_prezzo.append(doc)
-			print("appeso")
-	lista_tipo = []
-	for elem in lista_prezzo:
-		print("entrato")
-		if database.get(elem)["stampantetipo"]==info["stampantetipo"]:
-			print("dovrebbe esserci un entrato in meno")
-			lista_tipo.append(elem)
-	dizionario_finale={}
-	lista_distanze=[]
-	lista_serie = []
-	for elem in lista_tipo:
-		distanza = calcola_distanza(database.get(elem)["varcitta"],info["varcitta"])
-		if distanza < float(info["tolleranza"]):
-			print(distanza,"e minore di "+ info["tolleranza"])
-			dizionario_finale[elem]=distanza
-			lista_serie.append(elem)
-	return lista_serie
+	if(info):
+		lista_prezzo = []
+		lista_id = get_lista_docs()
+		# print("[algoritmo] lista_id = ")
+		# print(lista_id)
+		lista_tipo = []
+		#il primo ciclo filtra sul tipo stampante
+		for elem in lista_id:
+			print("[algoritmo] stampantetipoInfo = ",str(info.get("stampantetipo")),"stampantetipodatabase= ",database.get(elem)["stampantetipo"])
+
+			
+			if database.get(elem)["stampantetipo"]==info.get("stampantetipo"):
+				print("[algoritmo] match di tipo stampante trovato")
+
+				lista_tipo.append(elem)
+		#il secondo ciclo filtra sul prezzo
+		for doc in lista_tipo:
+			print("[algoritmo] prezzoInfo = ",info.get("stampanteprezzo"),"prezzodatabase= ",database.get(doc)["stampanteprezzo"])
+			
+			if database.get(doc).get("stampanteprezzo") <= info.get("stampanteprezzo"):
+				lista_prezzo.append(doc)
+				print("[algoritmo] appeso prezzo all lista_prezzo")
+			
+			
+		
+		dizionario_finale={}
+		lista_distanze=[]
+		lista_serie = []
+		#il terzo sulle distanze(TO BE DONE)
+		for elem in lista_prezzo:
+			print("[algoritmo]entrato in ciclo lista_tipo")
+			distanza = calcola_distanza(database.get(elem)["varcitta"],info.get("varcitta"))
+			if distanza < float(info.get("tolleranza")):
+				print("[algoritmo]",distanza,"e' minore dellatolleranza  "+ info.get("tolleranza"))
+				dizionario_finale[elem]=distanza
+				lista_serie.append(elem)
+			else :
+				print("[algoritmo]",distanza,"e' maggiore della tolleranza "+ info.get("tolleranza"))
+		return lista_serie
+	else: 
+		print("[algoritmo] info vuoto")
+		return
 	
 
 
 def on_request(ch, method, props, body):
+	print("\n \n \n \n #################################################################\n \n \n \n########################## nuova iterazioene ####################\n \n \n \n#################################################################\n \n \n \n")
 	print("[on request] -------------->start->pycouchdb.Server('http://localhost:5984')")
 	server = pycouchdb.Server('http://localhost:5984')
 	print("[on request] -------------->end ->pycouchdb.Server('http://localhost:5984')")
 
 	print("[on request] -------------->start->server.database('printers')")
-	# si ferma qua
+
 	printers = server.database("printers")
 	print("[on request] -------------->end->server.database('printers')")
-	print(body)
+	# print("[on request]",body)
 
 	print("[on request] -------------->start->algoritmo(printers,json.loads(body))")
-	risultati = algoritmo(printers,json.loads(body))
+	risultati = algoritmo(printers,json.loads(body,parse_int=True))
 	print("[on request] -------------->end->algoritmo(printers,json.loads(body))")
-
-	print("[on request] -------------->start->algoritmo(printers,json.loads(body))")
-	json_ris = get_json_risultati(risultati,printers)
-	print("[on request] -------------->ens->algoritmo(printers,json.loads(body))")
+	if(risultati):
+		print("[on request] -------------->start->get_json_risultati(risultati,printers)")
+		json_ris = get_json_risultati(risultati,printers)
+		print("[on_request]json_ris= ")
+		print(json_ris)
+		print("[on request] -------------->end->get_json_risultati(risultati,printers)")
 		
 	
 	
 	
-	ch.basic_publish(exchange='',
-                     routing_key=props.reply_to,
-                     properties=pika.BasicProperties(correlation_id = \
-                                                         props.correlation_id),
-                     body=str(json_ris))
-    
-	ch.basic_ack(delivery_tag = method.delivery_tag)
+		ch.basic_publish(exchange='',
+						routing_key=props.reply_to,
+						properties=pika.BasicProperties(correlation_id = \
+															props.correlation_id),
+						body=str(json_ris))
+		
+		ch.basic_ack(delivery_tag = method.delivery_tag)
 
-	ch.basic_qos(prefetch_count=1)
-
+		ch.basic_qos(prefetch_count=1)
+	else :
+		json_ris=""
+		print("risultati vuoto")
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 channel = connection.channel()
 channel.queue_declare(queue='search_q')

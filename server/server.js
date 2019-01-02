@@ -238,18 +238,7 @@ app.post('/login', (req, res) => {
 app.post('/search', (req, res) => {
 
 	var parte_fissa = fs.readFileSync(path.resolve(__dirname + "/html/paginaRicerca/parte_fissa.txt"), { encoding: "utf-8" });
-	/*var city = document.getElementById('user_city').value;
-            var tollerance = document.getElementById('user_dist_tollerance').value;
-            var price = document.getElementById('max_hour_price').value;
-            var printer = document.getElementsByName('stampantetipo').value;
-            var expedition = document.getElementsByName('vartipospedizione').value;
-            var msg = city+'/'+tollerance+'/'+price+'/'+printer+'/'+expedition;        
-			 
-			
-			vartipospedizione
-			via
-			cap
-			*/
+	
 	var id = req.cookies.id;
 	var citta_ = req.body.ricerca;
 	var via_ = req.body.via;
