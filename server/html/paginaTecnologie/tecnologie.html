@@ -7,8 +7,36 @@ spiegare il funzionamento del file
 <title>Tecnologie</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="../responsive_css.2/responsive.css" rel="stylesheet"/>
-<link rel="stylesheet" href="article_layout/css/style.css">
+<link href="../html/responsive_css.2/responsive.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/html/paginaTecnologie/article_layout/css/style.css">
+<script>
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+	</script>
+	
+	<script>
+		function logga_slogga(){
+		if(getCookie("id")!==""){
+			document.getElementById("login").innerHTML="";
+		}
+		else{
+			document.getElementById("logout").innerHTML="";
+		}
+	}
+	</script>
 
 </head>
 <body>
@@ -16,28 +44,33 @@ spiegare il funzionamento del file
 
 <!--    barra menu con link   -->
 <div class="navbar_">
-        <a  href="http://localhost:8080/home">
-            Home</a>
-          <a href="http://localhost:8080/add_stampante">
-            Aggiungi le tue macchine</a>
-          <a  href="http://localhost:8080/search">
-            Cerca un maker</a>
-          <a   href="../visore3d/visore3d.html">Visore 3D</a>
-          <a class="active_" href="../paginaTecnologie/tecnologie.html">Tecnologie</a>
-          <a href="../paginaNews/news.html">News</a>
-          <!--fancy 3d log in form-->
-          <!-- <a class= "right" href="../paginaRegistrati/reg_3d/index.html">
-              Register / Log in</a> -->
-              <!--oppure quella classica-->
-          <a class= "right" href="http://localhost:8080/login">
-              Register / Log in</a>
-          <a class="right" href="../paginaFAQ/Faq.html">
-                  FAQ</a>
-          <a class="right" href="../paginaChiSiamo/chi_siamonew.html">
-            Chi siamo</a>
-          <a class="right" href="http://localhost:8080/profilo">
-              Profilo</a>
+
+        <a class="active_" href="http://localhost:8080/home">
+          Home</a>
+        <a href="http://localhost:8080/add_stampante">
+          Aggiungi le tue macchine</a>
+        <a href="http://localhost:8080/search">
+          Cerca un maker</a>
+        <a href="http://localhost:8080/visore">Visore 3D</a>
+        <a href="http://localhost:8080/tecnologie">Tecnologie</a>
+        <a href="http://localhost:8080/news">News</a>
+        <!--fancy 3d log in form-->
+        <!-- <a class= "right" href="../paginaRegistrati/reg_3d/index.html">
+            Register / Log in</a> -->
+            <!--oppure quella classica-->
+        <a id="login" class= "right" href="http://localhost:8080/login">
+            Register/Login</a>
+        <a id="logout" class= "right" href="http://localhost:8080/logout">
+            Logout</a>
+        <a class="right" href="http://localhost:8080/faq">
+                FAQ</a>
+        <a class="right" href="http://localhost:8080/chi_siamo">
+          Chi siamo</a>
+        <a class="right" href="http://localhost:8080/profilo">
+            Profilo</a>
+            
     </div>
+    <script>logga_slogga</script>
 
 
   <div class="main">
@@ -51,11 +84,6 @@ spiegare il funzionamento del file
                     <h1>
                       <mark>Fresa CNC</mark>
                     </h1>
-                    <p id="author">
-                      <mark>by Lorem Ipsum
-                          
-                    </mark>
-                    </p>
                     <div id="accountDetail" class="accountInfo">
                       <div class="header">
                         <h2><mark>Lorem Ipsum</mark></h2>
@@ -69,15 +97,20 @@ spiegare il funzionamento del file
                 <!--The Text is generated with hipsum.co :) Check it out! -->
                   <div class="articleText">
                     <h4 class="introduction">
-                            Etiam sit amet rhoncus nisl, sodales finibus nulla. Quisque eget viverra purus. Sed placerat consequat sapien non tincidunt. Vivamus quis tristique lectus. Nam bibendum elit odio, eget vestibulum sem ullamcorper vitae. Proin diam augue, posuere in dictum non, sollicitudin ac quam. In nec commodo nibh. Sed odio enim, sagittis mattis dolor ac, facilisis porta ligula. Sed id tortor semper, hendrerit quam id, euismod ante. Duis ipsum arcu, feugiat at tempus at, euismod convallis felis. Ut sed tortor pharetra, eleifend mauris a, egestas nibh. In hac habitasse platea dictumst. Fusce gravida aliquam lorem, a accumsan velit tempor bibendum. Nullam dictum semper eros, ut maximus metus ultrices quis. Etiam eu eros ac nunc fringilla posuere. In hac habitasse platea dictumst.                       </h4>
+                            La fresatrice è una macchina utensile usata per la lavorazione in forme complesse di parti metalliche o di altri materiali di forme sferiche. 
+                            Spesso viene chiamata anche impropriamente fresa, un termine che indicherebbe solo gli utensili da utilizzare su questo tipo di macchine (dal francese fraise, fragoletta, a causa della forma particolare di queste punte). 
+                            In alcuni casi può anche essere denominata fresalesatrice: si tratta di tipi particolari di fresatrice, oggi molto diffusi, in grado di effettuare operazioni di alesatura grazie alla grande precisione nel controllo del movimento e alla stabilità della testa motorizzata.                        </h4>
                             <p>
-                                    Nullam eu sem dolor. Sed consectetur pharetra dignissim. Aliquam lacinia risus leo, ut lobortis est finibus ut. Integer sodales, enim et congue suscipit, odio magna pellentesque tellus, non tristique augue sem ut sapien. Cras consectetur, massa fringilla pretium elementum, neque dui condimentum nulla, at feugiat est libero in odio. Curabitur cursus velit sed libero dignissim consectetur. Phasellus vitae dapibus nisl. Curabitur faucibus tempus congue. Integer sit amet mauris est. Vivamus leo sem, aliquet quis sagittis eu, dignissim nec ipsum. In aliquet leo ac tempor luctus. Integer vel leo vel orci volutpat mollis in ut odio. Phasellus a eros scelerisque, suscipit ipsum ac, lobortis ex. Fusce convallis pretium sollicitudin.
-                            </p>
-                    
-                    <h2> Cras ac magna </h2>
-                    <p>
-                            Cras ac magna consequat diam pretium luctus mollis vel libero. Morbi non ipsum aliquet, placerat metus ut, pellentesque lorem. Vivamus faucibus, mauris et euismod tristique, justo arcu imperdiet ex, eget viverra urna libero at tortor. Nam bibendum ex enim, id pretium mauris consectetur ac. Praesent congue auctor nunc, et iaculis quam blandit vitae. Donec ac malesuada nulla. Quisque sagittis erat eget velit accumsan pellentesque. Quisque blandit porttitor aliquam. Morbi in lectus eleifend, aliquam orci efficitur, ultrices justo. Vestibulum iaculis a velit et posuere. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                    </p>
+								Nella sua forma più semplice una fresatrice non è altro che un motore, solitamente piuttosto piccolo, su cui è fissato, tramite un mandrino, un utensile dotato di bordi smussati (fresa) che ruotano sull'asse della fresa stessa. Il principio è lo stesso del trapano, ma le frese sono progettate per svolgere l'azione di taglio sul lato dell'utensile invece che sulla punta, quindi erodendo il materiale invece che forandolo.
+								Le fresatrici devono essere in grado di spostarsi sulla superficie del pezzo, questo può essere fatto in due modi:
+								Spostando il banco di lavoro su due assi A e B, ed eventualmente alzando la testa motorizzata lungo l'asse C
+								Lasciando il banco fisso e spostando la testa motorizzata lungo i tre assi.
+								Il primo sistema è il più utilizzato per macchine di piccole dimensioni, mentre per quelle maggiori a più di tre assi, comunemente dette centri di lavoro, si usa il secondo metodo.
+								Le fresatrici possono essere controllate manualmente o con sistemi computerizzati: in questo caso la macchina viene definita "a controllo numerico", o "CNC" ("computer numerical control").
+								Le fresalesatrici CNC più moderne sono dotate di sistemi automatici per la sostituzione degli utensili, in grado di rendere interamente automatizzato il processo produttivo: questo permette partendo dal materiale grezzo di arrivare ad un pezzo finito anche senza intervento umano, rendendo le lavorazioni più veloci ed economiche.
+								Il pregio principale delle fresatrici è di avere pochissimi limiti di forme realizzabili nelle lavorazioni e di poter svolgere con un solo programma di lavoro diverse operazioni complesse comprendenti forature, rettifiche, alesature, tagli, arrotondamenti...
+								Le fresatrici sono macchine strutturalmente molto solide, perché devono assorbire le notevoli vibrazioni generate dalla testa motorizzata senza permettere a questa di oscillare o scuotersi. Quando si procede a lavorazioni su materiali duri o con velocità molto elevate (che arrivano a decine di migliaia di giri al minuto) si utilizzano liquidi lubrificanti per ottimizzare il raffreddamento della punta e per ridurre gli sforzi. Il lubrificante ha anche la funzione di trattenere le polveri e i trucioli per farli defluire in modo controllato, evitando che aumentino il consumo delle frese o ne intacchino il filo tagliente. 
+							</p>
                     </div>
               </div>
               
@@ -88,11 +121,6 @@ spiegare il funzionamento del file
                         <h1>
                           <mark>Incisione Laser</mark>
                         </h1>
-                        <p id="author">
-                          <mark>by Lorem Ipsum
-                              
-                        </mark>
-                        </p>
                         <div id="accountDetail" class="accountInfo">
                           <div class="header">
                             <h2><mark>Lorem Ipsum</mark></h2>
@@ -106,15 +134,11 @@ spiegare il funzionamento del file
                     <!--The Text is generated with hipsum.co :) Check it out! -->
                       <div class="articleText">
                         <h4 class="introduction">
-                                Etiam sit amet rhoncus nisl, sodales finibus nulla. Quisque eget viverra purus. Sed placerat consequat sapien non tincidunt. Vivamus quis tristique lectus. Nam bibendum elit odio, eget vestibulum sem ullamcorper vitae. Proin diam augue, posuere in dictum non, sollicitudin ac quam. In nec commodo nibh. Sed odio enim, sagittis mattis dolor ac, facilisis porta ligula. Sed id tortor semper, hendrerit quam id, euismod ante. Duis ipsum arcu, feugiat at tempus at, euismod convallis felis. Ut sed tortor pharetra, eleifend mauris a, egestas nibh. In hac habitasse platea dictumst. Fusce gravida aliquam lorem, a accumsan velit tempor bibendum. Nullam dictum semper eros, ut maximus metus ultrices quis. Etiam eu eros ac nunc fringilla posuere. In hac habitasse platea dictumst.                       </h4>
-                                <p>
-                                        Nullam eu sem dolor. Sed consectetur pharetra dignissim. Aliquam lacinia risus leo, ut lobortis est finibus ut. Integer sodales, enim et congue suscipit, odio magna pellentesque tellus, non tristique augue sem ut sapien. Cras consectetur, massa fringilla pretium elementum, neque dui condimentum nulla, at feugiat est libero in odio. Curabitur cursus velit sed libero dignissim consectetur. Phasellus vitae dapibus nisl. Curabitur faucibus tempus congue. Integer sit amet mauris est. Vivamus leo sem, aliquet quis sagittis eu, dignissim nec ipsum. In aliquet leo ac tempor luctus. Integer vel leo vel orci volutpat mollis in ut odio. Phasellus a eros scelerisque, suscipit ipsum ac, lobortis ex. Fusce convallis pretium sollicitudin.
-                                </p>
-                        
-                        <h2> Cras ac magna </h2>
-                        <p>
-                                Cras ac magna consequat diam pretium luctus mollis vel libero. Morbi non ipsum aliquet, placerat metus ut, pellentesque lorem. Vivamus faucibus, mauris et euismod tristique, justo arcu imperdiet ex, eget viverra urna libero at tortor. Nam bibendum ex enim, id pretium mauris consectetur ac. Praesent congue auctor nunc, et iaculis quam blandit vitae. Donec ac malesuada nulla. Quisque sagittis erat eget velit accumsan pellentesque. Quisque blandit porttitor aliquam. Morbi in lectus eleifend, aliquam orci efficitur, ultrices justo. Vestibulum iaculis a velit et posuere. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                        </p>
+							Le lavorazioni con fascio laser (anche indicate con l'acronimo LBM, dall' inglese Laser Beam Machining) sono dei processi termici che usano un raggio laser come fonte di calore, poiché esso può essere facilmente concentrato con delle lenti raggiungendo densità di potenza superiore a 1 MW⁄mm2.
+							Nel momento in cui il laser interagisce con il materiale, l'energia dei fotoni viene assorbita dal materiale in lavorazione provocando localmente un rapido aumento di temperatura, che porta a fusione o ebollizione asportando il materiale senza contatto meccanico per espulsione del materiale fuso, vaporizzazione o meccanismi ablazione. 
+							A differenza dei processi convenzionali non si ha usura e la rimozione del materiale non dipende dalla sua durezza, ma dalle proprietà ottiche del laser e le proprietà ottiche e termofisiche del materiale.
+							Risulta per questo particolarmente indicato per lavorare leghe ad alta resistenza termica, carburi, compositi fibro-rinforzati, ceramici e stelliti.
+						</h4>
                         </div>
                   </div>
 
@@ -124,11 +148,6 @@ spiegare il funzionamento del file
                             <h1>
                               <mark>Stampa 3D FDM</mark>
                             </h1>
-                            <p id="author">
-                              <mark>by Lorem Ipsum
-                                  
-                            </mark>
-                            </p>
                             <div id="accountDetail" class="accountInfo">
                               <div class="header">
                                 <h2><mark>Lorem Ipsum</mark></h2>
@@ -142,15 +161,15 @@ spiegare il funzionamento del file
                         <!--The Text is generated with hipsum.co :) Check it out! -->
                           <div class="articleText">
                             <h4 class="introduction">
-                                    Etiam sit amet rhoncus nisl, sodales finibus nulla. Quisque eget viverra purus. Sed placerat consequat sapien non tincidunt. Vivamus quis tristique lectus. Nam bibendum elit odio, eget vestibulum sem ullamcorper vitae. Proin diam augue, posuere in dictum non, sollicitudin ac quam. In nec commodo nibh. Sed odio enim, sagittis mattis dolor ac, facilisis porta ligula. Sed id tortor semper, hendrerit quam id, euismod ante. Duis ipsum arcu, feugiat at tempus at, euismod convallis felis. Ut sed tortor pharetra, eleifend mauris a, egestas nibh. In hac habitasse platea dictumst. Fusce gravida aliquam lorem, a accumsan velit tempor bibendum. Nullam dictum semper eros, ut maximus metus ultrices quis. Etiam eu eros ac nunc fringilla posuere. In hac habitasse platea dictumst.                       </h4>
-                                    <p>
-                                            Nullam eu sem dolor. Sed consectetur pharetra dignissim. Aliquam lacinia risus leo, ut lobortis est finibus ut. Integer sodales, enim et congue suscipit, odio magna pellentesque tellus, non tristique augue sem ut sapien. Cras consectetur, massa fringilla pretium elementum, neque dui condimentum nulla, at feugiat est libero in odio. Curabitur cursus velit sed libero dignissim consectetur. Phasellus vitae dapibus nisl. Curabitur faucibus tempus congue. Integer sit amet mauris est. Vivamus leo sem, aliquet quis sagittis eu, dignissim nec ipsum. In aliquet leo ac tempor luctus. Integer vel leo vel orci volutpat mollis in ut odio. Phasellus a eros scelerisque, suscipit ipsum ac, lobortis ex. Fusce convallis pretium sollicitudin.
-                                    </p>
-                            
-                            <h2> Cras ac magna </h2>
-                            <p>
-                                    Cras ac magna consequat diam pretium luctus mollis vel libero. Morbi non ipsum aliquet, placerat metus ut, pellentesque lorem. Vivamus faucibus, mauris et euismod tristique, justo arcu imperdiet ex, eget viverra urna libero at tortor. Nam bibendum ex enim, id pretium mauris consectetur ac. Praesent congue auctor nunc, et iaculis quam blandit vitae. Donec ac malesuada nulla. Quisque sagittis erat eget velit accumsan pellentesque. Quisque blandit porttitor aliquam. Morbi in lectus eleifend, aliquam orci efficitur, ultrices justo. Vestibulum iaculis a velit et posuere. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                            </p>
+							La Modellazione a deposizione fusa (in inglese: Fused deposition modeling) in breve FDM è una tecnologia di produzione additiva usata comunemente per applicazioni di modellazione, prototipazione e produzione. La tecnologia fu sviluppata da S. Scott Crump alla fine degli anni ottanta (XX secolo) e fu commercializzata negli anni '90 dalla Stratasys, di cui possiede il marchio commerciale.
+							L'FDM lavora su un principio "additivo" rilasciando il materiale su strati. Un filamento plastico o un filo metallico è srotolato da una bobina, che fornisce il materiale ad un ugello di estrusione, con il quale è possibile gestire il flusso. L'ugello è riscaldato per poter sciogliere il materiale e può essere guidato sia in direzione orizzontale che verticale da un meccanismo di controllo numerico, cioè seguendo un percorso tracciato da un software CAM (computer-aided manufacturing).
+							Tipi di cinematica:
+							- Core XY: La testa si muove su un piano, il piano si allontana al crescere della Z;
+							-Gantry: La testa di stampa si muove lungo X, il piano lungo Y, la testa si allontana dal piano al crescere della Z;
+							-Coordinate polari: La testa si muove linearmente e il piano ruota, la testa si allontana dal piano al crescere della Z;
+							-Rostock o Delta: Impiegano 3 motori che si muovono coordinatamente. Questo sistema garantisce un'alta velocità di movimento e dà la possibilità di incrementare notevolmente il volume di stampa.
+							Per favorire l'adesione di alcuni materiai al piano di stampa, si ricorre spesso all'impiego di piani riscaldati che contrastano la compressione dovuta al raffreddamento del materiale. 
+							</h4>
                             </div>
                       </div>
          <div class="article" id="a4">
@@ -159,11 +178,6 @@ spiegare il funzionamento del file
                                 <h1>
                                   <mark>Stampa 3D Jet Fusion</mark>
                                 </h1>
-                                <p id="author">
-                                  <mark>by Lorem Ipsum
-                                      
-                                </mark>
-                                </p>
                                 <div id="accountDetail" class="accountInfo">
                                   <div class="header">
                                     <h2><mark>Lorem Ipsum</mark></h2>
@@ -177,15 +191,11 @@ spiegare il funzionamento del file
                             <!--The Text is generated with hipsum.co :) Check it out! -->
                               <div class="articleText">
                                 <h4 class="introduction">
-                                        Etiam sit amet rhoncus nisl, sodales finibus nulla. Quisque eget viverra purus. Sed placerat consequat sapien non tincidunt. Vivamus quis tristique lectus. Nam bibendum elit odio, eget vestibulum sem ullamcorper vitae. Proin diam augue, posuere in dictum non, sollicitudin ac quam. In nec commodo nibh. Sed odio enim, sagittis mattis dolor ac, facilisis porta ligula. Sed id tortor semper, hendrerit quam id, euismod ante. Duis ipsum arcu, feugiat at tempus at, euismod convallis felis. Ut sed tortor pharetra, eleifend mauris a, egestas nibh. In hac habitasse platea dictumst. Fusce gravida aliquam lorem, a accumsan velit tempor bibendum. Nullam dictum semper eros, ut maximus metus ultrices quis. Etiam eu eros ac nunc fringilla posuere. In hac habitasse platea dictumst.                       </h4>
-                                        <p>
-                                                Nullam eu sem dolor. Sed consectetur pharetra dignissim. Aliquam lacinia risus leo, ut lobortis est finibus ut. Integer sodales, enim et congue suscipit, odio magna pellentesque tellus, non tristique augue sem ut sapien. Cras consectetur, massa fringilla pretium elementum, neque dui condimentum nulla, at feugiat est libero in odio. Curabitur cursus velit sed libero dignissim consectetur. Phasellus vitae dapibus nisl. Curabitur faucibus tempus congue. Integer sit amet mauris est. Vivamus leo sem, aliquet quis sagittis eu, dignissim nec ipsum. In aliquet leo ac tempor luctus. Integer vel leo vel orci volutpat mollis in ut odio. Phasellus a eros scelerisque, suscipit ipsum ac, lobortis ex. Fusce convallis pretium sollicitudin.
-                                        </p>
-                                
-                                <h2> Cras ac magna </h2>
-                                <p>
-                                        Cras ac magna consequat diam pretium luctus mollis vel libero. Morbi non ipsum aliquet, placerat metus ut, pellentesque lorem. Vivamus faucibus, mauris et euismod tristique, justo arcu imperdiet ex, eget viverra urna libero at tortor. Nam bibendum ex enim, id pretium mauris consectetur ac. Praesent congue auctor nunc, et iaculis quam blandit vitae. Donec ac malesuada nulla. Quisque sagittis erat eget velit accumsan pellentesque. Quisque blandit porttitor aliquam. Morbi in lectus eleifend, aliquam orci efficitur, ultrices justo. Vestibulum iaculis a velit et posuere. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                </p>
+									La tecnologia Multi Jet fusion, immessa nel mercato da HP con la linea di stampanti 3D 4210 e 4200, lavora la polvere senza utilizzare i laser.
+									II letto di polvere viene riscaldato in modo uniforme e lavorato da due agenti: uno di fusione e l’altro di dettaglio. Il primo fonde selettivamente le particelle, il secondo migliora la risoluzione delle parti. Le lampade che si muovono sopra il letto di polvere scaldano il materiale contribuendo a distribuirlo in modo uniforme. Con la tecnologia Multi Jet Fusion è possibile riutilizzare l’80% delle polveri utilizzate durante il processo di stampa.
+									Con un sistema di stampa 10 volte più veloce e a metà del costo per parte prodotta, le stampanti 3D Multi Jet Fusion sfruttano 340 milioni di voxel al secondo.
+									Le macchine di HP, Jet Fusion 4200 e la serie 500 a colori, sono in grado di gestire più modelli in un ciclo di lavoro anche mentre la stampa è in esecuzione. E’ possibile monitorare in maniera avanzata e personalizzata le proprietà meccaniche, funzionali ed estetiche delle parti in termini di accuratezza e velocità.
+								</h4>
                                 </div>
                           </div>
         <div class="article" id="a5">
@@ -194,11 +204,6 @@ spiegare il funzionamento del file
                                     <h1>
                                       <mark>Stampa 3D Stereolitografia</mark>
                                     </h1>
-                                    <p id="author">
-                                      <mark>by Lorem Ipsum
-                                          
-                                    </mark>
-                                    </p>
                                     <div id="accountDetail" class="accountInfo">
                                       <div class="header">
                                         <h2><mark>Lorem Ipsum</mark></h2>
@@ -211,16 +216,11 @@ spiegare il funzionamento del file
                                 </div>
                                 <!--The Text is generated with hipsum.co :) Check it out! -->
                                   <div class="articleText">
-                                    <h4 class="introduction">
-                                            Etiam sit amet rhoncus nisl, sodales finibus nulla. Quisque eget viverra purus. Sed placerat consequat sapien non tincidunt. Vivamus quis tristique lectus. Nam bibendum elit odio, eget vestibulum sem ullamcorper vitae. Proin diam augue, posuere in dictum non, sollicitudin ac quam. In nec commodo nibh. Sed odio enim, sagittis mattis dolor ac, facilisis porta ligula. Sed id tortor semper, hendrerit quam id, euismod ante. Duis ipsum arcu, feugiat at tempus at, euismod convallis felis. Ut sed tortor pharetra, eleifend mauris a, egestas nibh. In hac habitasse platea dictumst. Fusce gravida aliquam lorem, a accumsan velit tempor bibendum. Nullam dictum semper eros, ut maximus metus ultrices quis. Etiam eu eros ac nunc fringilla posuere. In hac habitasse platea dictumst.                       </h4>
-                                            <p>
-                                                    Nullam eu sem dolor. Sed consectetur pharetra dignissim. Aliquam lacinia risus leo, ut lobortis est finibus ut. Integer sodales, enim et congue suscipit, odio magna pellentesque tellus, non tristique augue sem ut sapien. Cras consectetur, massa fringilla pretium elementum, neque dui condimentum nulla, at feugiat est libero in odio. Curabitur cursus velit sed libero dignissim consectetur. Phasellus vitae dapibus nisl. Curabitur faucibus tempus congue. Integer sit amet mauris est. Vivamus leo sem, aliquet quis sagittis eu, dignissim nec ipsum. In aliquet leo ac tempor luctus. Integer vel leo vel orci volutpat mollis in ut odio. Phasellus a eros scelerisque, suscipit ipsum ac, lobortis ex. Fusce convallis pretium sollicitudin.
-                                            </p>
-                                    
-                                    <h2> Cras ac magna </h2>
-                                    <p>
-                                            Cras ac magna consequat diam pretium luctus mollis vel libero. Morbi non ipsum aliquet, placerat metus ut, pellentesque lorem. Vivamus faucibus, mauris et euismod tristique, justo arcu imperdiet ex, eget viverra urna libero at tortor. Nam bibendum ex enim, id pretium mauris consectetur ac. Praesent congue auctor nunc, et iaculis quam blandit vitae. Donec ac malesuada nulla. Quisque sagittis erat eget velit accumsan pellentesque. Quisque blandit porttitor aliquam. Morbi in lectus eleifend, aliquam orci efficitur, ultrices justo. Vestibulum iaculis a velit et posuere. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                    </p>
+									<h4 class="introduction">
+										La stereolitografia è una tecnica che permette di realizzare singoli oggetti tridimensionali a partire direttamente da dati digitali elaborati da un software CAD/CAM.
+										La sua principale applicazione è la prototipazione rapida, che permette di avere oggetti fisici da testare prima della produzione industriale oppure preparare modelli per realizzare stampi di colata o pressofusione. Può essere impiegata anche per produrre velocemente pezzi di ricambio, facendosi inviare il file attraverso internet. L'utilizzo per la produzione in serie è ipotizzabile laddove altre tecniche di produzione si rivelino difficili e costose (per esempio con macchine a controllo numerico) ed in genere per produzioni numericamente molto limitate dove il costo fisso delle attrezzature (gusci, stampi ecc) incida eccessivamente. Un'importante applicazione si ha nell'imaging medico dove, a partire da immagini tomografiche o RMN è possibile realizzare in tempi brevi modelli di protesi, parti di ossa, tumori, vasi e altre parti anatomiche su cui il chirurgo può preparare l'intervento.
+										Gli oggetti prodotti sono costituiti interamente da resine speciali e ciò limita la possibilità di fabbricazione di oggetti metallici o di altri materiali. 
+									</h4>
                                     </div>
                               </div>
         <div class="article" id="a6">
@@ -229,11 +229,6 @@ spiegare il funzionamento del file
                                         <h1>
                                           <mark>Stampa 3D DMLS</mark>
                                         </h1>
-                                        <p id="author">
-                                          <mark>by Lorem Ipsum
-                                              
-                                        </mark>
-                                        </p>
                                         <div id="accountDetail" class="accountInfo">
                                           <div class="header">
                                             <h2><mark>Lorem Ipsum</mark></h2>
@@ -247,14 +242,14 @@ spiegare il funzionamento del file
                                     <!--The Text is generated with hipsum.co :) Check it out! -->
                                       <div class="articleText">
                                         <h4 class="introduction">
-                                                Etiam sit amet rhoncus nisl, sodales finibus nulla. Quisque eget viverra purus. Sed placerat consequat sapien non tincidunt. Vivamus quis tristique lectus. Nam bibendum elit odio, eget vestibulum sem ullamcorper vitae. Proin diam augue, posuere in dictum non, sollicitudin ac quam. In nec commodo nibh. Sed odio enim, sagittis mattis dolor ac, facilisis porta ligula. Sed id tortor semper, hendrerit quam id, euismod ante. Duis ipsum arcu, feugiat at tempus at, euismod convallis felis. Ut sed tortor pharetra, eleifend mauris a, egestas nibh. In hac habitasse platea dictumst. Fusce gravida aliquam lorem, a accumsan velit tempor bibendum. Nullam dictum semper eros, ut maximus metus ultrices quis. Etiam eu eros ac nunc fringilla posuere. In hac habitasse platea dictumst.                       </h4>
-                                                <p>
-                                                        Nullam eu sem dolor. Sed consectetur pharetra dignissim. Aliquam lacinia risus leo, ut lobortis est finibus ut. Integer sodales, enim et congue suscipit, odio magna pellentesque tellus, non tristique augue sem ut sapien. Cras consectetur, massa fringilla pretium elementum, neque dui condimentum nulla, at feugiat est libero in odio. Curabitur cursus velit sed libero dignissim consectetur. Phasellus vitae dapibus nisl. Curabitur faucibus tempus congue. Integer sit amet mauris est. Vivamus leo sem, aliquet quis sagittis eu, dignissim nec ipsum. In aliquet leo ac tempor luctus. Integer vel leo vel orci volutpat mollis in ut odio. Phasellus a eros scelerisque, suscipit ipsum ac, lobortis ex. Fusce convallis pretium sollicitudin.
-                                                </p>
+											DMLS e SLM  sono lavorazioni che permettono la costruzione di particolari metallici direttamente da polvere sottile metallica, adatte alla produzione di particolari che necessitano un processo di finitura per poter essere utilizzati come prodotti finiti.
+										</h4>
                                         
-                                        <h2> Cras ac magna </h2>
+                                        <h2> DMLS </h2>
                                         <p>
-                                                Cras ac magna consequat diam pretium luctus mollis vel libero. Morbi non ipsum aliquet, placerat metus ut, pellentesque lorem. Vivamus faucibus, mauris et euismod tristique, justo arcu imperdiet ex, eget viverra urna libero at tortor. Nam bibendum ex enim, id pretium mauris consectetur ac. Praesent congue auctor nunc, et iaculis quam blandit vitae. Donec ac malesuada nulla. Quisque sagittis erat eget velit accumsan pellentesque. Quisque blandit porttitor aliquam. Morbi in lectus eleifend, aliquam orci efficitur, ultrices justo. Vestibulum iaculis a velit et posuere. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                                                La DMLS (Direct Metal Laser Sintering) utilizza un sistema laser che disegna sulla superficie di una polvere metallica atomizzata, fondendo la parte che successivamente si solidifica. Dopo ciascuno strato, una lama aggiunge un nuovo strato di polvere e ripete il processo fino alla formazione delle parti metalliche finali.
+												La DMLS permette di realizzare pezzi con proprietà meccaniche uguali o superiori a quelli costruiti con tecniche tradizionali, con un elevato grado di precisione ed un buon livello di dettaglio. Con leghe di alluminio, titanio, cromo cobalto, acciaio e nickel si possono costruire prototipi, componenti definitivi e produzioni di serie fino a un centinaio di pezzi, ma anche inserti per stampi a iniezione.
+												L’elevata precisione e l’accuratezza dei dettagli consentono di produrre parti per il settore orafo e l’utilizzo di materiali come il Titanio rende adatta la tecnologia di DMLS per la produzione di protesi medicali e dentali.
                                         </p>
                                         </div>
                                   </div>
@@ -266,7 +261,7 @@ spiegare il funzionamento del file
 
   
 
-    <script  src="js/index.js"></script>
+  <!-->  <script  src="/html/paginaTecnologie/js/index.js"></script></-->
 
 
 </body>

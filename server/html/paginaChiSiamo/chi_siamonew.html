@@ -4,45 +4,78 @@
 	<title>dove siamo</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	<script src="js/three.min.js"></script>
-	<script src="js/stats.min.js"></script>
+	<script src="../html/paginaChiSiamo/js/three.min.js"></script>
+	<script src="../html/paginaChiSiamo/js/stats.min.js"></script>
         
-         <link rel="stylesheet" href="../responsive_css.2/responsive.css">
+         <link rel="stylesheet" href="../html/responsive_css.2/responsive.css">
         
 	<style>
 	body {
-		background-image: url("hires/bg.jpg");
+		background-image: url("../html/paginaChiSiamo/hires/bg.jpg");
 		background-position: center center;
 		overflow: hidden;
 		background-size: cover;
 	}
 	</style>
+	<script>
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+	</script>
+	
+	<script>
+		function logga_slogga(){
+		if(getCookie("id")!==""){
+			document.getElementById("login").innerHTML="";
+		}
+		else{
+			document.getElementById("logout").innerHTML="";
+		}
+	}
+	</script>
 </head>
 
 <body>
-    <div class="navbar_">
-        <a  href="http://localhost:8080/home">
+<div class="navbar_">
+
+        <a class="active_" href="http://localhost:8080/home">
           Home</a>
         <a href="http://localhost:8080/add_stampante">
           Aggiungi le tue macchine</a>
-        <a  href="http://localhost:8080/search">
+        <a href="http://localhost:8080/search">
           Cerca un maker</a>
-        <a   href="../visore3d/visore3d.html">Visore 3D</a>
-        <a  href="../paginaTecnologie/tecnologie.html">Tecnologie</a>
-        <a href="../paginaNews/news.html">News</a>
+        <a href="http://localhost:8080/visore">Visore 3D</a>
+        <a href="http://localhost:8080/tecnologie">Tecnologie</a>
+        <a href="http://localhost:8080/news">News</a>
         <!--fancy 3d log in form-->
         <!-- <a class= "right" href="../paginaRegistrati/reg_3d/index.html">
             Register / Log in</a> -->
             <!--oppure quella classica-->
-        <a class="right" href="http://localhost:8080/login">
-            Register / Log in</a>
-        <a  class="right" href="../paginaFAQ/Faq.html">
+        <a id="login" class= "right" href="http://localhost:8080/login">
+            Register/Login</a>
+        <a id="logout" class= "right" href="http://localhost:8080/logout">
+            Logout</a>
+        <a class="right" href="http://localhost:8080/faq">
                 FAQ</a>
-        <a class="active_ right" href="../paginaChiSiamo/chi_siamonew.html">
+        <a class="right" href="http://localhost:8080/chi_siamo">
           Chi siamo</a>
         <a class="right" href="http://localhost:8080/profilo">
-			Profilo</a>
-		</div>
+            Profilo</a>
+            
+    </div>
+		<script>logga_slogga()</script>
 
     <div style="color: white">
     <div style="padding-left:16px">
@@ -52,17 +85,14 @@
         
 <!-- immagine che ruota con testo dall'altra parte -->
 <!-- parte anteriore -->    
- <div class="flip-card">
+ <div class="flip-card" >
   <div class="flip-card-inner">
     <div class="flip-card-front">
-      <img src="../immagini/andrea.jpg" alt="foto di andrea" class="responsive" height="300">
+      <img style="-webkit-user-select: none;cursor: zoom-in;" src="../html/immagini/WhatsApp Image 2019-01-01 at 22.19.06.jpeg"  width='400' height='300'>
     </div>
 <!-- parte posteriore -->
       <div class="flip-card-back">
-      <h1>Andrea Lucchesi</h1>
-      <h2>Maker e studente di<br>Ingegneria dei Sistemi Informatici e Automatici</h2>
-      <p>Qui durante il workshop<br>"La stampa 3D ed i nuovi materiali per l'Ingegneria"<br>
-      tenuta presso l'Università "La Sapienza" di Roma</p>
+      <h1>Stefano Palmieri</h1>
     </div>
   </div>
 </div>     
@@ -97,9 +127,9 @@
 			document.body.appendChild( stats.dom );
 
 			// Earth terrain
-			var earth_texture  = new THREE.TextureLoader().load("tx/earth.jpeg");
-			var earth_bump     = new THREE.TextureLoader().load("tx/bump.jpeg");
-			var earth_specular = new THREE.TextureLoader().load("tx/spec.jpeg");
+			var earth_texture  = new THREE.TextureLoader().load("../html/paginaChiSiamo/tx/earth.jpeg");
+			var earth_bump     = new THREE.TextureLoader().load("../html/paginaChiSiamo/tx/bump.jpeg");
+			var earth_specular = new THREE.TextureLoader().load("../html/paginaChiSiamo/tx/spec.jpeg");
 			var earth_geometry = new THREE.SphereGeometry(30, 32, 32);
 			var earth_material = new THREE.MeshPhongMaterial({
 				shininess   : 40,
@@ -112,7 +142,7 @@
 			scene.add(earth);
 
 			// Earth cloud
-			var cloud_texture  = new THREE.TextureLoader().load('tx/cloud.png');
+			var cloud_texture  = new THREE.TextureLoader().load('../html/paginaChiSiamo/tx/cloud.png');
 			var cloud_geometry = new THREE.SphereGeometry(31, 32, 32);
 			var cloud_material = new THREE.MeshBasicMaterial({
 				shininess   : 10,
