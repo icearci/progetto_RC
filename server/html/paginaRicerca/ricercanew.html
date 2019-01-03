@@ -88,33 +88,50 @@ spiegare il funzionamento del file
                 max_hour_price -->
                         
                     <div class="row">
+						<div class="col-sm-6">
+                            <span class="input-desc">Indirizzo</span>
+                            <label class="text-data req">
+                                <input type="text" name="via" class="text-data" id="user_address" placeholder="Via Roma 154">
+                            </label>
+                       
+                        </div>
                                
                         <div class="col-sm-6">
-                            <span class="input-desc">City</span>
+                            <span class="input-desc">Città</span>
                             <label class="text-data req">
-                                <input type="text" name="ricerca" class="text-data" id="user_city" placeholder="Rome">
+                                <input type="text" name="varcitta" class="text-data" id="user_city" placeholder="Roma">
                             </label>
                        
                         </div>
                     
-                        <div class="col-sm-6">
-                            <span class="input-desc">Address</span>
+                        
+                        
+                    </div>
+                    <div class="row"> 
+						<div class="col-sm-6">
+                            <span class="input-desc">Provincia</span>
                             <label class="text-data req">
-                                <input type="text" name="via" class="text-data" id="user_address" placeholder="Rome">
+                                <input type="text" name="varprovincia" class="text-data" id="user_provincia" placeholder="RM">
                             </label>
                        
                         </div>
-                    </div>
-                    <div class="row"> 
-                            <div class="col-sm-6">
+						<div class="col-sm-6">
                                     <span class="input-desc">CAP</span>
                                     <label class="text-data req">
-                                        <input type="text" name="cap" class="text-data" id="user_cap" placeholder="10">
+                                        <input type="text" name="varcap" class="text-data" id="user_cap" placeholder="00156">
+                                    </label>
+                                </div>
+                            <div class="col-sm-6">
+                                    <span class="input-desc">Paese</span>
+                                    <label class="text-data req">
+                                        <input type="text" name="varpaese" class="text-data" id="user_paese" placeholder="IT">
                                     </label>
                                 </div>  
-                         
+                                </div>
+                                  
+                         <div class="row">
                                 <div class="col-sm-6">
-                                        <span class="input-desc">Max prezzo all' ora</span>
+                                        <span class="input-desc">Max prezzo / h</span>
                                         <label class="text-data req">
                                             <input type="text" name="stampanteprezzo" class="text-data" id="max_hour_price" placeholder="12">
                                         </label>
@@ -202,7 +219,7 @@ spiegare il funzionamento del file
                                 <div class="control--fill"></div>
                                 <div class="help"></div>
                                 <div class="help--tooltip">
-                                    Selezionare se si desidera un venditore che abiti al difuori della tua nazione
+                                    Selezionare se si desidera un venditore che abiti al di fuori della tua nazione
                                 </div>
                             </label>
                             

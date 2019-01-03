@@ -193,7 +193,7 @@ function getCookie(cname) {
         <!--text inputs-->
         <div class="row">
                 <h1> Form Immissione Stampante</h1>
-                <p id='error'></p>
+                
                 <div class="col-group col-sm-12">
                     <h1>User Data</h1>
                     
@@ -214,7 +214,7 @@ function getCookie(cname) {
                         <div class="col-sm-6">
                             <span class="input-desc">Address</span>
                             <label class="text-data">
-                                <input type="text"name="varindirizzo" class="text-data--address"/ placeholder="1234 Mulberry Street">
+                                <input type="text"name="varindirizzo" class="text-data--address"/ placeholder="Via Roma 76">
                                 <div class="help"></div>
                                 <div class="help--tooltip">
                                     inserire l'indirizzo dove la stampante è situata.
@@ -225,6 +225,24 @@ function getCookie(cname) {
                             <span class="input-desc">City</span>
                             <label class="text-data">
                                 <input type="text" name="varcitta" class="text-data"/ placeholder="Rome">
+                            </label>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="input-desc">Provincia</span>
+                            <label class="text-data">
+                                <input type="text" name="varprovincia" class="text-data"/ placeholder="RM">
+                            </label>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="input-desc">Paese</span>
+                            <label class="text-data">
+                                <input type="text" name="varpaese" class="text-data"/ placeholder="IT">
+                            </label>
+                        </div>
+                        <div class="col-sm-6">
+                            <span class="input-desc">CAP</span>
+                            <label class="text-data">
+                                <input type="text" name="varcap" class="text-data"/ placeholder="00156">
                             </label>
                         </div>
                     </div>
@@ -590,6 +608,7 @@ function getCookie(cname) {
                             
                         </div>
                     </div>
+                    <br><p id='error'></p>
                 </div>
             </div>
     

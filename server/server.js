@@ -15,6 +15,34 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use(cookie_parser());
 
+function generaDB(){
+	var options = {
+		method: "PUT",
+		path: "/users",
+		port: 5984,
+		host: "localhost",
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+		},
+	};
+	const richiesta = http.request(options);
+	richiesta.end();
+	var options1 = {
+		method: "PUT",
+		path: "/printers",
+		port: 5984,
+		host: "localhost",
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+		},
+	};
+	const richiesta1 = http.request(options1);
+	richiesta1.end();
+}
+generaDB();
+
 var pagine_utili = ["/login","/home","/add_stampante","/search","/profilo","/tecnologie","/news","/chi_siamo","/faq","/visore"];
 function generateUuid() {
 	return Math.random().toString() +
@@ -122,6 +150,9 @@ app.post("/add_stampante", (req, res) => {
 			varuser:req.body.varuser,
 			varindirizzo:req.body.varindirizzo,
 			varcitta:req.body.varcitta,
+			varprovincia:req.body.varprovincia,
+			varpaese:req.body.varpaese,
+			varcap:req.body.varcap,
 			varemail:req.body.varemail,
 			vartelefono:req.body.vartelefono,
 			stampantetipo:req.body.stampantetipo,
@@ -240,41 +271,45 @@ app.post('/search', (req, res) => {
 	var parte_fissa = fs.readFileSync(path.resolve(__dirname + "/html/paginaRicerca/parte_fissa.txt"), { encoding: "utf-8" });
 	
 	var id = req.cookies.id;
-	var citta_ = req.body.ricerca;
-	var via_ = req.body.via;
-	var cap_=req.body.cap;
 	var stampanteprezzo_ = req.body.stampanteprezzo;
 	var stampantetipo_ = req.body.stampantetipo;
 	var vartipospedizione_ = req.body.vartipospedizione;
 	var tolleranza_ = req.body.tolleranza;
 
 	var info = {
-		varcitta: citta_,
-		via: via_,
-		cap: cap_,
+		varindirizzo: req.body.via,
+		varcitta: req.body.varcitta,
+		varprovincia: req.body.varprovincia,
+		varcap: req.body.varcap,
+		varpaese: req.body.varpaese,
 		tolleranza: tolleranza_,
 		stampantetipo: stampantetipo_,
 		stampanteprezzo: stampanteprezzo_,
 		vartipospedizione: vartipospedizione_,
 	};
-	console.log(info);
 	amqp.connect('amqp://localhost', function(err, conn) {
 		if(!err){
 			var queue = 'search_q';
 			conn.createChannel(function(err,ch){
-				ch.assertQueue('', {exclusive: true},function(err,q){
+				ch.assertQueue('', {durable: false, autodelete: true, exclusive: true},function(err,q){
 					var corr = generateUuid();
-
-
 					ch.sendToQueue('search_q',new Buffer(JSON.stringify(info)), { correlationId: corr, replyTo: 'search_q', content_type: "application/json" });
 
 
 
 					ch.consume(q.queue, function(msg) {
 					if (msg.properties.correlationId == corr) {
-						console.log(msg.content.toString());//finire
-
-					setTimeout(function() { conn.close(); process.exit(0) }, 500);
+						if(msg.content.toString()==="noresults"){
+							console.log(msg.content.toString());
+							var toSend = parte_fissa+"<div class='row'><p>Nessun risultato,siamo spiacenti!</p></div>"//finire
+							res.send(toSend);
+						}
+						else{
+							console.log(msg.content.toString());
+							res.send(msg.content.toString());
+							var risultati = JSON.parse(msg.content.toString());
+						}
+						
 					}},{noAck:true});
 				});
 			});
