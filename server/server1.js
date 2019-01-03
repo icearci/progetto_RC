@@ -293,7 +293,7 @@ app.post('/search', (req, res) => {
 			var testo='';
 			var cerca='search_q';
 			conn.createChannel(function(err,ch){
-				ch.assertQueue(cerca, {durable: false});
+				ch.assertQueue(cerca, {durable: false, autoDelete: true});
 				var corr = generateUuid();
 				ch.sendToQueue(cerca,new Buffer(JSON.stringify(info)), { correlationId: corr, replyTo: 'search_q', content_type: "application/json" });
 				ch.consume(cerca, function(msg) {
@@ -308,29 +308,25 @@ app.post('/search', (req, res) => {
 							
 							console.log(msg.content.toString());
 							var parte = JSON.parse(msg.content.toString());
-							console.log(parte);
-							console.log(parte.0);
-							var stampante = JSON.parse(parte.t.toString());
-							t=t+1;
-							var tipo=stampante.stampantetipo.split('_');
-							var q='';
-							for (c=0; c<tipo.length; c++){
-								q=q+' '+tipo[c];
-							}
-							testo="<div role='tabpanel' class='description'><div class='tab-pane active'><div class='col-xs-12'>"+
-									  "<h1><center>Risultato numero: "+t+"<center><br></h1>"+
-									  "<h2>"+"venditore"+stampante.user+"<br></h2>"+
+							var cont = parseInt(parte["numero"]);
+							for(var i = 0;i<cont;i++){
+								var stampante=parte[i.toString()]
+							var testo="<div role='tabpanel' class='description'><div class='tab-pane active'><div class='col-xs-12'>"+
+									  "<h1><center>Risultato numero: "+i+1+"<center><br></h1>"+
+									  "<h2>"+"venditore"+stampante.varuser+"<br></h2>"+
 									  "<p>"+
 										  "indirizzo: "+stampante.varindirizzo+"<br>"+
 										  "città: "+stampante.varcitta+"<br>"+
 										  "email: "+stampante.varemail+"<br>"+
 										  "telefono: "+stampante.vartelefono+"<br>"+
-										  "tipo stampante: "+q+"<br>"+
+										  "tipo stampante: "+stampante.stampantetipo+"<br>"+
 										  "nome stampante: "+stampante.stampantenome+"<br>"+
 										  "id stampante: "+stampante.stampanteid+"<br>"+
 										  "prezzo stampante: "+stampante.stampanteprezzo+"<br></p></div>"+
 								"</div></div></body></head>";
-							parte_fissa=parte_fissa+testo;
+							parte_fissa+=testo;
+							console.log(parte_fissa);
+						}
 							res.send(parte_fissa);
 						}
 					}

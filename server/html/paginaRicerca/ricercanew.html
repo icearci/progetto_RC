@@ -15,31 +15,34 @@ spiegare il funzionamento del file
       
       
           <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-<script> 
-    function getCookie(cname) {
-            var printer = document.getElementsByName('stampantetipo').value;
-            var expedition = document.getElementsByName('vartipospedizione').value;
-            var msg = city+'/'+tollerance+'/'+price+'/'+printer+'/'+expedition;        
-                
-            ws = new WebSocket('ws://localhost:8084/');
-            ws.onopen = function(){
-                  ws.send(msg);
-                  ws.onmessage = function(event){
-					  var messaggio = event.data;
-					  if(messaggio==="ok"){
-                          
-						  ws.close();
-						 // document.getElementById("form_login").submit();
-						  
-					  }
-					  else if (messaggio === "refuse"){
-						  //document.getElementById('error').innerHTML = "Username o password non validi!";
-						 // setTimeout(function(){document.getElementById('error').innerHTML = '';} ,5000);
-					  }
-				  };
-            };
-          }
-      </script> 
+	      <script>
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+	</script>
+	
+	<script>
+		function logga_slogga(){
+		if(getCookie("id")!==""){
+			document.getElementById("login").innerHTML="";
+		}
+		else{
+			document.getElementById("logout").innerHTML="";
+		}
+	}
+	</script>
     </head>
     <body>
             <!--nav bar-->
@@ -73,7 +76,7 @@ spiegare il funzionamento del file
 		<script>logga_slogga()</script>
     
             <!--immissione form di leo-->
-            <form action="http://localhost:8080/search" method="post">
+            <form action="http://localhost:5000/search" method="post">
                     
                  <div class="container">
 

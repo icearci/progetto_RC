@@ -4,12 +4,11 @@ import json
 import hashlib
 from urllib2 import Request, urlopen
 import requests
+from flask import Flask
+from flask import request
 
 #nM8W4oBYrRSKLAWcB12JBRdJsrOjBOwM
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
-channel = connection.channel()
-channel.queue_declare(queue='search_q')
 
 def get_lista_docs():
 	url = "http://localhost:5984/printers/_all_docs"
@@ -23,29 +22,7 @@ def get_lista_docs():
 		lista_id.append(elem["id"])
 	return lista_id
 	
-
-def calcola_distanza1(luogo1,luogo2):
-	headers = {
-	'Accept': 'application/json; charset=utf-8'
-		}
-	richiesta_geocoding1 = Request('https://api.openrouteservice.org/geocode/search?api_key=5b3ce3597851110001cf6248228ad9c82d354084a44aed7cfa290c1a&text='+luogo1+'&sources=osm&boundary.country=IT&size=1&', headers=headers)
-	richiesta_geocoding2 = Request('https://api.openrouteservice.org/geocode/search?api_key=5b3ce3597851110001cf6248228ad9c82d354084a44aed7cfa290c1a&text='+luogo2+'&sources=osm&boundary.country=IT&size=1', headers=headers)
-	geocoding1 = json.loads(urlopen(richiesta_geocoding1).read())
-	geocoding2 = json.loads(urlopen(richiesta_geocoding2).read())
-
-	coord1 = geocoding1["features"][0]["geometry"]["coordinates"]
-	coord1.reverse()
-
-	coord2=geocoding2["features"][0]["geometry"]["coordinates"]
-	coord2.reverse()
-
-	request = Request('https://api.openrouteservice.org/matrix?api_key=5b3ce3597851110001cf6248228ad9c82d354084a44aed7cfa290c1a&profile=driving-car&metrics=distance&locations='+str(coord1[0])+','+str(coord1[1])+'%7C'+str(coord2[0])+','+str(coord2[1]), headers=headers)
-	response_body = json.loads(urlopen(request).read())
-	print(response_body)
-	print(response_body["sources"][0]["snapped_distance"])
-	return float(response_body["sources"][0]["snapped_distance"])
-
-		
+	
 def calcola_distanza(via1,citta1,provincia1,paese1,cap1,via2,citta2,provincia2,paese2,cap2):
 	body = """{
 	"locations": [
@@ -98,7 +75,7 @@ def get_json_risultati(risultati,database):
 	for elem in risultati:
 		json_dict[str(cont)]=database.get(elem)
 		cont+=1
-
+	json_dict["numero"]=cont;
 	return json.dumps(json_dict)
 
 def algoritmo(database,info): #occorre ancora sortare alla fine
@@ -123,7 +100,7 @@ def algoritmo(database,info): #occorre ancora sortare alla fine
 			for doc in lista_tipo:
 				print("[algoritmo] prezzoInfo = ",info.get("stampanteprezzo"),"prezzodatabase= ",database.get(doc)["stampanteprezzo"])
 				
-				if database.get(doc).get("stampanteprezzo") <= info.get("stampanteprezzo"):
+				if float(database.get(doc).get("stampanteprezzo")) <= float(info.get("stampanteprezzo")):
 					lista_prezzo.append(doc)
 					print("[algoritmo] appeso prezzo all lista_prezzo")
 				
@@ -132,7 +109,7 @@ def algoritmo(database,info): #occorre ancora sortare alla fine
 			for elem in lista_prezzo:
 				print("[algoritmo]entrato in ciclo calcola distanza")
 				doc = database.get(elem)
-				distanza = calcola_distanza(str(doc.get("varindirizzo")),str(doc.get("varcitta")),str(doc.get("varprovincia")),str(doc.get("varpaese")),str(doc.get("varcap")),str(info.get("varindirizzo")),str(info.get("varcitta")),str(info.get("varprovincia")),str(info.get("varpaese")),str(info.get("varcap")))
+				distanza = calcola_distanza(str(doc.get("varindirizzo")),str(doc.get("varcitta")),str(doc.get("varprovincia")),str(doc.get("varpaese")),str(doc.get("varcap")),str(info.get("via")),str(info.get("varcitta")),str(info.get("varprovincia")),str(info.get("varpaese")),str(info.get("varcap")))
 				if distanza <= float(info.get("tolleranza")):
 					print("[algoritmo]",distanza,"e' minore dellatolleranza  "+ info.get("tolleranza"))
 					lista_serie.append(elem)
@@ -143,52 +120,38 @@ def algoritmo(database,info): #occorre ancora sortare alla fine
 	
 
 
-def on_request(ch, method, props, body):
-	print("\n \n \n \n #################################################################\n \n \n \n########################## nuova iterazioene ####################\n \n \n \n#################################################################\n \n \n \n")
-	print("[on request] -------------->start->pycouchdb.Server('http://localhost:5984')")
-	server = pycouchdb.Server('http://localhost:5984')
-	print("[on request] -------------->end ->pycouchdb.Server('http://localhost:5984')")
+app = Flask(__name__)
+server = pycouchdb.Server('http://localhost:5984')
+printers = server.database("printers")
+fopen = open("parte_fissa.txt","r") 
 
-	print("[on request] -------------->start->server.database('printers')")
 
-	printers = server.database("printers")
-	print("[on request] -------------->end->server.database('printers')")
-	# print("[on request]",body)
-
-	print("[on request] -------------->start->algoritmo(printers,json.loads(body))")
-	risultati = algoritmo(printers,json.loads(body))
-	print("[on request] -------------->end->algoritmo(printers,json.loads(body))")
-	if(risultati):
-		print("[on request] -------------->start->get_json_risultati(risultati,printers)")
-		json_ris = get_json_risultati(risultati,printers)
-		print("[on_request]json_ris= ")
-		print(json_ris)
-		print("[on request] -------------->end->get_json_risultati(risultati,printers)")
+@app.route('/search', methods = ["POST"])
+def search():
+	parte_fissa = str(fopen.read())
+	print(parte_fissa)
+	if request.method == "POST":
+		#varindirizzo = request.form["via"]
+		#varcitta = req.form["varcitta"]
+		#varprovincia = req.form["varprovincia"]
+		#varcap = req.form["varcap"]
+		#varpaese = req.form["varpaese"]
+		##tolleranza = request.form["tolleranza"]
+		#stampantetipo = request.form["stampantetipo"]
+		#stampanteprezzo = request.form["stampanteprezzo"]
+		#vartipospedizione = request.form["vartipospedizione"]
+		risultati = algoritmo(printers,request.form)
+		if len(risultati)>0:
+			json_ris = get_json_risultati(risultati,printers)
+			ris = json.loads(json_ris)
+			for i in range(0,int(json.loads(json_ris)["numero"])):
+				stampante = ris[str(i)]
+				print(stampante)
+				testo="<div role='tabpanel' class='description'><div class='tab-pane active'><div class='col-xs-12'>"+"<h1><center>Risultato numero: "+str(i+1)+"<center><br></h1>"+"<h2>"+"venditore"+stampante["varuser"]+"<br></h2>"+"<p>"+"indirizzo: "+stampante["varindirizzo"]+"<br>"+"citta: "+stampante["varcitta"]+"<br>"+"email: "+stampante["varemail"]+"<br>"+"telefono: "+stampante["vartelefono"]+"<br>"""+"tipo stampante: "+stampante["stampantetipo"]+"<br>"+"nome stampante: "+stampante["stampantenome"]+"<br>"+"id stampante: "+stampante["stampanteid"]+"<br>"""+"prezzo stampante: "+stampante["stampanteprezzo"]+"<br></p></div>"+"</div></div></body></head>"
+				parte_fissa+=testo
+			return parte_fissa
+			
+		else:
+			return parte_fissa+"<div role='tabpanel' class='description'><div class='tab-pane active'>"+"<h1><center>Nessun risultato,siamo spiacenti!<center></h1></div></div></body></head>"
 		
 	
-	
-	
-		ch.basic_publish(exchange='',
-						routing_key="search_q",
-						properties=pika.BasicProperties(correlation_id = \
-															props.correlation_id),
-						body=json_ris)
-		print("scritto sulla queue")
-		
-
-		
-	else :
-		json_ris=""
-		print("risultati vuoto")
-		ch.basic_publish(exchange='',
-						routing_key="search_q",
-						properties=pika.BasicProperties(correlation_id = \
-															props.correlation_id),
-						body="noresults")
-		print("scritto sulla queue")
-	
-
-channel.basic_qos(prefetch_count=1)
-channel.basic_consume(on_request, queue='search_q')
-channel.start_consuming()
-
