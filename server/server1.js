@@ -291,40 +291,49 @@ app.post('/search', (req, res) => {
 		if(!err){
 			var t=0;
 			var testo='';
+			var cerca='search_q';
 			conn.createChannel(function(err,ch){
-				ch.assertQueue('', {durable: false, autodelete: true, exclusive: true},function(err,q){
-					var corr = generateUuid();
-					ch.sendToQueue('search_q',new Buffer(JSON.stringify(info)), { correlationId: corr, replyTo: 'search_q', content_type: "application/json" });
-					ch.consume('search_q', function(msg) {
-						if (msg.properties.correlationId == corr) {
-							if(msg.content.toString()==="noresults"){
-								console.log(msg.content.toString());
-								var toSend = parte_fissa+"<div role='tabpanel' class='description'><div class='tab-pane active'>"+
-									  "<h1><center>Nessun risultato,siamo spiacenti!<center></h1></div></div></body></head>";//finire
-								res.send(toSend);
-							}
-							else{
-								t=t+1;
-								console.log(msg.content.toString());
-								var stampante = JSON.parse(msg.content.toString());
-								testo="<div role='tabpanel' class='description'><div class='tab-pane active'><div class='col-xs-12'>"+
-										  "<h1><center>Risultato numero: "+t+"<center><br></h1>"+
-										  "<h2>"+"venditore"+stampante.user+"<br></h2>"+
-										  "<p>"+
-											  "indirizzo: "+stampante.varindirizzo+"<br>"+
-											  "città: "+stampante.varcitta+"<br>"+
-											  "email: "+stampante.varemail+"<br>"+
-											  "telefono: "+stampante.vartelefono+"<br>"+
-											  "tipo stampante: "+q+"<br>"+
-											  "nome stampante: "+stampante.stampantenome+"<br>"+
-											  "id stampante: "+stampante.stampanteid+"<br>"+
-											  "prezzo stampante: "+stampante.stampanteprezzo+"<br></p></div>"+
-									"</div></div></body></head>";
-								parte_fissa=parte_fissa+testo;
-								res.send(parte_fissa);
-							}
+				ch.assertQueue(cerca, {durable: false});
+				var corr = generateUuid();
+				ch.sendToQueue(cerca,new Buffer(JSON.stringify(info)), { correlationId: corr, replyTo: 'search_q', content_type: "application/json" });
+				ch.consume(cerca, function(msg) {
+					if (msg.properties.correlationId == corr) {
+						if(msg.content.toString()==="noresults"){
+							console.log(msg.content.toString());
+							var toSend = parte_fissa+"<div role='tabpanel' class='description'><div class='tab-pane active'>"+
+								  "<h1><center>Nessun risultato,siamo spiacenti!<center></h1></div></div></body></head>";//finire
+							res.send(toSend);
 						}
-					},{noAck:true});
+						else{
+							
+							console.log(msg.content.toString());
+							var parte = JSON.parse(msg.content.toString());
+							console.log(parte);
+							console.log(parte.0);
+							var stampante = JSON.parse(parte.t.toString());
+							t=t+1;
+							var tipo=stampante.stampantetipo.split('_');
+							var q='';
+							for (c=0; c<tipo.length; c++){
+								q=q+' '+tipo[c];
+							}
+							testo="<div role='tabpanel' class='description'><div class='tab-pane active'><div class='col-xs-12'>"+
+									  "<h1><center>Risultato numero: "+t+"<center><br></h1>"+
+									  "<h2>"+"venditore"+stampante.user+"<br></h2>"+
+									  "<p>"+
+										  "indirizzo: "+stampante.varindirizzo+"<br>"+
+										  "città: "+stampante.varcitta+"<br>"+
+										  "email: "+stampante.varemail+"<br>"+
+										  "telefono: "+stampante.vartelefono+"<br>"+
+										  "tipo stampante: "+q+"<br>"+
+										  "nome stampante: "+stampante.stampantenome+"<br>"+
+										  "id stampante: "+stampante.stampanteid+"<br>"+
+										  "prezzo stampante: "+stampante.stampanteprezzo+"<br></p></div>"+
+								"</div></div></body></head>";
+							parte_fissa=parte_fissa+testo;
+							res.send(parte_fissa);
+						}
+					}
 				});
 			});
 		}
