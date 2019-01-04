@@ -1,0 +1,18 @@
+<table id="tabella">
+<tr>
+    <th>Nome</th>
+    <th>Cognome</th>
+    <th>Indirizzo</th>
+    <th>Citta</th>
+    <th>consegna</th>
+    <th>Email</th>
+    <th>telefono</th>
+    <th>Macchinario</th>
+    <th>nome macchina</th>
+    <th>costo-ora</th>
+    </tr>
+
+
+    "<tr><td>"+stampante["varuser"]+"</td><td>"+stampante["varindirizzo"]+"</td><td>"+stampante["varcitta"]+"</td><td>"+stampante["varemail"]+"</td><td>"+stampante["vartelefono"]+"</td><td>"+stampante["stampantetipo"]+"</td><td>"+stampante["stampantenome"]+"</td><td>"+stampante["stampanteid"]+"</td><td>"+stampante["stampanteprezzo"]+"</td></tr>"
+    
+    

@@ -59,3 +59,20 @@
           <a class="right" href="../paginaProfilo/Profilo.html">
               Profilo</a>
     </div>
+<table id="tabella">
+<tr>
+    <th>User</th>
+    <th>Indirizzo</th>
+    <th>Citta</th>
+   <th>Email</th>
+    <th>telefono</th>
+    <th>Macchinario</th>
+    <th>nome macchina</th>
+    <th>ID </th>
+    <th>costo-ora</th>
+
+        
+
+</tr>
+
+
