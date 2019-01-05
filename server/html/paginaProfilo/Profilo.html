@@ -65,15 +65,15 @@
 	}
 	</script>
 	<script>
+		function iniziaWS(){
+			ws = new WebSocket("ws://localhost:8085");
+		}
 		function remove_stampante(id){
-			alert("cane");
 			var array=String(document.getElementById(id).innerHTML).split("id stampante: ");
 			var stampante = array[1];
 			var msg = "remove_stampante?"+stampante;
-			var ws = new WebSocket("ws://localhost:8085");
-			ws.onopen = function(){
-				ws.send(msg);
-			};
+			ws.send(msg);
+			setTimeout(function(){window.location = "http://localhost:8080/profilo";},2000);
 		}
 	</script>
 	
@@ -84,7 +84,7 @@
 </head>
 <body>
 	<script>prova()</script>
-
+	<script>iniziaWS()</script>
     <!--nav bar-->
     <div class="navbar">
 
