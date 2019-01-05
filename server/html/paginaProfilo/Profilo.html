@@ -64,6 +64,20 @@
 		}
 	}
 	</script>
+	<script>
+		function remove_stampante(id){
+			var id_stampante = document.getElementById(id).innerHTML
+			var msg = "remove_stampante?"+id_stampante;
+			var ws = new WebSocket("ws://localhost:8085");
+			ws.onopen = function(){
+				ws.send(msg);
+			};
+		}
+	</script>
+	
+	
+	
+	</script>
   
 </head>
 <body>

@@ -29,6 +29,7 @@ function prova(){
 				}
 				else{
 					t=t+1;
+					num_stamp = t-1;
 					var messaggio=event.data;
 					var stampante=JSON.parse(messaggio);
 					var tipo=stampante.stampantetipo.split('_');
@@ -43,18 +44,16 @@ function prova(){
 						  "</div><br>";*/
 						 /* "<div role='tabpanel' class='description'><div class='tab-pane active'><div class='col-xs-12'>"+*/
 						"<div role='tabpanel' class='description'><div class='tab-pane active'><div class='col-xs-12'>"+
-								  "<h1><center>Stampante numero: "+(t-1)+"<center><br></h1>"+
 								  "<h2>"+stampante.stampantenome+"<br></h2>"+
-								  "<p>"+
 									  "indirizzo: "+stampante.varindirizzo+"<br>"+
 									  "città: "+stampante.varcitta+"<br>"+
 									  "email: "+stampante.varemail+"<br>"+
 									  "telefono: "+stampante.vartelefono+"<br>"+
 									  "tipo stampante: "+q+"<br>"+
 									  "id stampante: "+stampante.stampanteid+"<br>"+
-									  "prezzo stampante: "+stampante.stampanteprezzo+"<br></p></div>"+
+									  "prezzo stampante: "+stampante.stampanteprezzo+"<br>"+
 							  "<img id='printer' style='-webkit-user-select: none;cursor: zoom-in;' src='../html/immagini/Smart 3D Printer(800x600).png'width='400' height='400'>"+
-							"</div></div>";
+							"</div></div></div>";
 					document.getElementById("stampa1").innerHTML = document.getElementById("stampa1").innerHTML+testo;	
 				}
 			};
