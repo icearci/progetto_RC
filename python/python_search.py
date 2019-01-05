@@ -1,4 +1,3 @@
-import pika
 import pycouchdb
 import json
 import hashlib
@@ -123,11 +122,11 @@ def algoritmo(database,info): #occorre ancora sortare alla fine
 app = Flask(__name__)
 server = pycouchdb.Server('http://localhost:5984')
 printers = server.database("printers")
-fopen = open("parte_fissa.txt","r") 
 
 
 @app.route('/search', methods = ["POST"])
 def search():
+	fopen = open("parte_fissa.txt","r") 
 	parte_fissa = str(fopen.read())
 
 	#print(parte_fissa)
@@ -159,5 +158,5 @@ def search():
 			
 		else:
 			return parte_fissa+"<div role='tabpanel' class='description'><div class='tab-pane active'>"+"<h1><center>Nessun risultato,siamo spiacenti!<center></h1></div></div></body></html>"
-		
+			parte_fissa+="</table></body></html>"
 	
