@@ -74,7 +74,7 @@ def get_json_risultati(risultati,database):
 	for elem in risultati:
 		json_dict[str(cont)]=database.get(elem)
 		cont+=1
-	json_dict["numero"]=cont;
+	json_dict["numero"]=cont
 	return json.dumps(json_dict)
 
 def algoritmo(database,info): #occorre ancora sortare alla fine
@@ -157,6 +157,6 @@ def search():
 			return parte_fissa
 			
 		else:
-			return parte_fissa+"<div role='tabpanel' class='description'><div class='tab-pane active'>"+"<h1><center>Nessun risultato,siamo spiacenti!<center></h1></div></div></body></html>"
+			parte_fissa+"<div role='tabpanel' class='description'><div class='tab-pane active'>"+"<h1><center>Nessun risultato,siamo spiacenti!<center></h1></div></div></body></html>"
 			parte_fissa+="</table></body></html>"
-	
+			return parte_fissa
