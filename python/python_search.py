@@ -71,30 +71,33 @@ def get_json_risultati(risultati,database):
 	# print("[get_json_risultati] database = ")
 	# print(database)
 	cont = 0
-	for elem in risultati:
+	for elem in risultati.keys():
 		json_dict[str(cont)]=database.get(elem)
+		json_dict[str(cont)]["distanza"]=risultati[elem]
+		print(json_dict)
 		cont+=1
 	json_dict["numero"]=cont
 	return json.dumps(json_dict)
 
 def algoritmo(database,info): #occorre ancora sortare alla fine
 	if(info):
+		lista_id = get_lista_docs()
 		#faccio il check sulla spedizione
-		if info.get("vartipospedizione") == "manocitta":
+		if info.get("vartipospedizione") == "ritiro":
 			lista_prezzo = []
-			lista_id = get_lista_docs()
 			# print("[algoritmo] lista_id = ")
 			# print(lista_id)
 			lista_tipo = []
 			#il primo ciclo filtra sul tipo stampante
 			for elem in lista_id:
+				if database.get(elem)["varconsegna"]=="si":
 				# print("[algoritmo] stampantetipoInfo = ",str(info.get("stampantetipo")),"stampantetipodatabase= ",database.get(elem)["stampantetipo"])
 
 				
-				if database.get(elem)["stampantetipo"]==info.get("stampantetipo"):
-					# print("[algoritmo] match di tipo stampante trovato")
+					if database.get(elem)["stampantetipo"]==info.get("stampantetipo"):
+						# print("[algoritmo] match di tipo stampante trovato")
 
-					lista_tipo.append(elem)
+						lista_tipo.append(elem)
 			#il secondo ciclo filtra sul prezzo
 			for doc in lista_tipo:
 				# print("[algoritmo] prezzoInfo = ",info.get("stampanteprezzo"),"prezzodatabase= ",database.get(doc)["stampanteprezzo"])
@@ -105,6 +108,7 @@ def algoritmo(database,info): #occorre ancora sortare alla fine
 				
 			lista_serie = []
 			#il terzo sulle distanze(TO BE DONE)
+			dizionario = {}
 			for elem in lista_prezzo:
 				#print("[algoritmo]entrato in ciclo calcola distanza")
 				doc = database.get(elem)
@@ -112,12 +116,23 @@ def algoritmo(database,info): #occorre ancora sortare alla fine
 				if distanza <= float(info.get("tolleranza")):
 					#print("[algoritmo]",distanza,"e' minore dellatolleranza  "+ info.get("tolleranza"))
 					lista_serie.append(elem)
+					dizionario[elem]=distanza
 				else :
 					print("[algoritmo]",distanza,"e' maggiore della tolleranza "+ info.get("tolleranza"))
-			return lista_serie
-			
-	
-
+			return dizionario
+		else:
+			lista_prezzo = []
+			lista_tipo = []
+			dizionario = {}
+			for elem in lista_id:
+				if database.get(elem)["varspedizione"]=="si":
+					if database.get(elem)["stampantetipo"]==info.get("stampantetipo"):
+						lista_tipo.append(elem)
+			for doc in lista_tipo:
+				if float(database.get(doc).get("stampanteprezzo")) <= float(info.get("stampanteprezzo")):
+					lista_prezzo.append(doc)
+					dizionario[doc]=""
+			return dizionario
 
 app = Flask(__name__)
 server = pycouchdb.Server('http://localhost:5984')
@@ -142,14 +157,13 @@ def search():
 		#vartipospedizione = request.form["vartipospedizione"]
 		risultati = algoritmo(printers,request.form)
 		if len(risultati)>0:
-			json_ris = get_json_risultati(risultati,printers)
-			ris = json.loads(json_ris)
-			for i in range(0,int(json.loads(json_ris)["numero"])):
+			ris = json.loads(get_json_risultati(risultati,printers))
+			for i in range(0,int(ris["numero"])):
 				stampante = ris[str(i)]
 				#print(stampante)
 				
 				# testo="<div role='tabpanel' class='description'><div class='tab-pane active'><div class='col-xs-12'>"+"<h1><center>Risultato numero: "+str(i+1)+"<center><br></h1>"+"<h2>"+"venditore"+stampante["varuser"]+"<br></h2>"+"<p>"+"indirizzo: "+stampante["varindirizzo"]+"<br>"+"citta: "+stampante["varcitta"]+"<br>"+"email: "+stampante["varemail"]+"<br>"+"telefono: "+stampante["vartelefono"]+"<br>"""+"tipo stampante: "+stampante["stampantetipo"]+"<br>"+"nome stampante: "+stampante["stampantenome"]+"<br>"+"id stampante: "+stampante["stampanteid"]+"<br>"""+"prezzo stampante: "+stampante["stampanteprezzo"]+"<br></p></div>"+"</div></div>"
-				testo_leo="<tr><td>"+stampante["varuser"]+"</td><td>"+stampante["varindirizzo"]+"</td><td>"+stampante["varcitta"]+"</td><td>"+stampante["varemail"]+"</td><td>"+stampante["vartelefono"]+"</td><td>"+stampante["stampantetipo"]+"</td><td>"+stampante["stampantenome"]+"</td><td>"+stampante["stampanteid"]+"</td><td>"+stampante["stampanteprezzo"]+"</td><td><button id= "+str(i+1)+">Contatta</button></td></tr>"
+				testo_leo="<tr><td>"+stampante["varuser"]+"</td><td>"+stampante["varindirizzo"]+"</td><td>"+stampante["varcitta"]+"</td><td>"+stampante["varemail"]+"</td><td>"+stampante["vartelefono"]+"</td><td>"+stampante["stampantetipo"]+"</td><td>"+stampante["stampantenome"]+"</td><td>"+stampante["stampanteid"]+"</td><td>"+stampante["stampanteprezzo"]+"</td><td>"+stampante["varspedizione"]+"</td><td>"+stampante["varconsegna"]+"</td><td>"+str(stampante["distanza"])+"</td><td><button id= "+str(i+1)+">Contatta</button></td></tr>"
 
 				parte_fissa+=testo_leo
 			parte_fissa+="</table></body></html>"

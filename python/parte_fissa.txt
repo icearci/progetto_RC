@@ -89,17 +89,22 @@ function getCookie(cname) {
     </div>
     <script>logga_slogga()</script>
   <table id="tabella">
-    <tr>
-        <th>User</th>
-        <th>Indirizzo</th>
-        <th>Citta</th>
-      <th>Email</th>
-        <th>telefono</th>
-        <th>Macchinario</th>
-        <th>nome macchina</th>
-        <th>ID </th>
-        <th>costo-ora</th>
+<tr>
+    <th>User</th>
+    <th>Indirizzo</th>
+    <th>Citta</th>
+   <th>Email</th>
+    <th>Telefono</th>
+    <th>Macchinario</th>
+    <th>Nome Macchina</th>
+    <th>ID </th>
+    <th>costo-ora</th>
+    <th>Spedizione?</th>
+    <th>Consegna?</th>
+    <th>Distanza</th>
 
-    </tr>
+        
+
+</tr>
 
 

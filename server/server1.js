@@ -159,6 +159,8 @@ app.post("/add_stampante", (req, res) => {
 			stampantenome:req.body.stampantenome,
 			stampanteid:req.body.stampanteid,
 			stampanteprezzo:req.body.stampanteprezzo,
+			varspedizione: req.body.varspedizione,
+			varconsegna:req.body.varconsegna,
 		};
 		var hash = md5(stampante.stampanteid);
 		var options = {

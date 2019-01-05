@@ -65,11 +65,13 @@
     <th>Indirizzo</th>
     <th>Citta</th>
    <th>Email</th>
-    <th>telefono</th>
+    <th>Telefono</th>
     <th>Macchinario</th>
-    <th>nome macchina</th>
+    <th>Nome Macchina</th>
     <th>ID </th>
     <th>costo-ora</th>
+    <th>Spedizione?</th>
+    <th>Consegna?</th>
 
         
 

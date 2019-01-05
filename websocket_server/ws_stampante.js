@@ -83,65 +83,29 @@ ws.on('connection',function connection(ws){
 			console.log("arrivato un delete di "+array_1[1]);
 			var stampanteid = array_1[1];
 			var hash = md5(stampanteid);
-			var stampante_body ="";
-			console.log(hash);
-			request("http://localhost:5984/printers/"+hash, (err,res,body)=>{
-				if(err){
-					console.log(err);
-				}
-				else{
-					if(res.statusCode!=200){
-						console.log(res.statusCode);
-					}
-					else{
-						stampante_body = JSON.parse(body);
-						var username = stampante_body.varuser;
-						console.log("Ottenuto user stampante: "+username);
-						var hash_user = md5(username);
-						console.log(hash);
-						request("http://localhost:5984/users/"+hash_user, (err,res,body)=>{
-						if(err){
-							console.log(err);
-						}
-						else{
-							if(res.statusCode!=200){
-								console.log(res.statusCode);
-							}
-							else{
-								var utente = JSON.parse(body);
-								var index = utente.stampanti.indexOf(hash);
-								utente.stampanti.splice(index,1);
-								var options1 = {
-									method: "PUT",
-									path: "/users/"+hash_user,
-									port: 5984,
-									host: "localhost",
-									headers: {
-										'Content-Type': 'application/json',
-										'Accept': 'application/json',
-									},
-								};
-								const richiesta1 = http.request(options1);
-								richiesta1.write(JSON.stringify(utente));
-								richiesta1.end();
-							}
-						}
-					});
-				}
-			}
-		});
-		var options = {
-							method: "DELETE",
-							path: "/printers/"+hash,
-							port: 5984,
-							host: "localhost",
-						};
-						const richiesta = http.request(options);
-						richiesta.write(JSON.stringify(stampante_body));
-						richiesta.end();
-	}
+			var stampante_body = remove_stampante(stampanteid);
+			
+			stampante_body.then(function(result){
+				var stampante_stringa=JSON.stringify(result);
+				console.log(stampante_stringa);
+				var options = {
+					method: "DELETE",
+					path: "/printers/"+hash,
+					port: 5984,
+					host: "localhost",
+					headers: {
+						'Accept': 'application/json',
+						'If-Match':result._rev
+					},
+				};
+				const richiesta = http.request(options);
+				richiesta.write(stampante_stringa);
+				richiesta.end();
+			},function(err){
+				console.log(err)
+				});
+		}
+	});
 });
-});
-								
 						
 							

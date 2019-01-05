@@ -53,7 +53,7 @@ function prova(){
 									  "<div id='id_stampante_"+String(num_stamp)+"'>id stampante: "+stampante.stampanteid+"</div>"+
 									  "<div id='prezzo'>prezzo stampante: "+stampante.stampanteprezzo+"</div>"+
 							  "<div><img id='printer' style='-webkit-user-select: none;cursor: zoom-in;' src='../html/immagini/Smart 3D Printer(800x600).png'width='400' height='400'></div>"+
-								"<div><button>rimuovi</button></div>"+
+								"<div><button onClick = remove_stampante('id_stampante_"+String(num_stamp)+"')>rimuovi</button></div>"+
 							  "</div></div></div>";
 					document.getElementById("stampa1").innerHTML = document.getElementById("stampa1").innerHTML+testo;	
 				}

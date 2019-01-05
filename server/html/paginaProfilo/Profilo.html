@@ -66,8 +66,10 @@
 	</script>
 	<script>
 		function remove_stampante(id){
-			var id_stampante = document.getElementById(id).innerHTML
-			var msg = "remove_stampante?"+id_stampante;
+			alert("cane");
+			var array=String(document.getElementById(id).innerHTML).split("id stampante: ");
+			var stampante = array[1];
+			var msg = "remove_stampante?"+stampante;
 			var ws = new WebSocket("ws://localhost:8085");
 			ws.onopen = function(){
 				ws.send(msg);
