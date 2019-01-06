@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>dove siamo</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
@@ -13,8 +15,10 @@
 	body {
 		background-image: url("../html/paginaChiSiamo/hires/bg.jpg");
 		background-position: center center;
-		overflow: hidden;
+		<!--overflow: scroll;-->
 		background-size: cover;
+		-ms-scrollbar-base-color: orange;
+		margin-bottom: 100%;
 	}
 	</style>
 	<script>
@@ -47,7 +51,7 @@ function getCookie(cname) {
 	</script>
 </head>
 
-<body>
+<body >
 <div class="navbar_">
 
         <a class="active_" href="http://localhost:8080/home">
@@ -76,21 +80,24 @@ function getCookie(cname) {
             
     </div>
 		<script>logga_slogga()</script>
-
-    <div style="color: white">
+<div>
+<div class="container"> <!--style="width:5000px;height:500px;overflow-y: scroll">-->
+    <div style="color: white;">
     <div style="padding-left:16px">
-	  <h2>Chi siamo</h2>
+	  <h1><center>Chi siamo?</center></h1>
+	  <br><br>
 	</div>   
 	</div>
         
 <!-- immagine che ruota con testo dall'altra parte -->
 <!-- parte anteriore --> 
-<div class="container">
+
+
 	 <div class="gallery">
-		<div class="flip-card" >
+		<div class="flip-card" style="width:400px;height:450px;" >
 			<div class="flip-card-inner" >
 				<div class="flip-card-front">
-					<img style="-webkit-user-select: none;cursor: zoom-in;" src="../html/immagini/WhatsApp Image 2019-01-01 at 22.19.06.jpeg"  width='400' height='300'>
+					<img style="-webkit-user-select: none;" src="../html/immagini/WhatsApp Image 2019-01-01 at 22.19.06.jpeg"  width='400' height='450'>
 				</div>
 	<!-- parte posteriore -->
 				<div class="flip-card-back">
@@ -98,27 +105,64 @@ function getCookie(cname) {
 				</div>
 			</div>
 		</div>     
-		 <div class="flip-card" >
+		 <div class="flip-card" style="width:400px;height:450px;">
 		  <div class="flip-card-inner">
 			<div class="flip-card-front">
-			  <img style="-webkit-user-select: none;cursor: zoom-in;" src="../html/immagini/index.jpeg"  width='400' height='300'>
+			  <img style="-webkit-user-select: none;cursor: zoom-in;" src="../html/immagini/index.jpeg"  width='400' height='450'>
 			</div>
 		<!-- parte posteriore -->
 			  <div class="flip-card-back">
 			  <h1>Leonardo Salustri</h1>
 			</div>
 		  </div>
+		</div>
+	</div>
+		<br><br>
+	<div class="gallery">
+		 <div class="flip-card" style="width:400px;height:450px;" >
+		  <div class="flip-card-inner">
+			<div class="flip-card-front">
+			  <img style="-webkit-user-select: none;cursor: zoom-in;" src="../html/immagini/leonardo.jpeg"  width='400' height='450'>
+			</div>
+		<!-- parte posteriore -->
+			  <div class="flip-card-back">
+			  <h1>Leonardo Bisazza</h1>
+			</div>
+		  </div>
 		</div>  
+		 <div class="flip-card" style="width:400px;height:450px;">
+		  <div class="flip-card-inner">
+			<div class="flip-card-front">
+			  <img style="-webkit-user-select: none;cursor: zoom-in;" src="../html/immagini/flaminia.jpeg"  width='400' height='450'>
+			</div>
+		<!-- parte posteriore -->
+			  <div class="flip-card-back">
+			  <h1>Flaminia Papa</h1>
+			</div>
+		  </div>
+		</div>    
 	</div>
 </div> 
 
 <br><br><br>
+<div class='container'>
+	<div style="color: white;">
+    <div style="padding-left:16px">
+		<h1>Per contattarci:</h1>
+		<p>email: stampi3d@gmail.com</p>
+		<p>telefono: 06-79883324</p>
+	</div>   
+	</div>
+	
+
+</div>
+<br><br>
  <div style="color: white">
     <div style="padding-left:16px">
   <h2>Dove siamo? Dappertutto!</h2>
 </div>   
 </div>
-	
+
 	<script>
 		var camera, scene, renderer;
 		var earth, cloud;
@@ -234,5 +278,6 @@ function getCookie(cname) {
 		  cloud.rotation.x += deltaY / 600;
 		}
 	</script>
+</div>
 </body>
 </html>
