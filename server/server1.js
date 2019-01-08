@@ -68,11 +68,14 @@ function oauthAndSend(code,cookie){
 										var messaggio = [
 										"Ciao, sono interessato ad una delle tue stampanti per un mio nuovo progetto, controlla se le informazioni del tuo account utente (e-mail, telefono, preferenze sul ritiro) sono corrette, altrimenti non potrò contattarti",
 										"Nome stampante: "+array[6],
+										"Tipo stampante: "+array[5],
 										"ID stampante: "+array[7],
 										"Indirizzo: "+array[1],
-										"City: "+array[2],
+										"Città: "+array[2],
 										"Telefono: "+array[4],
 										"Prezzo per ora: "+array[8],
+										"Spedizione: "+array[9],
+										"Consegna a mano: "+array[10],
 										];
 										var encoded = messaggio.join("\n").toString("base64");
 										const messageParts = [

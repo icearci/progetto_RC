@@ -43,7 +43,6 @@
             Aggiungi le tue macchine</a>
           <a class="active"  href="../paginaRicerca/ricercanew.html">
             Cerca un maker</a>
-          <a href="../visore3d/visore3d.html">Visore 3D</a>
           <a href="../paginaTecnologie/tecnologie.html">Tecnologie</a>
           <a href="../paginaNews/news.html">News</a>
           <!--fancy 3d log in form-->

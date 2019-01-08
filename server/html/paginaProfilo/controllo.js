@@ -47,11 +47,6 @@ function prova(){
 						q=q+' '+tipo[c];
 					}
 					var testo=
-					/*"<div class='row'><h1 id='NomeStampante'>"+stampante.stampantenome+"</div></h1>"+
-						  "<p></div>Tipologia:</p><p id='Tipologia'>"+stampante.stampantetipo+"</div></p>"+
-                          "<p></div>Prezzo per ora:</p><p id='prezzo'>"+stampante.stampanteprezzo+"</div></p>"+
-						  "</div></div>";*/
-						 /* "<div role='tabpanel' class='description'><div class='tab-pane active'><div class='col-xs-12'>"+*/
 						"<div role='tabpanel' class='description'><div class='tab-pane active'><div class='col-xs-12'>"+
 								  "<div id='nome_stampante'><h2>"+stampante.stampantenome+"</h2></div>"+
 									  "<div id='indirizzo'>indirizzo: "+stampante.varindirizzo+"</div>"+
