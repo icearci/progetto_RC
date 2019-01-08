@@ -3,10 +3,11 @@ import json
 import hashlib
 from urllib2 import Request, urlopen
 import requests
-from flask import Flask
-from flask import request
+import random
+from flask import Flask, render_template, request, redirect, url_for, flash, make_response
 
 #nM8W4oBYrRSKLAWcB12JBRdJsrOjBOwM
+
 
 
 def get_lista_docs():
@@ -156,6 +157,8 @@ def search():
 		#stampanteprezzo = request.form["stampanteprezzo"]
 		#vartipospedizione = request.form["vartipospedizione"]
 		risultati = algoritmo(printers,request.form)
+		cookie = str(request.cookies.get("id"))
+		print(cookie)
 		if len(risultati)>0:
 			ris = json.loads(get_json_risultati(risultati,printers))
 			for i in range(0,int(ris["numero"])):
@@ -163,12 +166,12 @@ def search():
 				#print(stampante)
 				
 				# testo="<div role='tabpanel' class='description'><div class='tab-pane active'><div class='col-xs-12'>"+"<h1><center>Risultato numero: "+str(i+1)+"<center><br></h1>"+"<h2>"+"venditore"+stampante["varuser"]+"<br></h2>"+"<p>"+"indirizzo: "+stampante["varindirizzo"]+"<br>"+"citta: "+stampante["varcitta"]+"<br>"+"email: "+stampante["varemail"]+"<br>"+"telefono: "+stampante["vartelefono"]+"<br>"""+"tipo stampante: "+stampante["stampantetipo"]+"<br>"+"nome stampante: "+stampante["stampantenome"]+"<br>"+"id stampante: "+stampante["stampanteid"]+"<br>"""+"prezzo stampante: "+stampante["stampanteprezzo"]+"<br></p></div>"+"</div></div>"
-				testo_leo="<tr><td>"+stampante["varuser"]+"</td><td>"+stampante["varindirizzo"]+"</td><td>"+stampante["varcitta"]+"</td><td>"+stampante["varemail"]+"</td><td>"+stampante["vartelefono"]+"</td><td>"+stampante["stampantetipo"]+"</td><td>"+stampante["stampantenome"]+"</td><td>"+stampante["stampanteid"]+"</td><td>"+stampante["stampanteprezzo"]+"</td><td>"+stampante["varspedizione"]+"</td><td>"+stampante["varconsegna"]+"</td><td>"+str(stampante["distanza"])+"</td><td><button id= "+str(i+1)+">Contatta</button></td></tr>"
+				testo_leo="<tr><td id='user"+str(i+1)+"'>"+str(stampante["varuser"])+"</td><td id='indirizzo"+str(i+1)+"'>"+str(stampante["varindirizzo"])+"</td><td id='citta"+str(i+1)+"'>"+str(stampante["varcitta"])+"</td><td id='mail"+str(i+1)+"'>"+str(stampante["varemail"])+"</td><td id='telefono"+str(i+1)+"'>"+str(stampante["vartelefono"])+"</td><td id='stampantetipo"+str(i+1)+"'>"+str(stampante["stampantetipo"])+"</td><td id='stampantenome"+str(i+1)+"'>"+str(stampante["stampantenome"])+"</td><td id='stampanteid"+str(i+1)+"'>"+str(stampante["stampanteid"])+"</td><td id='prezzo"+str(i+1)+"'>"+str(stampante["stampanteprezzo"])+"</td><td id='spedizione"+str(i+1)+"'>"+str(stampante["varspedizione"])+"</td><td id='consegna"+str(i+1)+"'>"+str(stampante["varconsegna"])+"</td><td id='distanza"+str(i+1)+"'>"+str(stampante["distanza"])+"</td><td><button onclick=gmail('"+str(i+1)+"','"+cookie+"')>Contatta</button></td></tr>"
 
 				parte_fissa+=testo_leo
 			parte_fissa+="</table></body></html>"
-			print(parte_fissa)
-			return parte_fissa
+			res = make_response(parte_fissa)
+			return res
 			
 		else:
 			parte_fissa+"<div role='tabpanel' class='description'><div class='tab-pane active'>"+"<h1><center>Nessun risultato,siamo spiacenti!<center></h1></div></div></body></html>"

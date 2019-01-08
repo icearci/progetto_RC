@@ -8,30 +8,12 @@
 
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
   
-    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style.css">
   
   
       <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
       
-      <script>
-		  function search(){
-			  var ws = new WebSocket("ws://localhost:8084");
-				  ws.onopen = function(){
-					  ws.send("start");
-					  ws.onmessage = function(event){
-						  var risultati = JSON.parse(event.data);
-						  var lunghezza = risultati.length;
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      </script>
-            <script>
+<script>
 function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -47,9 +29,9 @@ function getCookie(cname) {
   }
   return "";
 }
-	</script>
+
 	
-	<script>
+
 		function logga_slogga(){
 		if(getCookie("id")!==""){
 			document.getElementById("login").innerHTML="";
@@ -58,34 +40,49 @@ function getCookie(cname) {
 			document.getElementById("logout").innerHTML="";
 		}
 	}
-	</script>
+
+		function gmail(i,cookie){
+			var ws = new WebSocket("ws://localhost:8087");
+			var tabella = document.getElementById("tabella");
+			var msg = "gmail?"+document.getElementById("user"+i).innerHTML+"/"+document.getElementById("indirizzo"+i).innerHTML+"/"+document.getElementById("citta"+i).innerHTML+"/"+document.getElementById("mail"+i).innerHTML+"/"+document.getElementById("telefono"+i).innerHTML+"/"+document.getElementById("stampantetipo"+i).innerHTML+"/"+document.getElementById("stampantenome"+i).innerHTML+"/"+document.getElementById("stampanteid"+i).innerHTML+"/"+document.getElementById("prezzo"+i).innerHTML+"/"+document.getElementById("spedizione"+i).innerHTML+"/"+document.getElementById("consegna"+i).innerHTML+"/"+document.getElementById("distanza"+i).innerHTML+"/"+cookie;
+			ws.onopen = function(){
+				ws.send(msg);
+				ws.close();
+			};
+			window.location="http://localhost:8080/gmail";
+		}
+	
+</script>
   
 </head>
 <body>
      <!--nav bar-->
-     <div class="navbar">
+<div class="navbar">
 
-        <a  href="http://localhost:8080/home">
-            Home</a>
-          <a href="http://localhost:8080/add_stampante">
-            Aggiungi le tue macchine</a>
-          <a class="active"  href="http://localhost:8080/search">
-            Cerca un maker</a>
-          <a href="http://localhost:8080/visore">Visore 3D</a>
-          <a href="http://localhost:8080/tecnologie">Tecnologie</a>
-          <a href="http://localhost:8080/news">News</a>
-          <!--fancy 3d log in form-->
-          <!-- <a class= "right" href="../paginaRegistrati/reg_3d/index.html">
-              Register / Log in</a> -->
-              <!--oppure quella classica-->
-          <a class= "right" href="http://localhost:8080/register">
-              Register / Log in</a>
-          <a class="right" href="http://localhost:8080/faq">
-                  FAQ</a>
-          <a class="right" href="http://localhost:8080/chi_siamo">
-            Chi siamo</a>
-          <a class="right" href="http://localhost:8080/profilo">
-              Profilo</a>
+        <a class="active_" href="http://localhost:8080/home">
+          Home</a>
+        <a href="http://localhost:8080/add_stampante">
+          Aggiungi le tue macchine</a>
+        <a href="http://localhost:8080/search">
+          Cerca un maker</a>
+        <a href="../html/visore3d/visore3d.html">Visore 3D</a>
+        <a href="../html/paginaTecnologie/tecnologie.html">Tecnologie</a>
+        <a href="../html/paginaNews/news.html">News</a>
+        <!--fancy 3d log in form-->
+        <!-- <a class= "right" href="../paginaRegistrati/reg_3d/index.html">
+            Register / Log in</a> -->
+            <!--oppure quella classica-->
+        <a id="login" class= "right" href="http://localhost:8080/login">
+            Register/Login</a>
+        <a id="logout" class= "right" href="http://localhost:8080/login">
+            Logout</a>
+        <a class="right" href="../html/paginaFAQ/Faq.html">
+                FAQ</a>
+        <a class="right" href="../html/paginaChiSiamo/chi_siamonew.html">
+          Chi siamo</a>
+        <a class="right" href="http://localhost:8080/profilo">
+            Profilo</a>
+            
     </div>
     <script>logga_slogga()</script>
   <table id="tabella">
@@ -98,7 +95,7 @@ function getCookie(cname) {
     <th>Macchinario</th>
     <th>Nome Macchina</th>
     <th>ID </th>
-    <th>costo-ora</th>
+    <th>Costo per ora</th>
     <th>Spedizione?</th>
     <th>Consegna?</th>
     <th>Distanza</th>
