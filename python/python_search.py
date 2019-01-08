@@ -147,15 +147,6 @@ def search():
 
 	#print(parte_fissa)
 	if request.method == "POST":
-		#varindirizzo = request.form["via"]
-		#varcitta = req.form["varcitta"]
-		#varprovincia = req.form["varprovincia"]
-		#varcap = req.form["varcap"]
-		#varpaese = req.form["varpaese"]
-		##tolleranza = request.form["tolleranza"]
-		#stampantetipo = request.form["stampantetipo"]
-		#stampanteprezzo = request.form["stampanteprezzo"]
-		#vartipospedizione = request.form["vartipospedizione"]
 		risultati = algoritmo(printers,request.form)
 		cookie = str(request.cookies.get("id"))
 		print(cookie)

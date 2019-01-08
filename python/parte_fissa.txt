@@ -65,13 +65,8 @@ function getCookie(cname) {
           Aggiungi le tue macchine</a>
         <a href="http://localhost:8080/search">
           Cerca un maker</a>
-        <a href="../html/visore3d/visore3d.html">Visore 3D</a>
         <a href="../html/paginaTecnologie/tecnologie.html">Tecnologie</a>
         <a href="../html/paginaNews/news.html">News</a>
-        <!--fancy 3d log in form-->
-        <!-- <a class= "right" href="../paginaRegistrati/reg_3d/index.html">
-            Register / Log in</a> -->
-            <!--oppure quella classica-->
         <a id="login" class= "right" href="http://localhost:8080/login">
             Register/Login</a>
         <a id="logout" class= "right" href="http://localhost:8080/login">

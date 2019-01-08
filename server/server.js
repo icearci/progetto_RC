@@ -9,11 +9,113 @@ var path = require('path');
 var amqp = require('amqplib/callback_api');
 var cookie_parser = require('cookie-parser');
 var fs = require("fs");
+const {google} = require('googleapis');
+//const base64url = require('base64url');
 
 app.use(express.static(__dirname));
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use(cookie_parser());
+
+var client_id = JSON.parse(fs.readFileSync(path.resolve(__dirname+"/client_id.json")));
+var id_oauth = client_id.web.client_id;
+var client_secret = client_id.web.client_secret;
+const oauth2Client = new google.auth.OAuth2(
+  id_oauth,
+  client_secret,
+  "http://localhost:8080/auth"
+);
+
+function oauthAndSend(code,cookie){
+	  return new Promise(function(resolve,reject){
+		  var formData = {
+		code: code,
+		client_id: id_oauth,
+		client_secret: client_secret,
+		redirect_uri: 'http://localhost:8080/redirect',
+		grant_type: 'authorization_code'
+	  }
+	  request.post({url:"https://oauth2.googleapis.com/token", form: formData}, function(err, httpResponse, body) {
+		  if(err){
+			  console.log("Errore nella richiesta del token");
+			  reject(err);
+		  }
+		  else{
+			  if(httpResponse.statusCode!=200){
+				  console.log("Richiesta token effettuata, ma errore nel codice: "+httpResponse.statusCode);
+			  }
+			  else{
+				  console.log("Google ha risposto con il token");
+				  token = JSON.parse(body).access_token;
+				  console.log(token);
+				  console.log("L' intera risposta di google: "+body);
+				  amqp.connect('amqp://localhost', function (err, conn) {
+					  if (!err) {
+						  var queue = 'gmail' + cookie;
+						  console.log("coda: "+queue);
+						  conn.createChannel(function (err, ch) {
+							  ch.assertQueue(queue, { durable: false, autodelete: true, maxLength: 1 });
+							  ch.consume(queue, (message) => {
+								  var messaggio = message.content.toString()
+								  console.log(messaggio);
+								  var array = messaggio.split("/");
+								  request({ uri: "https://www.googleapis.com/gmail/v1/users/me/profile",
+										  headers: {
+											"Content-Type": "application/json",
+											'Authorization': 'Bearer '+token
+										  }},function(err,res,body){
+										var mail = JSON.parse(body).emailAddress;
+										var messaggio = [
+										"Ciao, sono interessato ad una delle tue stampanti per un mio nuovo progetto, controlla se le informazioni del tuo account utente (e-mail, telefono, preferenze sul ritiro) sono corrette, altrimenti non potrò contattarti",
+										"Nome stampante: "+array[6],
+										"Tipo stampante: "+array[5],
+										"ID stampante: "+array[7],
+										"Indirizzo: "+array[1],
+										"Città: "+array[2],
+										"Telefono: "+array[4],
+										"Prezzo per ora: "+array[8],
+										"Spedizione: "+array[9],
+										"Consegna a mano: "+array[10],
+										];
+										var encoded = messaggio.join("\n").toString("base64");
+										const messageParts = [
+										'From: <'+mail+'>',
+										'To: <'+array[3]+'>',
+										'Content-Type: message/rfc822',
+										'MIME-Version: 1.0',
+										'Subject: ciao',
+										'',
+										"Content-Type: text/plain; charset='UTF-8'",
+										"MIME-Version: 1.0",
+										"Content-Transfer-Encoding: base64",
+										"",
+										encoded,
+										];
+									const message = messageParts.join('\n');
+									const encodedMessage = Buffer.from(message).toString('base64');
+									request({
+									  method: "POST",
+									  uri: "https://www.googleapis.com/gmail/v1/users/me/messages/send",
+									  headers: {
+										"Content-Type": "application/json",
+										'Authorization': 'Bearer '+token
+									  },
+									  body: "{'raw':"+JSON.stringify(encodedMessage)+"}",
+									}, function(error, httpResponse, body) {
+									  console.log(body);
+									  resolve(1);
+									});
+								});
+							});
+						});
+					}
+				});
+			}
+		}
+	});
+});
+}
+
 
 function generaDB(){
 	var options = {
@@ -43,7 +145,7 @@ function generaDB(){
 }
 generaDB();
 
-var pagine_utili = ["/login","/home","/add_stampante","/search","/profilo","/tecnologie","/news","/chi_siamo","/faq","/visore"];
+var pagine_utili = ["/login","/home","/add_stampante","/search","/profilo","/tecnologie","/news","/chi_siamo","/faq","/visore","/gmail"];
 function generateUuid() {
 	return Math.random().toString() +
 		Math.random().toString() +
@@ -56,6 +158,11 @@ function settaCookie(res,id){
 							maxAge:1800000,
 							path: pagine_utili[i]});
 						}
+		res.cookie("id",id,{
+			domain: "localhost:5000",
+			path: "/search",
+			maxAge: 1800000
+		});
 					}
 function levaCookie(res){
 	for(var i = 0;i<pagine_utili.length;i++){
@@ -126,8 +233,13 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/search', (req, res) => {
+	if(req.cookies.id==undefined){
+		res.redirect("/login");
+	}
+	else{
 	res.set({ "Content-Type": "text/html" });
 	res.sendFile(path.resolve(__dirname + "/html/paginaRicerca/ricercanew.html"));
+}
 });
 
 app.get("/add_stampante", (req, res) => {
@@ -141,6 +253,114 @@ app.get("/add_stampante", (req, res) => {
 
 });
 
+app.get("/gmail",(req,res)=>{
+	var cookie = req.cookies.id;
+	res.cookie("id",cookie);
+	res.redirect("https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/gmail.send&response_type=code&approval_prompt=force&redirect_uri=http%3A%2F%2Flocalhost:8080/redirect&client_id="+id_oauth);
+	
+});
+
+app.get("/redirect",(req,res)=>{
+	var redirigi=0;
+	var code = req.query.code;
+	var cookie = req.cookies.id;
+	var inizializza = oauthAndSend(code,cookie);
+	inizializza.then(function(result){
+		if(result==1){
+			res.redirect("/home");
+		}
+		else{
+			res.send(result);
+		}
+	});
+});
+
+/*app.get("/redirect",(req,res)=>{
+	var redirigi=0;
+	var code = req.query.code;
+	var formData = {
+		code: req.query.code,
+		client_id: id_oauth,
+		client_secret: client_secret,
+		redirect_uri: 'http://localhost:8080/redirect',
+		grant_type: 'authorization_code'
+	  }
+	  
+	  request.post({url:"https://oauth2.googleapis.com/token", form: formData}, function(err, httpResponse, body) {
+		  if(err){
+			  console.log("Errore nella richiesta del token");
+		  }
+		  else{
+			  if(httpResponse.statusCode!=200){
+				  console.log("Richiesta token effettuata, ma errore nel codice: "+httpResponse.statusCode);
+			  }
+			  else{
+				  console.log("Google ha risposto con il token");
+				  token = JSON.parse(body).access_token;
+				  console.log(token);
+				  console.log("L' intera risposta di google: "+body);
+				  amqp.connect('amqp://localhost', function (err, conn) {
+					  if (!err) {
+						  var queue = 'gmail' + req.cookies.id;
+						  console.log("coda: "+queue);
+						  conn.createChannel(function (err, ch) {
+							  ch.assertQueue(queue, { durable: false, autodelete: true, maxLength: 1 });
+							  ch.consume(queue, (message) => {
+								  var messaggio = message.content.toString()
+								  console.log(messaggio);
+								  var array = messaggio.split("/");
+								  request({ uri: "https://www.googleapis.com/gmail/v1/users/me/profile",
+										  headers: {
+											"Content-Type": "application/json",
+											'Authorization': 'Bearer '+token
+										  }},function(err,res,body){
+										var mail = JSON.parse(body).emailAddress;
+										var messaggio = [
+										"Ciao, sono interessato ad una delle tue stampanti per un mio nuovo progetto, controlla se le informazioni del tuo account utente (e-mail, telefono, preferenze sul ritiro) sono corrette, altrimenti non potrò contattarti",
+										"Nome stampante: "+array[6],
+										"ID stampante: "+array[7],
+										"Indirizzo: "+array[1],
+										"City: "+array[2],
+										"Telefono: "+array[4],
+										"Prezzo per ora: "+array[8],
+										];
+										var encoded = messaggio.join("\n").toString("base64");
+										const messageParts = [
+										'From: <'+mail+'>',
+										'To: <'+array[3]+'>',
+										'Content-Type: message/rfc822',
+										'MIME-Version: 1.0',
+										'Subject: ciao',
+										'',
+										"Content-Type: text/plain; charset='UTF-8'",
+										"MIME-Version: 1.0",
+										"Content-Transfer-Encoding: base64",
+										"",
+										encoded,
+										];
+									const message = messageParts.join('\n');
+									const encodedMessage = Buffer.from(message).toString('base64');
+									request({
+									  method: "POST",
+									  uri: "https://www.googleapis.com/gmail/v1/users/me/messages/send",
+									  headers: {
+										"Content-Type": "application/json",
+										'Authorization': 'Bearer '+token
+									  },
+									  body: "{'raw':"+JSON.stringify(encodedMessage)+"}",
+									}, function(error, httpResponse, body) {
+									  console.log(body);
+									});
+									redirigi=1;
+								});
+							});
+						});
+					}
+				});
+			}
+		}
+	});
+});*/
 
 app.post("/add_stampante", (req, res) => {
 	var user_id = req.cookies.id;
@@ -159,6 +379,8 @@ app.post("/add_stampante", (req, res) => {
 			stampantenome:req.body.stampantenome,
 			stampanteid:req.body.stampanteid,
 			stampanteprezzo:req.body.stampanteprezzo,
+			varspedizione: req.body.varspedizione,
+			varconsegna:req.body.varconsegna,
 		};
 		var hash = md5(stampante.stampanteid);
 		var options = {
@@ -266,74 +488,4 @@ app.post('/login', (req, res) => {
 	});
 });
 
-app.post('/search', (req, res) => {
-
-	var parte_fissa = fs.readFileSync(path.resolve(__dirname + "/html/paginaRicerca/parte_fissa.txt"), { encoding: "utf-8" });
-	
-	var id = req.cookies.id;
-	var stampanteprezzo_ = req.body.stampanteprezzo;
-	var stampantetipo_ = req.body.stampantetipo;
-	var vartipospedizione_ = req.body.vartipospedizione;
-	var tolleranza_ = req.body.tolleranza;
-
-	var info = {
-		varindirizzo: req.body.via,
-		varcitta: req.body.varcitta,
-		varprovincia: req.body.varprovincia,
-		varcap: req.body.varcap,
-		varpaese: req.body.varpaese,
-		tolleranza: tolleranza_,
-		stampantetipo: stampantetipo_,
-		stampanteprezzo: stampanteprezzo_,
-		vartipospedizione: vartipospedizione_,
-	};
-	amqp.connect('amqp://localhost', function(err, conn) {
-		if(!err){
-			var t=0;
-			var testo='';
-			conn.createChannel(function(err,ch){
-				ch.assertQueue('', {durable: false, autodelete: true, exclusive: true},function(err,q){
-					var corr = generateUuid();
-					ch.sendToQueue('search_q',new Buffer(JSON.stringify(info)), { correlationId: corr, replyTo: 'search_q', content_type: "application/json" });
-					ch.consume('search_q', function(msg) {
-						if (msg.properties.correlationId == corr) {
-							if(msg.content.toString()==="noresults"){
-								console.log(msg.content.toString());
-								var toSend = parte_fissa+"<div role='tabpanel' class='description'><div class='tab-pane active'>"+
-									  "<h1><center>Nessun risultato,siamo spiacenti!<center></h1></div></div></body></head>";//finire
-								res.send(toSend);
-							}
-							else{
-								t=t+1;
-								console.log(msg.content.toString());
-								var stampante = JSON.parse(msg.content.toString());
-								testo="<div role='tabpanel' class='description'><div class='tab-pane active'><div class='col-xs-12'>"+
-										  "<h1><center>Risultato numero: "+t+"<center><br></h1>"+
-										  "<h2>"+"venditore"+stampante.user+"<br></h2>"+
-										  "<p>"+
-											  "indirizzo: "+stampante.varindirizzo+"<br>"+
-											  "città: "+stampante.varcitta+"<br>"+
-											  "email: "+stampante.varemail+"<br>"+
-											  "telefono: "+stampante.vartelefono+"<br>"+
-											  "tipo stampante: "+q+"<br>"+
-											  "nome stampante: "+stampante.stampantenome+"<br>"+
-											  "id stampante: "+stampante.stampanteid+"<br>"+
-											  "prezzo stampante: "+stampante.stampanteprezzo+"<br></p></div>"+
-									"</div></div></body></head>";
-								parte_fissa=parte_fissa+testo;
-								res.send(parte_fissa);
-							}
-						}
-					},{noAck:true});
-				});
-			});
-		}
-	});
-
-});
-
-app.post('/prova', (req, res) => {
-	console.log(req.body);
-	res.send(req.body);
-});
 app.listen(8080);
