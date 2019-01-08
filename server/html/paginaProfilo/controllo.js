@@ -19,11 +19,20 @@ function prova(){
 				if(t===0){
 					t=1;
 					var messaggio=event.data;
+					var resto='';
 					var utente = JSON.parse(messaggio);
 					var arr1=utente.fullname.split(' ');
-					document.getElementById('nome').innerHTML=arr1[0]+' '+arr1[1];
+					for (c=0; c<arr1.length;c++){
+						if (c!=0){
+							resto=resto+arr1[c]+' ';
+						}
+					}
+					document.getElementById('nome').innerHTML=arr1[0]+' '+resto;
 					document.getElementById('nome1').innerHTML=arr1[0];
-					document.getElementById('cognome').innerHTML=arr1[1];
+					if (resto===''){
+						resto='---------------';
+					}
+					document.getElementById('cognome').innerHTML=resto;
 					document.getElementById('mail').innerHTML=utente.mail;
 					document.getElementById('telephone').innerHTML=utente.telephone;
 				}
