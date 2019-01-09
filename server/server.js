@@ -58,12 +58,12 @@ function oauthAndSend(code,cookie){
 										  }},function(err,res,body){
 										var mail = JSON.parse(body).emailAddress;
 										var messaggio = [
-										"Ciao, sono interessato ad una delle tue stampanti per un mio nuovo progetto, controlla se le informazioni del tuo account utente (e-mail, telefono, preferenze sul ritiro) sono corrette, altrimenti non potrò contattarti",
+										"Ciao, sono interessato ad una delle tue stampanti per un mio nuovo progetto, controlla se le informazioni del tuo account utente (e-mail, telefono, preferenze sul ritiro) sono corrette, altrimenti non potro' contattarti",
 										"Nome stampante: "+array[6],
 										"Tipo stampante: "+array[5],
 										"ID stampante: "+array[7],
 										"Indirizzo: "+array[1],
-										"Città: "+array[2],
+										"Citta': "+array[2],
 										"Telefono: "+array[4],
 										"Prezzo per ora: "+array[8],
 										"Spedizione: "+array[9],
@@ -179,7 +179,6 @@ app.get('/register', (req, res) => {
 	var id = req.cookies.id;
 	console.log(id);
 	if (id == undefined) {
-		console.log('settato a zero il cookie');
 		res.sendFile(path.resolve(__dirname + "/html/paginaRegistrati/login.html"));
 	}
 	else {
@@ -191,7 +190,6 @@ app.get('/profilo', (req, res) => {
 	var id = req.cookies.id;
 	console.log(id);
 	if (id != undefined) {
-		console.log('La home nota che il cookie è già settato');
 		res.sendFile(path.resolve(__dirname + "/html/paginaProfilo/Profilo.html"));
 	}
 	else if (id == undefined) {
@@ -216,11 +214,9 @@ app.get("/tecnologie",(req,res)=>{
 });
 
 app.get('/login', (req, res) => {
-	console.log('ciao');
 	var id = req.cookies.id;
 	console.log(id);
 	if (id == undefined) {
-		console.log('settato a zero il cookie');
 		res.sendFile(path.resolve(__dirname + "/html/paginaRegistrati/login.html"));
 	}
 	else {
@@ -275,96 +271,9 @@ app.get("/redirect",(req,res)=>{
 	});
 });
 
-/*app.get("/redirect",(req,res)=>{
-	var redirigi=0;
-	var code = req.query.code;
-	var formData = {
-		code: req.query.code,
-		client_id: id_oauth,
-		client_secret: client_secret,
-		redirect_uri: 'http://localhost:8080/redirect',
-		grant_type: 'authorization_code'
-	  }
-	  
-	  request.post({url:"https://oauth2.googleapis.com/token", form: formData}, function(err, httpResponse, body) {
-		  if(err){
-			  console.log("Errore nella richiesta del token");
-		  }
-		  else{
-			  if(httpResponse.statusCode!=200){
-				  console.log("Richiesta token effettuata, ma errore nel codice: "+httpResponse.statusCode);
-			  }
-			  else{
-				  console.log("Google ha risposto con il token");
-				  token = JSON.parse(body).access_token;
-				  console.log(token);
-				  console.log("L' intera risposta di google: "+body);
-				  amqp.connect('amqp://localhost', function (err, conn) {
-					  if (!err) {
-						  var queue = 'gmail' + req.cookies.id;
-						  console.log("coda: "+queue);
-						  conn.createChannel(function (err, ch) {
-							  ch.assertQueue(queue, { durable: false, autodelete: true, maxLength: 1 });
-							  ch.consume(queue, (message) => {
-								  var messaggio = message.content.toString()
-								  console.log(messaggio);
-								  var array = messaggio.split("/");
-								  request({ uri: "https://www.googleapis.com/gmail/v1/users/me/profile",
-										  headers: {
-											"Content-Type": "application/json",
-											'Authorization': 'Bearer '+token
-										  }},function(err,res,body){
-										var mail = JSON.parse(body).emailAddress;
-										var messaggio = [
-										"Ciao, sono interessato ad una delle tue stampanti per un mio nuovo progetto, controlla se le informazioni del tuo account utente (e-mail, telefono, preferenze sul ritiro) sono corrette, altrimenti non potrò contattarti",
-										"Nome stampante: "+array[6],
-										"ID stampante: "+array[7],
-										"Indirizzo: "+array[1],
-										"City: "+array[2],
-										"Telefono: "+array[4],
-										"Prezzo per ora: "+array[8],
-										];
-										var encoded = messaggio.join("\n").toString("base64");
-										const messageParts = [
-										'From: <'+mail+'>',
-										'To: <'+array[3]+'>',
-										'Content-Type: message/rfc822',
-										'MIME-Version: 1.0',
-										'Subject: ciao',
-										'',
-										"Content-Type: text/plain; charset='UTF-8'",
-										"MIME-Version: 1.0",
-										"Content-Transfer-Encoding: base64",
-										"",
-										encoded,
-										];
-									const message = messageParts.join('\n');
-									const encodedMessage = Buffer.from(message).toString('base64');
-									request({
-									  method: "POST",
-									  uri: "https://www.googleapis.com/gmail/v1/users/me/messages/send",
-									  headers: {
-										"Content-Type": "application/json",
-										'Authorization': 'Bearer '+token
-									  },
-									  body: "{'raw':"+JSON.stringify(encodedMessage)+"}",
-									}, function(error, httpResponse, body) {
-									  console.log(body);
-									});
-									redirigi=1;
-								});
-							});
-						});
-					}
-				});
-			}
-		}
-	});
-});*/
 
 app.post("/add_stampante", (req, res) => {
 	var user_id = req.cookies.id;
-	console.log("id trovato in add_stampante " + user_id);
 	if (user_id === md5(req.body.varuser)) {
 		var stampante = {
 			varuser:req.body.varuser,
@@ -423,7 +332,7 @@ app.post("/add_stampante", (req, res) => {
 		res.redirect('https://localhost:4443/home'); /*o redirigiamo verso il profilo aggiornato (Stef)*/
 	}
 	else {
-		res.send("<h1>Non sei loggato con l' utente corretto!</h1>");
+		res.sendFile(path.resolve(__dirname+"/html/paginaImmissione/utente_scorretto.html"));
 	}
 });
 
