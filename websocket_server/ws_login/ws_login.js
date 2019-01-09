@@ -21,38 +21,23 @@ ws.on('connection',function connection(ws){
 			var statusCode = res.statusCode;
 			var utente = JSON.parse(body);
 			var password = utente.password;
-			
-			console.log(password);
-			amqp.connect('amqp://rabbit', function(err, conn) {
-				if(!err){
-					console.log("Status Code "+statusCode);
-					console.log('Connected to rabbit');
-					console.log(username);
-					var queue = 'login'+username;
-					conn.createChannel(function(err,ch){
-						ch.assertQueue(queue,{durable:false,autodelete:true, maxLength:1});
-						if(statusCode==200){
-							console.log(psw+password);
-							if(psw===password){
-								ch.sendToQueue(queue, new Buffer('ok'));
-								ws.send('ok');
-								console.log('Inviato ok');
-							}
-							else{
-								ch.sendToQueue(queue, new Buffer('refuse'));
-								ws.send('refuse');
-								console.log("Inviato refuse");
-							}
-						}
-						else{
-							ch.sendToQueue(queue, new Buffer('refuse'));
-							ws.send('refuse');
-							console.log("Inviato refuse");
-						}
-					});
+			if(statusCode==200){
+				console.log(psw+password);
+				if(psw===password){
+					ws.send('ok');
+					console.log('Inviato ok');
 				}
-			});
+				else{
+					ws.send('refuse');
+					console.log("Inviato refuse");
+				}
+			}
+			else{
+				ws.send('refuse');
+				console.log("Inviato refuse");
+			}
 		});
 	});
 });
+
 

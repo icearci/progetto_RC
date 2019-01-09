@@ -465,27 +465,10 @@ app.post('/login', (req, res) => {
 	var id_coda = md5(utente);
 	console.log(id_coda);
 	console.log(utente);
-	amqp.connect('amqp://rabbit', function (err, conn) {
-		if (!err) {
-			console.log('Connected to rabbit');
-			console.log(utente);
-			var queue = 'login' + utente;
-			conn.createChannel(function (err, ch) {
-				ch.assertQueue(queue, { durable: false, autodelete: true, maxLength: 1 });
-				ch.consume(queue, (message) => {
-					var messaggio = message.content.toString()
-					if (messaggio === "ok") {
-						console.log('Sto per settare il cookie');
-						settaCookie(res, id_coda);
-						console.log('Sto per settare il cookie home');
-						console.log('Sto per redirigere');
-						ch.close();
-						res.redirect('https://localhost:4443/home');
-					}
-				});
-			});
-		}
-	});
+	settaCookie(res, id_coda);
+	console.log('Sto per settare il cookie home');
+	console.log('Sto per redirigere');
+	res.redirect('/home');
 });
 
 app.listen(8080);
