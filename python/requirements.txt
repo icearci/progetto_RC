@@ -1,0 +1,4 @@
+Flask==1.0.2
+requests==2.21.0
+pycouchdb==1.12
+gevent==1.3

@@ -42,14 +42,14 @@ function getCookie(cname) {
 	}
 
 		function gmail(i,cookie){
-			var ws = new WebSocket("ws://localhost:8087");
+			var ws = new WebSocket("wss://localhost:4443/ws_gmail");
 			var tabella = document.getElementById("tabella");
 			var msg = "gmail?"+document.getElementById("user"+i).innerHTML+"/"+document.getElementById("indirizzo"+i).innerHTML+"/"+document.getElementById("citta"+i).innerHTML+"/"+document.getElementById("mail"+i).innerHTML+"/"+document.getElementById("telefono"+i).innerHTML+"/"+document.getElementById("stampantetipo"+i).innerHTML+"/"+document.getElementById("stampantenome"+i).innerHTML+"/"+document.getElementById("stampanteid"+i).innerHTML+"/"+document.getElementById("prezzo"+i).innerHTML+"/"+document.getElementById("spedizione"+i).innerHTML+"/"+document.getElementById("consegna"+i).innerHTML+"/"+document.getElementById("distanza"+i).innerHTML+"/"+cookie;
 			ws.onopen = function(){
 				ws.send(msg);
 				ws.close();
 			};
-			window.location="http://localhost:8080/gmail";
+			window.location="https://localhost:4443/gmail";
 		}
 	
 </script>
@@ -59,23 +59,23 @@ function getCookie(cname) {
      <!--nav bar-->
 <div class="navbar">
 
-        <a class="active_" href="http://localhost:8080/home">
+        <a class="active_" href="https://localhost:4443/home">
           Home</a>
-        <a href="http://localhost:8080/add_stampante">
+        <a href="https://localhost:4443/add_stampante">
           Aggiungi le tue macchine</a>
-        <a href="http://localhost:8080/search">
+        <a href="https://localhost:4443/search">
           Cerca un maker</a>
-        <a href="../html/paginaTecnologie/tecnologie.html">Tecnologie</a>
-        <a href="../html/paginaNews/news.html">News</a>
-        <a id="login" class= "right" href="http://localhost:8080/login">
+        <a href="https://localhost:4443/tecnologie">Tecnologie</a>
+        <a href="https://localhost:4443/news">News</a>
+        <a id="login" class= "right" href="https://localhost:4443/login">
             Register/Login</a>
-        <a id="logout" class= "right" href="http://localhost:8080/login">
+        <a id="logout" class= "right" href="https://localhost:4443/logout">
             Logout</a>
-        <a class="right" href="../html/paginaFAQ/Faq.html">
+        <a class="right" href="https://localhost:4443/faq">
                 FAQ</a>
-        <a class="right" href="../html/paginaChiSiamo/chi_siamonew.html">
+        <a class="right" href="https://localhost:4443/chi_siamo">
           Chi siamo</a>
-        <a class="right" href="http://localhost:8080/profilo">
+        <a class="right" href="https://localhost:4443/profilo">
             Profilo</a>
             
     </div>

@@ -1,0 +1,91 @@
+version: "3"
+
+services:
+  server:
+    build: ./server
+    working_dir: '/home/node/app'
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./server:/usr/app
+    expose:
+      - 8080
+    depends_on:
+      - "db"
+    command: "bash ./wait-for-it.sh db:5984 -t 0 -- npm start"
+  python_search:
+    build: ./python
+    working_dir: "/app"
+    volumes:
+      - ./python:/app
+    expose:
+      - 5000
+    depends_on:
+      - "db"
+    command: "bash ./wait-for-it.sh server:8080 -t 0 -- python python_search.py"
+  ws_login:
+    build: ./websocket_server/ws_login
+    working_dir: '/home/node/app'
+    volumes:
+      - ./websocket_server/ws_login:/usr/app
+    expose:
+      - 8082
+    command: 'npm start'
+  ws_register:
+    build: ./websocket_server/ws_register
+    working_dir: '/home/node/app'
+    volumes:
+      - ./websocket_server/ws_register:/usr/app
+    expose:
+      - 8083
+    command: 'npm start'
+  ws_stampante:
+    build: ./websocket_server/ws_stampante
+    working_dir: '/home/node/app'
+    volumes:
+      - ./websocket_server/ws_stampante:/usr/app
+    expose:
+      - 8085
+    command: 'npm start'
+  ws_profilo:
+    build: ./websocket_server/ws_profilo
+    working_dir: '/home/node/app'
+    volumes:
+      - ./websocket_server/ws_profilo:/usr/app
+    expose:
+      - 8084
+    command: 'npm start'
+  ws_gmail:
+    build: ./websocket_server/ws_gmail
+    working_dir: '/home/node/app'
+    volumes:
+      - ./websocket_server/ws_gmail:/usr/app
+    expose:
+      - 8086 
+    command: 'npm start'
+    
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:80"
+      - "4443:443"
+    expose:
+      - 80
+      - 443
+    depends_on:
+      - "db"
+    links:
+      - "db"
+  rabbit:
+    image: 'rabbitmq:3'
+    ports:
+      - 5672:5672
+  db:
+    image: 'couchdb'
+    ports:
+      - 5984:5984
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:5984"]
+        interval: 80s
+        timeout: 10s
+        retries: 5

@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Dipendenze per il server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies":{
+	  "express":"4.16.4",
+	  "request":"2.88.0",
+	  "cookie-parser":"1.4.3",
+	  "body-parser":"1.18.3",
+	  "md5":"2.2.1",
+	  "amqplib":"0.5.3"
+  }
+}

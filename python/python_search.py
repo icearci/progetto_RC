@@ -1,17 +1,19 @@
 import pycouchdb
 import json
-import hashlib
 from urllib2 import Request, urlopen
 import requests
 import random
 from flask import Flask, render_template, request, redirect, url_for, flash, make_response
+from gevent.pywsgi import WSGIServer
+
+
 
 #nM8W4oBYrRSKLAWcB12JBRdJsrOjBOwM
 
 
 
 def get_lista_docs():
-	url = "http://localhost:5984/printers/_all_docs"
+	url = "http://db:5984/printers/_all_docs"
 	headers = {
 	'Accept': 'application/json; charset=utf-8'
 		}
@@ -135,12 +137,20 @@ def algoritmo(database,info): #occorre ancora sortare alla fine
 					dizionario[doc]=""
 			return dizionario
 
+ritenta=1
 app = Flask(__name__)
-server = pycouchdb.Server('http://localhost:5984')
-printers = server.database("printers")
+while(ritenta):
+	try:
+		server = pycouchdb.Server('http://db:5984')
+		printers = server.database("printers")
+		ritenta=0
+	except:
+		print("Errore dovuto al server")
+		
 
 
-@app.route('/search', methods = ["POST"])
+
+@app.route('/python_search', methods = ["POST"])
 def search():
 	fopen = open("parte_fissa.txt","r") 
 	parte_fissa = str(fopen.read())
@@ -168,3 +178,6 @@ def search():
 			parte_fissa+"<div role='tabpanel' class='description'><div class='tab-pane active'>"+"<h1><center>Nessun risultato,siamo spiacenti!<center></h1></div></div></body></html>"
 			parte_fissa+="</table></body></html>"
 			return parte_fissa
+			
+app_server = WSGIServer(("0.0.0.0", 5000), app)
+app_server.serve_forever()

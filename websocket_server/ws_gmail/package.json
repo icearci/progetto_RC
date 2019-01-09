@@ -1,0 +1,27 @@
+{
+  "name": "websocket",
+  "version": "1.0.0",
+  "description": "Installa le dipendenze per i vari websocket",
+  "main": "ws_login.js",
+  "scripts": {
+	  "start":"node ws_gmail.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/icearci/progetto_RC.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/icearci/progetto_RC/issues"
+  },
+  "homepage": "https://github.com/icearci/progetto_RC#readme",
+  "dependencies":{
+	  "ws":"6.1.2",
+	  "body-parser":"1.18.3",
+	  "md5":"2.2.1",
+	  "request":"2.88.0",
+	  "amqplib":"0.5.3"
+  }
+
+}

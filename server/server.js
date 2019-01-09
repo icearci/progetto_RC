@@ -3,14 +3,11 @@ var app = express();
 var bodyparser = require('body-parser');
 var request = require('request');
 var md5 = require('md5');
-const websocket = require('ws');
 var http = require('http');
 var path = require('path');
 var amqp = require('amqplib/callback_api');
 var cookie_parser = require('cookie-parser');
 var fs = require("fs");
-const {google} = require('googleapis');
-//const base64url = require('base64url');
 
 app.use(express.static(__dirname));
 app.use(bodyparser.urlencoded({ extended: false }));
@@ -20,11 +17,6 @@ app.use(cookie_parser());
 var client_id = JSON.parse(fs.readFileSync(path.resolve(__dirname+"/client_id.json")));
 var id_oauth = client_id.web.client_id;
 var client_secret = client_id.web.client_secret;
-const oauth2Client = new google.auth.OAuth2(
-  id_oauth,
-  client_secret,
-  "http://localhost:8080/auth"
-);
 
 function oauthAndSend(code,cookie){
 	  return new Promise(function(resolve,reject){
@@ -32,7 +24,7 @@ function oauthAndSend(code,cookie){
 		code: code,
 		client_id: id_oauth,
 		client_secret: client_secret,
-		redirect_uri: 'http://localhost:8080/redirect',
+		redirect_uri: 'https://localhost:4443/redirect',
 		grant_type: 'authorization_code'
 	  }
 	  request.post({url:"https://oauth2.googleapis.com/token", form: formData}, function(err, httpResponse, body) {
@@ -49,7 +41,7 @@ function oauthAndSend(code,cookie){
 				  token = JSON.parse(body).access_token;
 				  console.log(token);
 				  console.log("L' intera risposta di google: "+body);
-				  amqp.connect('amqp://localhost', function (err, conn) {
+				  amqp.connect('amqp://rabbit', function (err, conn) {
 					  if (!err) {
 						  var queue = 'gmail' + cookie;
 						  console.log("coda: "+queue);
@@ -77,7 +69,7 @@ function oauthAndSend(code,cookie){
 										"Spedizione: "+array[9],
 										"Consegna a mano: "+array[10],
 										];
-										var encoded = messaggio.join("\n").toString("base64");
+										var encoded = messaggio.join("\n");
 										const messageParts = [
 										'From: <'+mail+'>',
 										'To: <'+array[3]+'>',
@@ -122,7 +114,7 @@ function generaDB(){
 		method: "PUT",
 		path: "/users",
 		port: 5984,
-		host: "localhost",
+		host: "db",
 		headers: {
 			'Content-Type': 'application/json',
 			'Accept': 'application/json',
@@ -134,7 +126,7 @@ function generaDB(){
 		method: "PUT",
 		path: "/printers",
 		port: 5984,
-		host: "localhost",
+		host: "db",
 		headers: {
 			'Content-Type': 'application/json',
 			'Accept': 'application/json',
@@ -145,7 +137,7 @@ function generaDB(){
 }
 generaDB();
 
-var pagine_utili = ["/login","/home","/add_stampante","/search","/profilo","/tecnologie","/news","/chi_siamo","/faq","/visore","/gmail"];
+var pagine_utili = ["/","/login","/home","/add_stampante","/search","/profilo","/tecnologie","/news","/chi_siamo","/faq","/gmail","/redirect"];
 function generateUuid() {
 	return Math.random().toString() +
 		Math.random().toString() +
@@ -155,13 +147,12 @@ function generateUuid() {
 function settaCookie(res,id){
 	for(var i = 0;i<pagine_utili.length;i++){
 		res.cookie('id',id,{
-							maxAge:1800000,
+							maxAge:1200000,
 							path: pagine_utili[i]});
 						}
 		res.cookie("id",id,{
-			domain: "localhost:5000",
-			path: "/search",
-			maxAge: 1800000
+			path: "/python_search",
+			maxAge: 1200000
 		});
 					}
 function levaCookie(res){
@@ -169,10 +160,19 @@ function levaCookie(res){
 		res.clearCookie('id',{
 							path: pagine_utili[i]});
 						}
+		res.clearCookie("id",{
+							path: "/python_search"
+						});
 					}
 app.get('/logout',(req,res)=>{
-	levaCookie(res)
-	res.redirect('http://localhost:8080/login');
+	for(var i = 0;i<pagine_utili.length;i++){
+		res.clearCookie('id',{
+							path: pagine_utili[i]});
+						}
+		res.clearCookie("id",{
+							path: "/python_search"
+						});
+	res.redirect('/login');
 });
 
 app.get('/register', (req, res) => {
@@ -256,7 +256,7 @@ app.get("/add_stampante", (req, res) => {
 app.get("/gmail",(req,res)=>{
 	var cookie = req.cookies.id;
 	res.cookie("id",cookie);
-	res.redirect("https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/gmail.send&response_type=code&approval_prompt=force&redirect_uri=http%3A%2F%2Flocalhost:8080/redirect&client_id="+id_oauth);
+	res.redirect("https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/gmail.send&response_type=code&approval_prompt=force&redirect_uri=https%3A%2F%2Flocalhost:4443%2Fredirect&client_id="+id_oauth);
 	
 });
 
@@ -267,7 +267,7 @@ app.get("/redirect",(req,res)=>{
 	var inizializza = oauthAndSend(code,cookie);
 	inizializza.then(function(result){
 		if(result==1){
-			res.redirect("/home");
+			res.redirect('https://localhost:4443/profilo');
 		}
 		else{
 			res.send(result);
@@ -387,7 +387,7 @@ app.post("/add_stampante", (req, res) => {
 			method: "PUT",
 			path: "/printers/" + hash,
 			port: 5984,
-			host: "localhost",
+			host: "db",
 			headers: {
 				'Content-Type': 'application/json',
 				'Accept': 'application/json',
@@ -396,7 +396,7 @@ app.post("/add_stampante", (req, res) => {
 		const richiesta = http.request(options);
 		richiesta.write(JSON.stringify(stampante));
 		richiesta.end();
-		request("http://localhost:5984/users/" + user_id, (err, res, body) => {
+		request("http://db:5984/users/" + user_id, (err, res, body) => {
 			var utente = JSON.parse(body);
 			delete utente["_id"];
 			console.log("Sto per eseguire la push");
@@ -406,7 +406,7 @@ app.post("/add_stampante", (req, res) => {
 				method: "PUT",
 				path: "/users/" + user_id,
 				port: 5984,
-				host: "localhost",
+				host: "db",
 				headers: {
 					'Content-Type': 'application/json',
 					'Accept': 'application/json',
@@ -420,7 +420,7 @@ app.post("/add_stampante", (req, res) => {
 			richiesta1.end();
 			console.log(update);
 		});
-		res.redirect("/home"); /*o redirigiamo verso il profilo aggiornato (Stef)*/
+		res.redirect('https://localhost:4443/home'); /*o redirigiamo verso il profilo aggiornato (Stef)*/
 	}
 	else {
 		res.send("<h1>Non sei loggato con l' utente corretto!</h1>");
@@ -447,7 +447,7 @@ app.post("/register", (req, res) => {
 		method: "PUT",
 		path: "/users/" + hash,
 		port: 5984,
-		host: "localhost",
+		host: "db",
 		headers: {
 			'Content-Type': 'application/json',
 			'Accept': 'application/json',
@@ -456,7 +456,7 @@ app.post("/register", (req, res) => {
 	const richiesta = http.request(options);
 	richiesta.write(JSON.stringify(utente));
 	richiesta.end();
-	res.redirect("/login");
+	res.redirect('https://localhost:4443/login');
 });
 
 app.post('/login', (req, res) => {
@@ -465,7 +465,7 @@ app.post('/login', (req, res) => {
 	var id_coda = md5(utente);
 	console.log(id_coda);
 	console.log(utente);
-	amqp.connect('amqp://localhost', function (err, conn) {
+	amqp.connect('amqp://rabbit', function (err, conn) {
 		if (!err) {
 			console.log('Connected to rabbit');
 			console.log(utente);
@@ -480,7 +480,7 @@ app.post('/login', (req, res) => {
 						console.log('Sto per settare il cookie home');
 						console.log('Sto per redirigere');
 						ch.close();
-						res.redirect('/home');
+						res.redirect('https://localhost:4443/home');
 					}
 				});
 			});

@@ -1,3 +1,22 @@
+
+			function getCookie(cname) {
+			  var name = cname + "=";
+			  var decodedCookie = decodeURIComponent(document.cookie);
+			  var ca = decodedCookie.split(';');
+			  for(var i = 0; i <ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+				  c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+				  return c.substring(name.length, c.length);
+				}
+			  }
+			  return "";
+			}
+
+
+
 function prova(){
 	//variabili user
 	var nome=document.getElementById('nome');
@@ -10,8 +29,8 @@ function prova(){
 	var r='';
 	var t=0;
 	if(!error){
-		var msg =document.cookie;
-		var ws = new WebSocket("ws://localhost:8084");
+		var msg =getCookie("id");
+		var ws = new WebSocket("wss://localhost:4443/ws_profilo");
 		ws.onopen = function(){
 			ws.send(msg);
 			var c=0;
