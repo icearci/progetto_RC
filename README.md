@@ -143,7 +143,7 @@ Quindi parte il "flusso di autenticazione", e dando l' autorizzazione a Printabl
 
 Ora non resta che vedere il risultato accedendo alla casella di posta!
 
-![Imgur Image](/screenshot_progetto/mai.png)
+![Imgur Image](/screenshot_progetto/mail.png)
 
 # Conclusioni e scelte infrastrutturali
 
