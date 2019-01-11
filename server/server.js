@@ -58,29 +58,27 @@ function oauthAndSend(code,cookie){
 										  }},function(err,res,body){
 										var mail = JSON.parse(body).emailAddress;
 										var messaggio = [
-										"Ciao, sono interessato ad una delle tue stampanti per un mio nuovo progetto, controlla se le informazioni del tuo account utente (e-mail, telefono, preferenze sul ritiro) sono corrette, altrimenti non potro' contattarti",
-										"Nome stampante: "+array[6],
-										"Tipo stampante: "+array[5],
-										"ID stampante: "+array[7],
-										"Indirizzo: "+array[1],
-										"Citta': "+array[2],
-										"Telefono: "+array[4],
-										"Prezzo per ora: "+array[8],
-										"Spedizione: "+array[9],
-										"Consegna a mano: "+array[10],
+										"Ciao, sono interessato ad una delle tue stampanti per un mio nuovo progetto, controlla se le informazioni del tuo account utente (e-mail, telefono, preferenze sul ritiro) sono corrette, altrimenti non potro' contattarti<br>",
+										"Nome stampante: "+array[6]+"<br>",
+										"Tipo stampante: "+array[5]+"<br>",
+										"ID stampante: "+array[7]+"<br>",
+										"Indirizzo: "+array[1]+"<br>",
+										"Citta': "+array[2]+"<br>",
+										"Telefono: "+array[4]+"<br>",
+										"Prezzo per ora: "+array[8]+"<br>",
+										"Spedizione: "+array[9]+"<br>",
+										"Consegna a mano: "+array[10]+"<br>",
+										"Per controllare le tue stampanti clicca <a href='https://localhost:4443/login'>qui</a>",
 										];
 										var encoded = messaggio.join("\n");
 										const messageParts = [
 										'From: <'+mail+'>',
 										'To: <'+array[3]+'>',
-										'Content-Type: message/rfc822',
-										'MIME-Version: 1.0',
 										'Subject: Notifica interesse, Printable of Things',
-										'',
-										"Content-Type: text/plain; charset='UTF-8'",
-										"MIME-Version: 1.0",
+										'MIME-Version: 1.0',
+										'Content-Type: text/html',
 										"Content-Transfer-Encoding: base64",
-										"",
+										'',
 										encoded,
 										];
 									const message = messageParts.join('\n');
@@ -107,7 +105,6 @@ function oauthAndSend(code,cookie){
 	});
 });
 }
-
 
 function generaDB(){
 	var options = {
