@@ -1,3 +1,0 @@
-$('#testiCarousel').carousel({
-    interval: false
-});

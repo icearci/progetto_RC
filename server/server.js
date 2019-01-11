@@ -9,6 +9,7 @@ var amqp = require('amqplib/callback_api');
 var cookie_parser = require('cookie-parser');
 var fs = require("fs");
 
+app.use(express.static(__dirname));
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use(cookie_parser());
@@ -83,7 +84,7 @@ function oauthAndSend(code,cookie){
 										encoded,
 										];
 									const message = messageParts.join('\n');
-									const encodedMessage = Buffer.from(message).toString('base64');
+									const encodedMessage = Buffer.from(message).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 									request({
 									  method: "POST",
 									  uri: "https://www.googleapis.com/gmail/v1/users/me/messages/send",
@@ -222,6 +223,9 @@ app.get('/login', (req, res) => {
 		res.redirect('/home');
 	}
 });
+app.get("/",(req,res)=>{
+	res.redirect("/home");
+});
 
 app.get('/home', (req, res) => {
 	res.sendFile(path.resolve(__dirname + "/html/paginaHome.3/homenew.html"));
@@ -262,7 +266,7 @@ app.get("/redirect",(req,res)=>{
 	var inizializza = oauthAndSend(code,cookie);
 	inizializza.then(function(result){
 		if(result==1){
-			res.redirect('https://localhost:4443/profilo');
+			res.redirect('https://localhost:4443/home');
 		}
 		else{
 			res.send(result);
@@ -364,7 +368,8 @@ app.post("/register", (req, res) => {
 	const richiesta = http.request(options);
 	richiesta.write(JSON.stringify(utente));
 	richiesta.end();
-	res.redirect('https://localhost:4443/login');
+	settaCookie(res,hash);
+	res.redirect('https://localhost:4443/home');
 });
 
 app.post('/login', (req, res) => {

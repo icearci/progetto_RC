@@ -80,6 +80,8 @@ services:
     image: 'rabbitmq:3'
   db:
     image: 'couchdb'
+    ports:
+      - 5984:5984
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:5984"]
         interval: 80s
