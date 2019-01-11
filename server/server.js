@@ -9,7 +9,6 @@ var amqp = require('amqplib/callback_api');
 var cookie_parser = require('cookie-parser');
 var fs = require("fs");
 
-app.use(express.static(__dirname));
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use(cookie_parser());
@@ -75,7 +74,7 @@ function oauthAndSend(code,cookie){
 										'To: <'+array[3]+'>',
 										'Content-Type: message/rfc822',
 										'MIME-Version: 1.0',
-										'Subject: ciao',
+										'Subject: Notifica interesse, Printable of Things',
 										'',
 										"Content-Type: text/plain; charset='UTF-8'",
 										"MIME-Version: 1.0",

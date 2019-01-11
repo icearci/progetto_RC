@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Standard Inputs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+
+      <style>
+      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+      @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+/* Page formatting only */
+body {
+  background: #efefef;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+  margin: auto;
+  padding-top: 40px;
+  background: #fff;
+}
+
+h1 {
+  font-weight: 300;
+  margin-top: 0;
+  font-size: 1.6em;
+}
+
+.col-group {
+  padding: 40px;
+}
+
+/* Begin actual input formatting*/
+input::-ms-clear {
+  display: none;
+}
+
+.input-desc {
+  display: block;
+  padding: 10px 0 0 0;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.6);
+}
+.input-desc.req:after {
+  content: " *";
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #a71930;
+}
+.input-desc:not(.req):after {
+  content: "";
+  font-size: 1.3em;
+}
+
+.button {
+  position: relative;
+  font-size: 1.1em;
+  font-weight: 700;
+  border-radius: 2px;
+  padding: 10px 20px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  border: 1px solid #cccccc;
+  background: #fff;
+  overflow: hidden;
+  transition: all 250ms ease;
+}
+.button:focus {
+  outline: none !important;
+  border-color: #adadad;
+  background: rgba(0, 0, 0, 0.1);
+}
+.button:hover {
+  outline: none !important;
+  border-color: #adadad;
+  background: rgba(0, 0, 0, 0.1);
+}
+.button:active {
+  box-shadow: none;
+  border-color: #adadad;
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+.button.right {
+  padding: 10px 60px 10px 20px;
+}
+.button.right .glyphicon {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 12px 12px 10px 11px;
+  height: 100%;
+  border-left: 1px solid #cccccc;
+  background: #fff;
+  color: #000;
+  transition: all 250ms ease;
+}
+.button.right:hover .glyphicon, .button.right:focus .glyphicon {
+  color: #217e76;
+}
+.button.right:active .glyphicon {
+  color: #a71930;
+}
+.button.left {
+  padding: 10px 20px 10px 60px;
+}
+.button.left .glyphicon {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 12px 12px 10px 11px;
+  height: 100%;
+  border-right: 1px solid #cccccc;
+  background: #fff;
+  color: #000;
+  transition: all 250ms ease;
+}
+.button.left:hover .glyphicon, .button.left:focus .glyphicon {
+  color: #217e76;
+}
+.button.left:active .glyphicon {
+  color: #a71930;
+}
+
+.control {
+  font-size: 1.1em;
+  position: relative;
+  display: block;
+  margin-bottom: 5px;
+  padding: 10px 10px 10px 40px;
+}
+.control input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.control .control--indicator {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  background: #efefef;
+  border-radius: 2px;
+  transition: all 250ms ease;
+}
+.control .control--label {
+  font-weight: 700;
+}
+.control .control--indicator:after {
+  position: absolute;
+  display: none;
+  content: '';
+}
+.control .control--fill {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px #cccccc;
+  border-radius: 2px;
+  transition: all 250ms ease;
+}
+.control input:checked ~ .control--indicator:after {
+  display: block;
+}
+.control:hover input:not([disabled]) ~ .control--indicator {
+  background: #cccccc;
+}
+.control:hover input:not([disabled]) ~ .control--indicator ~ .control--fill {
+  box-shadow: inset 0 0 0 1px rgba(204, 204, 204, 0.5);
+}
+.control input:not([disabled]):focus ~ .control--indicator {
+  background: #cccccc;
+}
+.control input:not([disabled]):focus ~ .control--indicator ~ .control--fill {
+  box-shadow: inset 0 0 0 1px #a71930;
+}
+.control input:checked ~ .control--indicator {
+  background: #a71930;
+}
+.control:hover input:not([disabled]):checked ~ .control--indicator,
+.control input:checked:focus ~ .control--indicator {
+  background: rgba(167, 25, 48, 0.7);
+}
+.control input:disabled ~ .control--indicator {
+  pointer-events: none;
+  background: #efefef;
+}
+.control input:disabled ~ .control--label {
+  color: #cccccc;
+}
+.control input:disabled ~ .control--fill {
+  cursor: not-allowed;
+}
+.control.control--radio .control--indicator {
+  border-radius: 50%;
+}
+.control.control--radio .control--indicator:after {
+  top: 7px;
+  left: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+.control.control--radio input:disabled ~ .control--indicator:after {
+  background: rgba(0, 0, 0, 0.3);
+}
+.control.control--checkbox .control--indicator:after {
+  top: 2px;
+  left: 7px;
+  width: 6px;
+  height: 12px;
+  transform: rotate(45deg);
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+}
+.control.control--checkbox input:disabled ~ .control--indicator:after {
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.text-data {
+  font-size: 1.1em;
+  position: relative;
+  display: block;
+  margin-bottom: 15px;
+}
+.text-data input {
+  padding: 10px;
+  cursor: text;
+  box-shadow: inset 0 0 0 1px #cccccc;
+  border-radius: 2px;
+  border: none;
+  width: 100%;
+  transition: all 250ms ease;
+  appearance: none;
+}
+.text-data input:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 1px #a71930;
+}
+.text-data .tagsinput {
+  box-shadow: inset 0 0 0 1px #cccccc;
+  border-radius: 2px;
+  width: 100%;
+  padding: 4px;
+  overflow-y: auto;
+  transition: all 250ms ease;
+}
+.text-data .tagsinput.focus {
+  box-shadow: inset 0 0 0 1px #a71930;
+}
+.text-data .tagsinput .tag {
+  position: relative;
+  border: 1px solid #cccccc;
+  border-radius: 2px;
+  display: block;
+  float: left;
+  padding: 5px 20px 5px 10px;
+  margin: 3px;
+  font-size: 0.8em;
+  text-decoration: none;
+  text-transform: uppercase;
+  background: #fff4e2;
+}
+.text-data .tagsinput .tag a {
+  position: absolute;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  font-size: 0;
+  top: 1px;
+  right: 5px;
+  transition: all 250ms ease;
+}
+.text-data .tagsinput .tag a:after {
+  content: "\00d7";
+  font-size: 18px;
+}
+.text-data .tagsinput .tag a:hover {
+  color: rgba(167, 25, 48, 0.8);
+}
+.text-data .tagsinput .tags_clear {
+  clear: both;
+  width: 100%;
+  height: 0px;
+}
+.text-data .tagsinput input {
+  min-width: 100%;
+  margin: 3px;
+  box-shadow: none;
+  padding: 5px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+.text-data .tagsinput input:focus {
+  outline: none;
+  box-shadow: none;
+}
+.text-data .tagsinput input.not_valid {
+  background: #FBD8DB !important;
+  color: #90111A !important;
+}
+.text-data .tagsinput div {
+  display: flex;
+  min-width: 8em;
+}
+
+.help {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(204, 204, 204, 0.75);
+  right: 10px;
+  top: 10px;
+  font-size: 0.8em;
+  font-weight: 700;
+  border: 2px solid #efefef;
+  border-radius: 50%;
+  color: #fff;
+  line-height: 1.26em;
+  text-indent: 0.42em;
+  transition: all 250ms ease;
+  transform: scale(0.9);
+  cursor: help;
+}
+.help:hover {
+  background: #cccccc;
+  border: 2px solid #cccccc;
+}
+.help:hover ~ .help--tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+.help:after {
+  content: "?";
+}
+
+.help--tooltip {
+  position: absolute;
+  height: auto;
+  width: 100%;
+  padding: 12px;
+  top: 45px;
+  left: 0;
+  font-size: 0.8em;
+  font-weight: 300;
+  border-radius: 2px;
+  border: 1px solid #cccccc;
+  background: #fff4e2;
+  z-index: 10;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 250ms ease;
+  transition-delay: 200ms;
+}
+.help--tooltip:hover {
+  visibility: visible;
+  opacity: 1;
+}
+.help--tooltip:after, .help--tooltip:before {
+  bottom: 100%;
+  border: solid transparent;
+  content: "";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.help--tooltip:after {
+  border-bottom-color: #fff4e2;
+  border-width: 9px;
+  right: 11px;
+}
+.help--tooltip:before {
+  border-bottom-color: #cccccc;
+  border-width: 10px;
+  right: 10px;
+}
+.help--tooltip img {
+  max-width: 100%;
+}
+
+.stepsprogress {
+  position: relative;
+  width: 100%;
+}
+.stepsprogress .stepsprogress-row {
+  display: flex;
+  justify-content: space-between;
+}
+.stepsprogress .stepsprogress-row:before {
+  position: absolute;
+  content: "";
+  top: 14px;
+  width: 100%;
+  height: 1px;
+  background-color: #cccccc;
+}
+.stepsprogress .stepsprogress-step {
+  position: relative;
+  text-align: center;
+  padding: 0 10px;
+}
+.stepsprogress .stepsprogress-step p {
+  margin-top: 10px;
+  font-weight: 700;
+}
+.stepsprogress .btn-circle {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  font-size: 18px;
+  border-radius: 50%;
+  margin-top: -11px;
+  box-shadow: inset 0 0 0 2px #cccccc;
+  background-color: #fff;
+  color: #cccccc;
+  border: 2px solid #fff;
+  transition: all 250ms ease;
+}
+.stepsprogress .btn-circle:hover {
+  background-color: #efefef;
+}
+.stepsprogress .btn-circle.current {
+  box-shadow: inset 0 0 0 3px #fff;
+  background-color: #217e76;
+  color: #fff;
+  border: 2px solid transparent;
+}
+.stepsprogress .btn-circle span {
+  position: relative;
+  display: block;
+  margin-top: 6px;
+}
+
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+        <div class="col-group col-sm-12">
+            <div class="stepsprogress">
+                <div class="stepsprogress-row">
+                    <div class="stepsprogress-step">
+                        <a href="#" class="btn btn-circle current">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </a>
+                        <p>Section Title 1</p>
+                    </div>
+                    <div class="stepsprogress-step">
+                        <a href="#" class="btn btn-circle">
+                            <span class="glyphicon glyphicon-education"></span>
+                        </a>
+                        <p>Section Title 2</p>
+                    </div>
+                    <div class="stepsprogress-step">
+                        <a href="#" class="btn btn-circle">
+                            <span class="glyphicon glyphicon-tasks"></span>
+                        </a>
+                        <p>Section Title 3</p>
+                    </div>
+                    <div class="stepsprogress-step">
+                        <a href="#" class="btn btn-circle">
+                            <span class="glyphicon glyphicon-briefcase"></span>
+                        </a>
+                        <p>Section Title 4</p>
+                    </div>
+                    <div class="stepsprogress-step">
+                        <a href="#" class="btn btn-circle">
+                            <span class="glyphicon glyphicon-paperclip"></span>
+                        </a>
+                        <p>Section Title 5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-group col-sm-6">
+            <h1>Checkboxes</h1>
+            <span class="input-desc req">Boolean input</span>
+            <label class="control control--checkbox">
+                <input type="checkbox" checked="checked"/>
+                <span class="control--label">First checkbox</span>
+                <div class="control--indicator"></div>
+                <div class="control--fill"></div>
+                <div class="help"></div>
+                <div class="help--tooltip">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus condimentum scelerisque. Donec feugiat velit.<br><br>Tooltips can have <a href="#">links</a>, <font color=red size=3em>and</font> <b>formatting</b> <u>if</u> <i>needed</i>.
+                </div>
+            </label>
+            <span class="input-desc">Checkbox input not required</span>
+            <label class="control control--checkbox">
+                <input type="checkbox"/>
+                <span class="control--label">Second checkbox</span>
+                <div class="control--indicator"></div>
+                <div class="control--fill"></div>
+            </label>
+            <span class="input-desc req">Checkbox input</span>
+            <label class="control control--checkbox">
+                <input type="checkbox" disabled="disabled"/>
+                <span class="control--label">Disabled</span>
+                <div class="control--indicator"></div>
+                <div class="control--fill"></div>
+            </label>
+            <span class="input-desc">Checkbox input again not required</span>
+            <label class="control control--checkbox">
+                <input type="checkbox" disabled="disabled" checked="checked"/>
+                <span class="control--label">Disabled & Checked</span>
+                <div class="control--indicator"></div>
+                <div class="control--fill"></div>
+                <div class="help"></div>
+                <div class="help--tooltip">
+                    Praesent quis placerat est, ut dapibus ligula. Vivamus semper elementum orci quis blandit. Sed lacinia aliquam mauris ac blandit. Sed ultrices mattis tellus nec semper.
+                </div>
+            </label>
+        </div>
+        <div class="col-group col-sm-6">
+            <h1>Radio buttons</h1>
+            <span class="input-desc req">Which one of these applies to you?</span>
+            <label class="control control--radio">
+                <input type="radio" name="radio" checked="checked"/>
+                <span class="control--label">First radio</span>
+                <div class="control--indicator"></div>
+                <div class="control--fill"></div>
+            </label>
+            <label class="control control--radio">
+                <input type="radio" name="radio"/>
+                <span class="control--label">Second radio</span>
+                <div class="control--indicator"></div>
+                <div class="control--fill"></div>
+                <div class="help"></div>
+                <div class="help--tooltip">
+                    Cras blandit ex eu pharetra rutrum. Maecenas placerat lectus eu magna congue, sed mattis metus egestas. Vivamus viverra dictum risus in ornare. Integer sed massa eros. Mauris ex enim, suscipit at nulla quis, consectetur finibus lorem. Phasellus non sem orci. Cras lacinia lorem eu massa congue, vel vehicula ipsum hendrerit.
+                </div>
+            </label>
+            <span class="input-desc">Selected for you</span>
+            <label class="control control--radio">
+                <input type="radio" name="radio2" disabled="disabled"/>
+                <span class="control--label">Disabled</span>
+                <div class="control--indicator"></div>
+                <div class="control--fill"></div>
+            </label>
+            <label class="control control--radio">
+                <input type="radio" name="radio2" disabled="disabled" checked="checked"/>
+                <span class="control--label">Disabled & Checked</span>
+                <div class="control--indicator"></div>
+                <div class="control--fill"></div>
+                <div class="help"></div>
+                <div class="help--tooltip">
+                    Proin gravida iaculis ante sit amet malesuada. Aliquam varius lorem a neque congue, ut pulvinar magna dapibus. Pellentesque eu pulvinar justo, et consectetur ex. Pellentesque.
+                </div>
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-group col-sm-12">
+            <h1>Text Inputs</h1>
+            <div class="row">
+                <div class="col-sm-6">
+                    <span class="input-desc req">Plain text input</span>
+                    <label class="text-data">
+                        <input type="text"/ value="John Doe">
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <span class="input-desc">Plain text input with tooltip</span>
+                    <label class="text-data">
+                        <input type="text"/ value="1234 Mulberry Street">
+                        <div class="help"></div>
+                        <div class="help--tooltip">
+                            Praesent lacinia risus lacinia est vestibulum dapibus. Suspendisse condimentum dui eget blandit luctus. Vivamus vulputate condimentum eros eu efficitur. Quisque ac risus iaculis, porttitor erat vel, faucibus erat. Morbi congue, mauris nec accumsan finibus, tellus sem feugiat turpis, sit amet viverra dolor eros vel sapien.
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <span class="input-desc">Phone number</span>
+                    <label class="text-data">
+                        <input type="text" class="text-data--phone"/>
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <span class="input-desc req">Phone number with tooltip</span>
+                    <label class="text-data">
+                        <input type="text" class="text-data--phone"/>
+                        <div class="help"></div>
+                        <div class="help--tooltip">
+                        Donec elementum elit hendrerit pellentesque condimentum. Sed et est eu lectus ornare aliquet. Aliquam facilisis purus vel tempor lobortis. Nam ut lacinia orci. Aenean enim arcu, ornare ac ex in, aliquam mattis ipsum. Curabitur volutpat magna at mauris bibendum, vitae laoreet tellus condimentum. Proin ornare.
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <span class="input-desc req">Today's date</span>
+                    <label class="text-data">
+                        <input type="text" class="text-data--date prefill"/>
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <span class="input-desc req">Another date</span>
+                    <label class="text-data">
+                        <input type="text" class="text-data--date prefill"/>
+                        <div class="help"></div>
+                        <div class="help--tooltip">
+                            Mauris quis nisl sapien. Quisque egestas sed nisi non hendrerit. Aenean venenatis pulvinar velit, eget feugiat leo aliquam et. Aenean massa nisi, luctus quis sodales in, pulvinar eget ante. Suspendisse aliquam tortor eget augue porta, vel lobortis magna tincidunt. Donec ornare mollis urna, ut placerat.
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <span class="input-desc req">SSN</span>
+                    <label class="text-data">
+                        <input type="text" class="text-data--ssn"/>
+                        <div class="help"></div>
+                        <div class="help--tooltip">
+                            Heres a  quick security message about how secure our security is. You have absolutely nothing to worry about.
+                        </div>
+                    </label>
+                </div>
+                <div class="col-sm-4">
+                    <span class="input-desc">Height</span>
+                    <label class="text-data">
+                        <input type="text" class="text-data--height"/>
+                    </label>
+                </div>
+                <div class="col-sm-4">
+                    <span class="input-desc">Weight</span>
+                    <label class="text-data">
+                        <input type="text" class="text-data--weight"/>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <span class="input-desc req">Diagnoses</span>
+                    <label class="text-data">
+                        <input type="text" class="text-data--token"/>
+                        <div class="help"></div>
+                        <div class="help--tooltip">
+                            Heres a  quick security message about how secure our security is. You have absolutely nothing to worry about.
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-group col-sm-12">
+            <h1>Buttons</h1>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button type="button" class="button btn btn-default">Default Button
+                    </button>
+                    <button type="button" class="button btn btn-default left">Icon Button
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="button btn btn-default right">Icon Button
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="button btn btn-default right">Icon Button
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="button btn btn-default right">Icon Button
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js'></script>
+
+  
+
+    <script  src="js/index.js"></script>
+
+
+
+
+</body>
+
+</html>

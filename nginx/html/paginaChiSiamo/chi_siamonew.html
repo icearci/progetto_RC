@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>dove siamo</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<script src="../html/paginaChiSiamo/js/three.min.js"></script>
+	<script src="../html/paginaChiSiamo/js/stats.min.js"></script>
+        
+         <link rel="stylesheet" href="../html/responsive_css.2/responsive.css">
+        
+	<style>
+	body {
+		background-image: url("../html/paginaChiSiamo/hires/bg.jpg");
+		background-position: center center;
+		<!--overflow: scroll;-->
+		background-size: cover;
+		-ms-scrollbar-base-color: orange;
+		margin-bottom: 100%;
+	}
+	</style>
+	<script>
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+	</script>
+	
+	<script>
+		function logga_slogga(){
+		if(getCookie("id")!==""){
+			document.getElementById("login").innerHTML="";
+		}
+		else{
+			document.getElementById("logout").innerHTML="";
+			document.getElementById("profilo").innerHTML="";
+		}
+	}
+	</script>
+</head>
+
+<body >
+ <div class="navbar_">
+
+        <a class="active_" href="https://localhost:4443/home">
+          Home</a>
+        <a href="https://localhost:4443/add_stampante">
+          Aggiungi le tue macchine</a>
+        <a href="https://localhost:4443/search">
+          Cerca un maker</a>
+        <a href="https://localhost:4443/tecnologie">Tecnologie</a>
+        <a href="https://localhost:4443/news">News</a>
+        <a id="login" class= "right" href="https://localhost:4443/login">
+            Register/Login</a>
+        <a id="logout" class= "right" href="https://localhost:4443/logout">
+            Logout</a>
+        <a class="right" href="https://localhost:4443/faq">
+                FAQ</a>
+        <a class="right" href="https://localhost:4443/chi_siamo">
+          Chi siamo</a>
+        <a id="profilo" class="right" href="https://localhost:4443/profilo">
+            Profilo</a>
+            
+    </div>
+		<script>logga_slogga()</script>
+<div>
+<div class="container">
+    <div style="color: white;">
+    <div style="padding-left:16px">
+	  <h1><center>Chi siamo?</center></h1>
+	  	<p>Siamo quattro ragazzi del terzo anno di ingegneria informatica e automatica della sapienza!!
+		Il nostro scopo era realizzare un servizio che mettesse in comunicazione tutti coloro che necessitavano 
+		di stampanti 3D per realizzare dei propri progetti o semplici oggetti con chi disponeva già di queste macchine e aveva 
+		voglia di mettere in affitto il loro utilizzo
+	</p>
+	  <br><br>
+	</div>   
+	</div>
+
+        
+<!-- immagine che ruota con testo dall'altra parte -->
+<!-- parte anteriore --> 
+
+
+	 <div class="gallery">
+		<div class="flip-card" style="width:400px;height:450px;" >
+			<div class="flip-card-inner" >
+				<div class="flip-card-front">
+					<img style="-webkit-user-select: none;" src="../html/immagini/WhatsApp Image 2019-01-01 at 22.19.06.jpeg"  width='400' height='450'>
+				</div>
+	<!-- parte posteriore -->
+				<div class="flip-card-back">
+					<h1>Stefano Palmieri</h1>
+				</div>
+			</div>
+		</div>     
+		 <div class="flip-card" style="width:400px;height:450px;">
+		  <div class="flip-card-inner">
+			<div class="flip-card-front">
+			  <img style="-webkit-user-select: none;cursor: zoom-in;" src="../html/immagini/index.jpeg"  width='400' height='450'>
+			</div>
+		<!-- parte posteriore -->
+			  <div class="flip-card-back">
+			  <h1>Leonardo Salustri</h1>
+			</div>
+		  </div>
+		</div>
+	</div>
+		<br><br>
+	<div class="gallery">
+		 <div class="flip-card" style="width:400px;height:450px;" >
+		  <div class="flip-card-inner">
+			<div class="flip-card-front">
+			  <img style="-webkit-user-select: none;cursor: zoom-in;" src="../html/immagini/leonardo.jpeg"  width='400' height='450'>
+			</div>
+		<!-- parte posteriore -->
+			  <div class="flip-card-back">
+			  <h1>Leonardo Bisazza</h1>
+			</div>
+		  </div>
+		</div>  
+		 <div class="flip-card" style="width:400px;height:450px;">
+		  <div class="flip-card-inner">
+			<div class="flip-card-front">
+			  <img style="-webkit-user-select: none;cursor: zoom-in;" src="../html/immagini/flaminia.jpeg"  width='400' height='450'>
+			</div>
+		<!-- parte posteriore -->
+			  <div class="flip-card-back">
+			  <h1>Flaminia Papa</h1>
+			</div>
+		  </div>
+		</div>    
+	</div>
+</div> 
+
+<br><br><br>
+<div class='container'>
+	<div style="color: white;">
+    <div style="padding-left:16px">
+		<h1>Per contattarci:</h1>
+		<p>email: stampi3d@gmail.com</p>
+		<p>telefono: 06-79883324</p>
+	</div>   
+	</div>
+	
+
+</div>
+<br><br>
+ <div style="color: white">
+    <div style="padding-left:16px">
+  <h2>Dove siamo? Dappertutto!</h2>
+</div>   
+</div>
+
+	<script>
+		var camera, scene, renderer;
+		var earth, cloud;
+		var pointLight, ambientLight;
+		var mouseDown = false, mouseX = 0, mouseY = 0;
+		var stats;
+
+		init();
+		animate();
+
+		function init() {
+			// inizializzazione
+			scene = new THREE.Scene();
+			camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+			camera.position.z = 160;
+                        // modificare se si aggiungono altri pezzi html sopra alla terra:
+                        camera.position.y = -30;
+                        
+			stats = new Stats();
+			stats.showPanel(3); // 0: fps, 1: ms, 2: mb, 3+: custom
+			document.body.appendChild( stats.dom );
+
+			// Earth terrain
+			var earth_texture  = new THREE.TextureLoader().load("../html/paginaChiSiamo/tx/earth.jpeg");
+			var earth_bump     = new THREE.TextureLoader().load("../html/paginaChiSiamo/tx/bump.jpeg");
+			var earth_specular = new THREE.TextureLoader().load("../html/paginaChiSiamo/tx/spec.jpeg");
+			var earth_geometry = new THREE.SphereGeometry(30, 32, 32);
+			var earth_material = new THREE.MeshPhongMaterial({
+				shininess   : 40,
+				bumpScale   : 1,
+				map         : earth_texture,
+				bumpMap     : earth_bump,
+				specularMap : earth_specular
+			});
+			earth = new THREE.Mesh(earth_geometry, earth_material);
+			scene.add(earth);
+
+			// Earth cloud
+			var cloud_texture  = new THREE.TextureLoader().load('../html/paginaChiSiamo/tx/cloud.png');
+			var cloud_geometry = new THREE.SphereGeometry(31, 32, 32);
+			var cloud_material = new THREE.MeshBasicMaterial({
+				shininess   : 10,
+				map         : cloud_texture,
+				transparent : true,
+				opacity     : 0.8
+			});
+			cloud = new THREE.Mesh(cloud_geometry, cloud_material);
+			scene.add(cloud);
+
+			// point light (upper left)
+			pointLight = new THREE.PointLight(0xffffff);
+			pointLight.position.set(-400, 100, 150);
+			scene.add (pointLight);
+
+			// ambient light
+			ambientLight = new THREE.AmbientLight(0x222222);
+			scene.add(ambientLight);
+
+			// renderer
+			renderer = new THREE.WebGLRenderer({alpha: true});
+			renderer.setClearColor(0xffffff, 0);
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+
+			// event handler
+			window.addEventListener('resize', onWindowResize, false);
+			document.addEventListener('mousemove', function (e) {onMouseMove(e);}, false);
+			document.addEventListener('mousedown', function (e) {onMouseDown(e);}, false);
+			document.addEventListener('mouseup', function (e) {onMouseUp(e);}, false);
+		}
+
+		function animate() {
+			requestAnimationFrame(animate);
+			stats.begin();
+			earth.rotation.y += 0.001;
+			cloud.rotation.y += 0.001;
+			stats.end();
+			renderer.render(scene, camera);
+		}
+
+		function onWindowResize() {
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+			renderer.setSize(window.innerWidth, window.innerHeight);
+		}
+
+		function onMouseMove(evt) {
+			if (!mouseDown) return;
+			evt.preventDefault();
+			var deltaX = evt.clientX - mouseX, deltaY = evt.clientY - mouseY;
+			mouseX = evt.clientX;
+			mouseY = evt.clientY;
+			rotateScene(deltaX, deltaY);
+		}
+
+		function onMouseDown(evt) {
+			evt.preventDefault();
+			mouseDown = true;
+			mouseX = evt.clientX;
+			mouseY = evt.clientY;
+		}
+
+		function onMouseUp(evt) {
+			evt.preventDefault();
+			mouseDown = false;
+		}
+
+		function rotateScene(deltaX, deltaY) {
+		  earth.rotation.y += deltaX / 300;
+		  earth.rotation.x += deltaY / 300;
+		  cloud.rotation.y += deltaX / 600;
+		  cloud.rotation.x += deltaY / 600;
+		}
+	</script>
+</div>
+</body>
+</html>

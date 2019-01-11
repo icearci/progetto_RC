@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>UI: Profile Card [CSS3, jQuery]</title>
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,700'>
+<link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css'>
+
+      <style>
+      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+      * {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
+/* 
+  some styling for display on codepen,
+  you can safely remove this when you
+  want to use this module somewhere else 
+*/
+.codepen, .profile {
+  margin: 2em auto;
+}
+.codepen h1, .profile h1 {
+  color: #484848;
+  font-weight: 100;
+}
+.codepen a, .profile a {
+  color: #1daaff;
+}
+.codepen a:hover, .profile a:hover {
+  color: #0072b6;
+}
+
+.profile {
+  max-width: 500px;
+  border: 1px solid #e1e1e1;
+  border-radius: 20px;
+  padding: 2em;
+  margin: 1em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  position: relative;
+}
+.profile figure {
+  margin: 0;
+}
+.profile figure img {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0px 0px 20px rgba(21, 21, 21, 0.15);
+}
+.profile header h1 {
+  margin: 0;
+  padding: 0;
+}
+.profile header h1 small {
+  display: block;
+  clear: both;
+  font-size: 18px;
+  opacity: 0.6;
+}
+.profile main {
+  display: none;
+}
+.profile main dl {
+  display: block;
+  width: 100%;
+}
+.profile main dl dt,
+.profile main dl dd {
+  float: left;
+  padding: 8px 5px;
+  margin: 0;
+  border-bottom: 1px solid #e1e1e1;
+}
+.profile main dl dt a,
+.profile main dl dd a {
+  padding-right: 5px;
+}
+.profile main dl dt {
+  width: 30%;
+  padding-right: 10px;
+  font-weight: bold;
+}
+.profile main dl dt:after {
+  content: ":";
+}
+.profile main dl dd {
+  width: 70%;
+}
+.profile .toggle {
+  position: absolute;
+  background: #fff;
+  top: 30px;
+  left: 30px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 40px;
+  text-align: center;
+  z-index: 20;
+  vertical-align: middle;
+  box-shadow: 0px 0px 10px rgba(21, 21, 21, 0.25);
+  cursor: pointer;
+  border-radius: 20px;
+}
+.profile .toggle main {
+  font-size: 16px;
+}
+
+.view_details {
+  position: absolute;
+  top: -5000px;
+  left: -5000px;
+}
+
+label {
+  display: block;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 460px) {
+  .profile {
+    padding: 1em;
+    margin: 1em;
+  }
+
+  .profile main dl,
+  .profile main dl dt,
+  .profile main dl dd {
+    display: block;
+    width: 100%;
+    float: none;
+  }
+
+  .profile main dl dt {
+    border-bottom: none;
+  }
+
+  .profile main dl dd {
+    margin-bottom: 10px;
+  }
+}
+
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+
+<body>
+
+  <!-- 
+/* %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    Responsive UI profile card
+    Made with HTML, CSS and jQuery
+    You are free to do whatever you
+    like to do with this. If you fork
+    and improve this, please let me
+    know so I can learn from it.
+    Enjoy!
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    this works due to a simple checkbox that's being activated by clicking on its label. The checkbox itself is positioned out of screen and the label contains just an equals sign, resembling a menu button.
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+<div class="profile">
+  <figure>
+    <img src="//s3-us-west-2.amazonaws.com/s.cdpn.io/55758/random-user-31.jpg" alt="" />
+  </figure>
+  <header>
+    <h1>Maria Gonzalez
+      <small>Client Happiness Manager</small></h1>
+  </header>
+  
+  <div class="toggle">
+    <input type="checkbox" class="view_details" id="view_details">
+    <label for="view_details" title="tap here to view full profile">=</label>    
+  </div>
+  <main>
+    <dl>
+      <dt>Full name</dt>
+        <dd>Maria Josephina Gonzalez</dd>
+      <dt>Date of birth</dt>
+        <dd>August 27, 1987</dd>
+      <dt>Hometown</dt>
+        <dd>Barcelona, Spain</dd>
+      <dt>Occupation</dt>
+        <dd>Client Happiness Manager</dd>
+      <dt>Loves</dt>
+        <dd>Skydiving, Tennis, Romantic dinners</dd>
+      <dt>Hates</dt>
+        <dd>Taxes, bosses instead of leaders</dd>
+      <dt>Social</dt>
+        <dd>
+          <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a> 
+          <a href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+        </dd>
+    </dl>
+  </main>
+
+</div> <!-- end profile -->
+
+<p style="padding: 20px;">Use this for whatever you like. Have fun with it!</p>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+
+  
+
+    <script  src="js/index.js"></script>
+
+
+
+
+</body>
+
+</html>

@@ -78,12 +78,8 @@ services:
       - "db"
   rabbit:
     image: 'rabbitmq:3'
-    ports:
-      - 5672:5672
   db:
     image: 'couchdb'
-    ports:
-      - 5984:5984
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:5984"]
         interval: 80s

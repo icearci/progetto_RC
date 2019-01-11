@@ -1,0 +1,46 @@
+appunti
+
+0) scaricare e installare xampp (server Apache, PHP, Mysql e altro)
+
+1) i siti web/applicazioni web vanno creati nella cartella xampp/htdocs
+
+1bis) Apache e MySQL vanno spenti per poter spostare file all'interno di htdocs,
+altrimenti si usa Filezilla che permette lo spostamento di file in rete tramite FTP;  
+
+2) attenzione: se c'è un file index.php viene eseguito automaticamente quando
+il browser punta la cartella che lo contiene;
+
+2bis) se c'è una pagina HTML home.html viene eseguita automaticamente...
+
+3) i database vengono salvati in cartelle nomedatabase: xampp/mysql/data/nomedatabase;
+
+4) in php.ini (xampp/php/php.ini) e mysqli ("improved") è abilitato, 
+come richiesto dalle ultime versioni di PHP; è meglio comunque controllare quando si installa xampp;
+
+5) il file che crea correttamente il database è xampp/htdocs/andrea/crea_database1.php; poi 
+il resto lo si deve aggiungere/modificare direttamente dall'interfaccia di mysql (phpmyAdmin, che si attiva
+dal pannello di controllo di xampp: tasto admin di mysql)
+
+6) cose da fare: 
+-footer 
+-ricerca migliore
+-migliore stampa dei risultati a schermo
+-chi siamo (con javascript?)
+-controllo con javascript sul form d'input per evitare campi vuoti
+-aggiungere altri campi al database (cnc, e tutto quello che volete) 
+-scrivere la spiegazione macchine pro, semipro,amatoriali
+-login
+-aggiungere  e tutto quello che viene in mente per migliorarlo. 
+-fare in modo che la barra dei menu sia sempre presente (anche quando è caricato un .php)
+
+  
+
+
+
+
+
+
+
+
+
+
