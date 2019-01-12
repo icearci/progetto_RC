@@ -15,7 +15,7 @@ I requisiti richiesti dalla consegna sono:
  - amqp (rabbitmq)
  - rest 1 (non commerciale) --> mapquest
  - rest 2 (commerciale) --> Gmail (Google)
- -backend database --> CouchDB
+ - backend database --> CouchDB
  
 # Progetto Reti di Calcolatori
 
