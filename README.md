@@ -113,7 +113,7 @@ Avendo visto le info dei casi test possiamo procedere con il login
 ![Imgur Image](/screenshot_progetto/login.png)
 
 
-Ora che abbiamo effettuato l' accesso possiamo aggiungere una stampante cliccando su aggiungi macchina (/add_stampante) e inserendo i dati
+Ora che abbiamo effettuato l' accesso possiamo aggiungere una stampante cliccando su aggiungi macchina (/add_stampante) e inserendo i dati. Se ovviamente si sta utilizzando un caso test si può saltare questo passaggio visto che le stampanti sono già registrate.
 
 ![Imgur Image](/screenshot_progetto/add_stampante_1.png)
 ![Imgur Image](/screenshot_progetto/add_stampante_2.png)
