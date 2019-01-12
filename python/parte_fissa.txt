@@ -42,10 +42,12 @@ function getCookie(cname) {
 	}
 
 		function gmail(i,cookie){
+			if (!window.WebSocket) alert("WebSocket non supportati da questo browser");
 			var ws = new WebSocket("wss://localhost:4443/ws_gmail");
 			var tabella = document.getElementById("tabella");
 			var msg = "gmail?"+document.getElementById("user"+i).innerHTML+"/"+document.getElementById("indirizzo"+i).innerHTML+"/"+document.getElementById("citta"+i).innerHTML+"/"+document.getElementById("mail"+i).innerHTML+"/"+document.getElementById("telefono"+i).innerHTML+"/"+document.getElementById("stampantetipo"+i).innerHTML+"/"+document.getElementById("stampantenome"+i).innerHTML+"/"+document.getElementById("stampanteid"+i).innerHTML+"/"+document.getElementById("prezzo"+i).innerHTML+"/"+document.getElementById("spedizione"+i).innerHTML+"/"+document.getElementById("consegna"+i).innerHTML+"/"+document.getElementById("distanza"+i).innerHTML+"/"+cookie;
 			ws.onopen = function(){
+				console.log("Si è aperta la connessione");
 				ws.send(msg);
 				ws.close();
 			};

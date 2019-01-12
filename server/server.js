@@ -51,6 +51,7 @@ function oauthAndSend(code,cookie){
 								  var messaggio = message.content.toString()
 								  console.log(messaggio);
 								  var array = messaggio.split("/");
+								  ch.close();
 								  request({ uri: "https://www.googleapis.com/gmail/v1/users/me/profile",
 										  headers: {
 											"Content-Type": "application/json",
