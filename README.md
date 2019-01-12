@@ -103,7 +103,7 @@ Analizzando il Docker compose è possibile notare che più volte è stato usato 
 Al momento del lancio del docker-compose, più precisamente nel momento in cui il server inizia ad ascoltare, vengono generati dei casi test attraverso la funzione GeneraDB(), che genera
 tre utenti diversi, ciascuno con 2 stampanti con caratteristiche diverse. Proprio per semplificare questa azione è stato pensato di mappare anche la porta del backend sever, che, in condizioni di operatività normale dovrebbe essere "nascosto".
 Quindi su http://localhost:5984/ è possibile vedere le caratteristiche di tutti gli utenti e di tutte le stampanti ad essi associati per effettuare delle ricerche test. Altrimenti è possibile visualizzarli
-senza accedere al database nel file server.js (variabile "test" di tipo json).
+senza accedere al database nei file "utenti_test.txt" e "stampanti_test.txt".
 
 # Caso Test
 

@@ -1,0 +1,96 @@
+{  
+  "varuser": "cenci.ale",
+  "varindirizzo": "via polonia 198",
+  "varcitta": "Pomezia",
+  "varprovincia": "RM",
+  "varpaese": "IT",
+  "varcap": "00071",
+  "varemail": "cenci.ale@alice.it",
+  "vartelefono": "3771191742",
+  "stampantetipo": "fdm_professionale",
+  "stampantenome": "Prima",
+  "stampanteid": "DZXHFG56",
+  "stampanteprezzo": "12",
+  "varspedizione": "si",
+  "varconsegna": "si"
+}
+{
+  "varuser": "progettorc",
+  "varindirizzo": "Via Gran Bretagna 18",
+  "varcitta": "Pomezia",
+  "varprovincia": "RM",
+  "varpaese": "IT",
+  "varcap": "00071",
+  "varemail": "progettorc2018@gmail.com",
+  "vartelefono": "3771191742",
+  "stampantetipo": "fdm_professionale",
+  "stampantenome": "Prima",
+  "stampanteid": "FZXHFG56",
+  "stampanteprezzo": "10",
+  "varspedizione": "si",
+  "varconsegna": "si"
+}
+{
+  "varuser": "progettorc",
+  "varindirizzo": "Via di Tor San Giovanni 193",
+  "varcitta": "Roma",
+  "varprovincia": "RM",
+  "varpaese": "IT",
+  "varcap": "00139",
+  "varemail": "progettorc2018@gmail.com",
+  "vartelefono": "3771191742",
+  "stampantetipo": "fdm_professionale",
+  "stampantenome": "Prima",
+  "stampanteid": "CZXHFG56",
+  "stampanteprezzo": "9",
+  "varspedizione": "no",
+  "varconsegna": "si"
+}
+{
+  "varuser": "leo.salu",
+  "varindirizzo": "via polonia 198",
+  "varcitta": "Pomezia",
+  "varprovincia": "RM",
+  "varpaese": "IT",
+  "varcap": "00071",
+  "varemail": "leo.salu97@gmail.com",
+  "vartelefono": "3771191742",
+  "stampantetipo": "fdm_professionale",
+  "stampantenome": "Prima Stampante",
+  "stampanteid": "AZXFFT567",
+  "stampanteprezzo": "12",
+  "varspedizione": "si",
+  "varconsegna": "si"
+}
+{
+  "varuser": "cenci.ale",
+  "varindirizzo": "via polonia 198",
+  "varcitta": "Pomezia",
+  "varprovincia": "RM",
+  "varpaese": "IT",
+  "varcap": "00071",
+  "varemail": "cenci.ale@alice.it",
+  "vartelefono": "3771191742",
+  "stampantetipo": "fdm_amatoriale",
+  "stampantenome": "Prima",
+  "stampanteid": "BZXHFG56",
+  "stampanteprezzo": "10",
+  "varspedizione": "no",
+  "varconsegna": "si"
+}
+{
+  "varuser": "leo.salu",
+  "varindirizzo": "via Ovidio 45",
+  "varcitta": "Pomezia",
+  "varprovincia": "RM",
+  "varpaese": "IT",
+  "varcap": "00071",
+  "varemail": "leo.salu97@gmail.com",
+  "vartelefono": "3771191742",
+  "stampantetipo": "fdm_professionale",
+  "stampantenome": "Seconda",
+  "stampanteid": "EZXHFG56",
+  "stampanteprezzo": "13",
+  "varspedizione": "si",
+  "varconsegna": "si"
+}

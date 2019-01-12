@@ -110,8 +110,8 @@ var test={
 	},
 	"3":{
 		registrazione: {
-			username: "progettorc",
 			fullname: "progettorc",
+			username: "progettorc",
 			password: "progettorc",
 			mail: "progettorc2018@gmail.com",
 			telephone: "3771191742",
