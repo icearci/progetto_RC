@@ -108,12 +108,7 @@ senza accedere al database nel file server.js (variabile "test" di tipo json).
 # Caso Test
 
 
-Per prima cosa bisogna registrare un nuovo utente
-
-![Imgur Image](/screenshot_progetto/registrazione.png)
-
-
-Poi possiamo procedere con il login
+Avendo visto le info dei casi test possiamo procedere con il login
 
 ![Imgur Image](/screenshot_progetto/login.png)
 
