@@ -126,13 +126,12 @@ Per vedere se la nuova stampante è stata registrata correttamente basta andare 
 
 Adesso entriamo nel vivo della web app, effettuando una ricerca. Come sappiamo gli input spedizione e consegna sono importanti, poiché i risultati verranno filtrati anche in base ad essi
 
-![Imgur Image](/screenshot_progetto/ricerca_1.png)
-![Imgur Image](/screenshot_progetto/ricerca_2.png)
-
+![Imgur Image](/screenshot_progetto/ricerca_finale.png)
+![Imgur Image](/screenshot_progetto/ricerca_finale1.png)
 
 Ed ecco che python_search ritorna il risultato, che in questo test è solo uno ovviamente. Adesso se l' utente lo desidera, può notificare l' interesse per un certo maker cliccando su contatta. L' email servirà a sollecitare il maker a controllare i dati effettivamente inseriti, così da non incorrere in problemi quando il client cercherà di contattarlo.
 
-![Imgur Image](/screenshot_progetto/ricerca_fatta.png)
+![Imgur Image](/screenshot_progetto/ricerca_effettuata.png)
 
 
 Quindi parte il "flusso di autenticazione", e dando l' autorizzazione a Printable Of Things, la web app procederà a inviare una mail per conto tuo
@@ -142,7 +141,7 @@ Quindi parte il "flusso di autenticazione", e dando l' autorizzazione a Printabl
 
 Ora non resta che vedere il risultato accedendo alla casella di posta!
 
-![Imgur Image](/screenshot_progetto/mail.png)
+![Imgur Image](/screenshot_progetto/mail_finale.png)
 
 # Conclusioni e scelte infrastrutturali
 
