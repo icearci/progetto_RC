@@ -113,7 +113,7 @@ Avendo visto le info dei casi test possiamo procedere con il login
 ![Imgur Image](/screenshot_progetto/login.png)
 
 
-Ora che abbiamo effettuato l' accesso possiamo aggiungere una stampante cliccando su aggiungi macchina (/add_stampante) e inserendo i dati. Se ovviamente si sta utilizzando un caso test si può saltare questo passaggio visto che le stampanti sono già registrate.
+Ora che abbiamo effettuato l' accesso possiamo aggiungere una stampante cliccando su aggiungi macchina (/add_stampante) e inserendo i dati. Se ovviamente si sta utilizzando un caso test si può saltare questo passaggio visto che le stampanti sono già registrate. Ovviamente lo stesso discorso vale per la fase di registrazione (parte sinistra della prima foto).
 
 ![Imgur Image](/screenshot_progetto/add_stampante_1.png)
 ![Imgur Image](/screenshot_progetto/add_stampante_2.png)
@@ -129,12 +129,12 @@ Adesso entriamo nel vivo della web app, effettuando una ricerca. Come sappiamo g
 ![Imgur Image](/screenshot_progetto/ricerca_finale.png)
 ![Imgur Image](/screenshot_progetto/ricerca_finale1.png)
 
-Ed ecco che python_search ritorna il risultato, che in questo test è solo uno ovviamente. Adesso se l' utente lo desidera, può notificare l' interesse per un certo maker cliccando su contatta. L' email servirà a sollecitare il maker a controllare i dati effettivamente inseriti, così da non incorrere in problemi quando il client cercherà di contattarlo.
+Ed ecco che python_search ritorna il risultato, che in questo test è solo uno. Adesso se l' utente lo desidera, può notificare l' interesse per un certo maker cliccando su contatta. L' email servirà a sollecitare il maker a controllare i dati effettivamente inseriti, così da non incorrere in problemi quando il client cercherà di contattarlo.
 
 ![Imgur Image](/screenshot_progetto/ricerca_effettuata.png)
 
 
-Quindi parte il "flusso di autenticazione", e dando l' autorizzazione a Printable Of Things, la web app procederà a inviare una mail per conto tuo
+Quindi parte il "flusso di autenticazione", e dando l' autorizzazione a Printable Of Things, la web app procederà a inviare una mail automatica.
 
 ![Imgur Image](/screenshot_progetto/oauth.png)
 
