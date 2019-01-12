@@ -95,11 +95,15 @@ CouchDB in questo caso gestisce due database:
 - /users: è il database degli utenti, dove ogni utente ha un id unico, che viene dall’ hash del nome utente scelto in fase di registrazione. Ogni documento comprende vari campi per le informazioni personali e in particolare vi è anche un array di stampanti che semplifica il compito di ricerca delle stampanti di un utente quando viene effettuata una GET /profilo
 - /printers: è il database delle stampanti, dove ogni documento rappresenta una stampante ed ha un identificativo unico dato dall’ hash del numero di serie della stampante.
 
-# Informazioni aggiuntive
+# Informazioni aggiuntive e test
 
 All’ interno del link git ci sono 4 cartelle principali, ognuna per un servizio descritto sopra.
 Ogni cartella ha al suo interno dei file che servono per la dockerizzazione. Infatti c’è sempre un Dockerfile, che ha il compito di buildare un immagine “pronta all’ uso”, copiando all’ interno del container tutti i file utili (attraverso il comando COPY), e installando tutti i requirements di cui il servizio ha bisogno. Nel caso di servizi che utilizzano un immagine node:8, quali websocket servers e il server “server”, è stato pensato di fornire un package.json esprimendo tutte le dipendenze e definendo lo script di start del servizio. Per il server “python_search” il package.json è stato sostituito da un semplice requirements.txt.
 Analizzando il Docker compose è possibile notare che più volte è stato usato il wait-for-it.sh, sotto consiglio della documentazione Docker. Il codice sorgente è scaricabile da github, e permette di pingare costantemente il servizio “più lento” ad avviarsi. Infatti la direttiva “depends_on” è utile solo per aspettare che il container in questione vada in running, non ad attendere effettivamente che il servizio sia pronto e stabile. Quindi wait-for-it.sh stoppa il container fino a quando il ping non riceve risposta da parte del servizio “lento”.
+Al momento del lancio del docker-compose, più precisamente nel momento in cui il server inizia ad ascoltare, vengono generati dei casi test attraverso la funzione GeneraDB(), che genera
+tre utenti diversi, ciascuno con 2 stampanti con caratteristiche diverse. Proprio per semplificare questa azione è stato pensato di mappare anche la porta del backend sever, che, in condizioni di operatività normale dovrebbe essere "nascosto".
+Quindi su http://localhost:5984/ è possibile vedere le caratteristiche di tutti gli utenti e di tutte le stampanti ad essi associati per effettuare delle ricerche test. Altrimenti è possibile visualizzarli
+senza accedere al database nel file server.js (variabile "test" di tipo json).
 
 # Caso Test
 

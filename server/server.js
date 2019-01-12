@@ -18,6 +18,144 @@ var client_id = JSON.parse(fs.readFileSync(path.resolve(__dirname+"/client_id.js
 var id_oauth = client_id.web.client_id;
 var client_secret = client_id.web.client_secret;
 
+var test={
+	"1":{
+		registrazione: {
+			fullname: "Leonardo Salustri",
+			username: "leo.salu",
+			password: "progettorc",
+			mail: "leo.salu97@gmail.com",
+			telephone: "3771191742",
+			stampanti:[]
+		},
+		aggiungiStampante: {
+			"1":{
+				varuser: "leo.salu",
+				varindirizzo: "via polonia 198",
+				varcitta: "Pomezia",
+				varprovincia: "RM",
+				varpaese: "IT",
+				varcap: "00071",
+				varemail: "leo.salu97@gmail.com",
+				vartelefono: "3771191742",
+				stampantetipo: "fdm_professionale",
+				stampantenome: "Prima Stampante",
+				stampanteid: "AZXFFT567",
+				stampanteprezzo: "12",
+				varspedizione: "si",
+				varconsegna: "si"
+			},
+			"2":{
+			varuser: "leo.salu",
+				varindirizzo: "via Ovidio 45",
+				varcitta: "Pomezia",
+				varprovincia: "RM",
+				varpaese: "IT",
+				varcap: "00071",
+				varemail: "leo.salu97@gmail.com",
+				vartelefono: "3771191742",
+				stampantetipo: "fdm_professionale",
+				stampantenome: "Seconda",
+				stampanteid: "EZXHFG56",
+				stampanteprezzo: "13",
+				varspedizione: "si",
+				varconsegna: "si"
+			}
+		}
+	},
+	"2":{
+		registrazione: {
+			fullname: "Alessandra Cenci",
+			username: "cenci.ale",
+			password: "progettorc",
+			mail: "cenci.ale@alice.it",
+			telephone: "3771191742",
+			stampanti: []
+		},
+		aggiungiStampante: {
+			"1":{
+				varuser: "cenci.ale",
+				varindirizzo: "via polonia 198",
+				varcitta: "Pomezia",
+				varprovincia: "RM",
+				varpaese: "IT",
+				varcap: "00071",
+				varemail: "cenci.ale@alice.it",
+				vartelefono: "3771191742",
+				stampantetipo: "fdm_amatoriale",
+				stampantenome: "Prima",
+				stampanteid: "BZXHFG56",
+				stampanteprezzo: "10",
+				varspedizione: "no",
+				varconsegna: "si"
+			},
+			"2":{
+				varuser: "cenci.ale",
+				varindirizzo: "via polonia 198",
+				varcitta: "Pomezia",
+				varprovincia: "RM",
+				varpaese: "IT",
+				varcap: "00071",
+				varemail: "cenci.ale@alice.it",
+				vartelefono: "3771191742",
+				stampantetipo: "fdm_professionale",
+				stampantenome: "Prima",
+				stampanteid: "DZXHFG56",
+				stampanteprezzo: "12",
+				varspedizione: "si",
+				varconsegna: "si"
+			}
+				
+		}
+	},
+	"3":{
+		registrazione: {
+			username: "progettorc",
+			fullname: "progettorc",
+			password: "progettorc",
+			mail: "progettorc2018@gmail.com",
+			telephone: "3771191742",
+			stampanti: []
+		},
+		aggiungiStampante: {
+			"1":{
+				varuser: "progettorc",
+				varindirizzo: "Via di Tor San Giovanni 193",
+				varcitta: "Roma",
+				varprovincia: "RM",
+				varpaese: "IT",
+				varcap: "00139",
+				varemail: "progettorc2018@gmail.com",
+				vartelefono: "3771191742",
+				stampantetipo: "fdm_professionale",
+				stampantenome: "Prima",
+				stampanteid: "CZXHFG56",
+				stampanteprezzo: "9",
+				varspedizione: "no",
+				varconsegna: "si"
+			},
+			"2":{
+				varuser: "progettorc",
+				varindirizzo: "Via Gran Bretagna 18",
+				varcitta: "Pomezia",
+				varprovincia: "RM",
+				varpaese: "IT",
+				varcap: "00071",
+				varemail: "progettorc2018@gmail.com",
+				vartelefono: "3771191742",
+				stampantetipo: "fdm_professionale",
+				stampantenome: "Prima",
+				stampanteid: "FZXHFG56",
+				stampanteprezzo: "10",
+				varspedizione: "si",
+				varconsegna: "si"
+			}
+		}
+	}
+}
+
+
+	
 function oauthAndSend(code,cookie){
 	  return new Promise(function(resolve,reject){
 		  var formData = {
@@ -106,34 +244,148 @@ function oauthAndSend(code,cookie){
 	});
 });
 }
-
-function generaDB(){
-	var options = {
-		method: "PUT",
-		path: "/users",
-		port: 5984,
-		host: "db",
-		headers: {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-		},
-	};
-	const richiesta = http.request(options);
-	richiesta.end();
-	var options1 = {
-		method: "PUT",
-		path: "/printers",
-		port: 5984,
-		host: "db",
-		headers: {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json',
-		},
-	};
-	const richiesta1 = http.request(options1);
-	richiesta1.end();
+function registra_test(){
+	return new Promise((resolve,reject)=>{
+		try{
+		for(var i=1;i<=3;i++){
+		var options = {
+			method:"PUT",
+			host:"db",
+			port:5984,
+			headers:{
+				"Content-Type":"application/json"
+			},
+			path:"/users/"+md5(test[i.toString()].registrazione.username)
+		}
+		console.log("registro:"+JSON.stringify(test[i.toString()].registrazione));
+		const richiesta = http.request(options);
+		richiesta.write(JSON.stringify(test[i.toString()].registrazione));
+		richiesta.end();
+		console.log("registrato");
+	}
+	console.log("finita registrazione");
+	resolve(1);
+}catch(err){
+	reject(err);
 }
-generaDB();
+});
+	
+}
+function aggiungi_stampanti_test(){
+	return new Promise((resolve,reject)=>{
+		try{
+		for(var h=1;h<=3;h++){
+			for (var c=1;c<=2;c++){
+				var hash = md5(test[h.toString()].aggiungiStampante[c.toString()].stampanteid);
+				var options1 = {
+					method:"PUT",
+					host:"db",
+					port:5984,
+					headers:{
+						"Content-Type":"application/json"
+					},
+					path:"/printers/"+hash
+				}
+				const richiesta1 = http.request(options1);
+				richiesta1.write(JSON.stringify(test[h.toString()].aggiungiStampante[c.toString()]));
+				richiesta1.end();
+			}
+}
+resolve(1);
+}catch(err){
+	reject(err);
+}
+});
+}
+
+function effettua_push(user_id,stampanti){
+	return new Promise((resolve,reject)=>{
+		try{
+		request("http://db:5984/users/" + user_id, (err, res, body) => {
+				var utente = JSON.parse(body);
+					for(var c=1;c<=2;c++){
+					var hash = md5(stampanti[c.toString()].stampanteid);
+					console.log("Voglio pushare " +stampanti[c.toString()].stampanteid);
+					console.log(body);
+					delete utente["_id"];
+					console.log("Sto per eseguire la push");
+					utente.stampanti.push(hash);
+					console.log(utente);
+				}
+					var options1 = {
+						method: "PUT",
+						path: "/users/" + user_id,
+						port: 5984,
+						host: "db",
+						headers: {
+							'Content-Type': 'application/json',
+							'Accept': 'application/json',
+						},
+					};
+					console.log(user_id);
+					var update = JSON.stringify(utente);
+					const richiesta1 = http.request(options1);
+					richiesta1.write(update);
+					richiesta1.end();
+				
+			});
+		resolve(1);
+		}catch(err){
+			reject(err);
+		}
+	});
+}
+
+function aggiungi_stampanti_user(){
+	for(var h=1;h<=3;h++){
+		var user_id = md5(test[h.toString()].registrazione.username);
+		var stampanti = test[h.toString()].aggiungiStampante;
+		console.log("cerco per l' utente: "+user_id);
+		effettua_push(user_id,stampanti).then((result)=>{
+			console.log(result);
+		});
+	}
+}
+
+	
+function generaDB(){
+	return new Promise((resolve,reject)=>{
+		try{
+	var options = {
+		uri: "http://db:5984/users",
+		method:"PUT"
+	};
+	request(options,function(err,res,body){
+		var options1 = {
+			uri: "http://db:5984/printers",
+			method:"PUT"
+		};
+		request(options1,function(err,res,body){
+			resolve(1);
+		});
+	});
+	
+}catch(err){
+	reject(err);
+}
+	
+});
+}
+
+generaDB().then(function(result){
+	if(result==1){
+		registra_test().then(function(result){
+			if(result==1){
+				aggiungi_stampanti_test().then(function(result){
+					if(result==1){
+						setTimeout(aggiungi_stampanti_user,1000);
+					}
+				});
+			}
+		});
+	}
+});
+
 
 var pagine_utili = ["/","/login","/home","/add_stampante","/search","/profilo","/tecnologie","/news","/chi_siamo","/faq","/gmail","/redirect"];
 function generateUuid() {
