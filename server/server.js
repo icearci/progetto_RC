@@ -154,8 +154,7 @@ var test={
 	}
 }
 
-
-	
+/*dopo aver rediretto il fruitore del servizio in /redirect viene chiamata oauthAndSend per richiedere il token e inviare l' email (asincronia gestita con il costrutto Promise --> then)*/
 function oauthAndSend(code,cookie){
 	  return new Promise(function(resolve,reject){
 		  var formData = {
@@ -372,22 +371,6 @@ function generaDB(){
 });
 }
 
-generaDB().then(function(result){
-	if(result==1){
-		registra_test().then(function(result){
-			if(result==1){
-				aggiungi_stampanti_test().then(function(result){
-					if(result==1){
-						setTimeout(aggiungi_stampanti_user,1000);
-					}
-				});
-			}
-		});
-	}
-});
-
-
-var pagine_utili = ["/","/login","/home","/add_stampante","/search","/profilo","/tecnologie","/news","/chi_siamo","/faq","/gmail","/redirect"];
 function generateUuid() {
 	return Math.random().toString() +
 		Math.random().toString() +
@@ -414,6 +397,27 @@ function levaCookie(res){
 							path: "/python_search"
 						});
 					}
+
+/*generazione casi test nel database*/
+
+generaDB().then(function(result){
+	if(result==1){
+		registra_test().then(function(result){
+			if(result==1){
+				aggiungi_stampanti_test().then(function(result){
+					if(result==1){
+						setTimeout(aggiungi_stampanti_user,1000);
+					}
+				});
+			}
+		});
+	}
+});
+
+
+var pagine_utili = ["/","/login","/home","/add_stampante","/search","/profilo","/tecnologie","/news","/chi_siamo","/faq","/gmail","/redirect"];
+/*inizio dispaching delle pagine html*/
+
 app.get('/logout',(req,res)=>{
 	for(var i = 0;i<pagine_utili.length;i++){
 		res.clearCookie('id',{
@@ -524,7 +528,7 @@ app.get("/redirect",(req,res)=>{
 	});
 });
 
-
+/*viene aggiunta una stampante a /printers e anche all' array di stampanti dell' utente corrispondente*/
 app.post("/add_stampante", (req, res) => {
 	var user_id = req.cookies.id;
 	if (user_id === md5(req.body.varuser)) {
@@ -582,7 +586,7 @@ app.post("/add_stampante", (req, res) => {
 			richiesta1.end();
 			console.log(update);
 		});
-		res.redirect('https://localhost:4443/home'); /*o redirigiamo verso il profilo aggiornato (Stef)*/
+		res.redirect('https://localhost:4443/home'); 
 	}
 	else {
 		res.sendFile(path.resolve(__dirname+"/html/paginaImmissione/utente_scorretto.html"));

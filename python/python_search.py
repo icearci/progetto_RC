@@ -139,6 +139,7 @@ def algoritmo(database,info): #occorre ancora sortare alla fine
 
 ritenta=1
 app = Flask(__name__)
+#questo blocco impedisce il caricamento di /printers prima che siano stati generati i casi test
 while(ritenta):
 	try:
 		server = pycouchdb.Server('http://db:5984')
