@@ -79,7 +79,7 @@ services:
   rabbit:
     image: 'rabbitmq:3'
   db:
-    image: 'couchdb'
+    image: 'treehouses/couchdb:2.3.1'
     ports:
       - 5984:5984
     healthcheck:

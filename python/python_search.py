@@ -101,10 +101,10 @@ def algoritmo(database,info): #occorre ancora sortare alla fine
 						# print("[algoritmo] match di tipo stampante trovato")
 
 						lista_tipo.append(elem)
+			
 			#il secondo ciclo filtra sul prezzo
 			for doc in lista_tipo:
-				# print("[algoritmo] prezzoInfo = ",info.get("stampanteprezzo"),"prezzodatabase= ",database.get(doc)["stampanteprezzo"])
-				
+				print("[algoritmo] prezzoInfo = ",info.get("stampanteprezzo"),"prezzodatabase= ",database.get(doc)["stampanteprezzo"])
 				if float(database.get(doc).get("stampanteprezzo")) <= float(info.get("stampanteprezzo")):
 					lista_prezzo.append(doc)
 					#print("[algoritmo] appeso prezzo all lista_prezzo")
